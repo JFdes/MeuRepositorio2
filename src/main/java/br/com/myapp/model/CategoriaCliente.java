@@ -3,6 +3,7 @@ package br.com.myapp.model;
 public class CategoriaCliente {
 
 	//repercutirá na classe Cliente.
+	
 		private String CategoriaCliente;
 		private boolean ativo;
 		
