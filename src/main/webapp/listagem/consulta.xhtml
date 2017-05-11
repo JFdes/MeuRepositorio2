@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/template.xhtml">
+
+	<ui:define name="content">
+
+		<div style="padding-top: 20px" class="panel-body col-xs-12">
+
+			<h1><img src="../resources/images/listar.png" />Relatório de Integrantes</h1>
+			<hr></hr>
+			
+			
+			<h:dataTable value="#{integranteMB.integrantes}" var="item" width="80%" border="1">
+
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+						#{item.id}		
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">NOME</f:facet>
+						#{item.nome}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">CPF</f:facet>
+						#{item.cpf}		
+				</h:column>
+				
+				<h:column >
+					<f:facet name="header">SEXO</f:facet>
+						#{item.sexo}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">LOGRADOURO</f:facet>
+						#{item.logradouro}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">NÚMERO</f:facet>
+						#{item.numero}		
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">CIDADE</f:facet>
+					#{item.cidade}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">UF</f:facet>
+					#{item.uf}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">CEP</f:facet>
+					#{cep.uf}		
+				</h:column>				
+				
+
+			</h:dataTable>
+
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

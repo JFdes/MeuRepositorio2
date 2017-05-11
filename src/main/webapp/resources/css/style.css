@@ -1,0 +1,189 @@
+<style>
+
+div {
+	
+}
+
+.fill-height {
+
+    background-color: #ffffff;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+	border-left: 1px solid #e7e7e7;
+	margin-left: 250px;
+}
+
+.sidebar-nav {
+	position: absolute;
+	width: 250px;
+	left: 0 px;
+	top: 82px;
+}
+
+.dropdown-menu-personalizado {
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    width: 100% !important;
+}
+
+.sidebar-nav li {
+	border-bottom: 1px solid #e7e7e7;
+	text-align: left;
+}
+
+.sidebar-nav > li > a {
+	padding-left: 30px !important;
+}	
+
+.main-content {
+	position: absolute;
+	right: 0;
+	left: 250px;
+	
+}
+
+.navbar {
+	margin-bottom: 0px !important;
+	border-radius: 0 !important;
+}
+
+.navbar-default {
+	margin-bottom: 0px !important;
+}
+
+.navbar-toggle {
+	margin: 23px 0 !important;
+}
+
+.navbar-nav, .navbar-nav>li, .navbar-nav>li>a {
+	height: 80px !important;
+	line-height: 80px !important;
+}
+
+.navbar-nav>li>a {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+}
+
+.logo {
+	height: 50px;
+}
+
+#myNavbar > .navbar-nav {
+	margin-left: 30px;
+}
+
+.column-padding {
+	padding-right: 10px;
+	text-align: right;
+	width: 100px;
+}
+
+.column-padding-left {
+	padding-right: 10px;
+	text-align: left;
+	width: 100px !important;
+}
+
+.column-nome-simulado {
+	padding-right: 10px;
+	text-align: right;
+	width: 200px;
+}
+
+.column-alternativa {
+	padding-right: 10px;
+	text-align: right;
+	width: 30px;
+}
+
+.checkbox {
+	width: 16px !important;
+}
+
+.column-left {
+	text-align: left;
+}
+
+.marginBottomForm {
+	margin-bottom: 25px;
+}
+
+.content-inline-block > input {
+	display: inline-block;
+}
+
+input.ui-state-error {
+	border: 1px solid #cd0a0a !important;
+}
+
+.table-nome {
+	width: 100% !important;
+}
+
+.table-excluir {
+	width: 100px
+}
+
+.table-check {
+	width: 50px;
+}
+
+.ui-dialog-titlebar {
+	background-color: #85b2cb !important;
+    font-size: 2em !important;
+	padding: .3em .4em .2em 1em !important;
+}
+
+.ui-dialog-title {
+	margin: 0 !important;
+}
+
+.commandbutton-as-icon {
+	background-color: transparent !important;
+    background-size: 0px !important;
+    border: 0 !important;
+    padding: 0 !important;
+}
+
+.ui-selectonemenu-trigger {
+	padding: 0px !important;
+}
+
+.table-check > .form-group {
+	margin-bottom: 0px !important;
+}
+
+.modal-questao .modal-dialog {
+	width: 940px;	
+}
+
+.modal-comentario-lote .modal-dialog {
+	width: 485px;	
+}
+
+.main-content {
+	background-color: white;
+}
+
+#modalForm .ui-selectoneradio label {
+	margin-right: 10px;
+	margin-left: 4px;
+}
+
+#statusDialog {
+	z-index: 5000 !important;
+}
+
+#statusDialog_modal {
+	z-index: 4999 !important;
+	background-color: transparent !important;
+}
+
+</style>

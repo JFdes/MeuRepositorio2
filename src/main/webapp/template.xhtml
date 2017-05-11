@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<title>Qualidade100</title>
+
+	<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+	<h:outputScript library="bootstrap" name="js/bootstrap.js" />
+
+	<h:outputScript library="js" name="script_admin.js" />
+	<h:outputStylesheet library="css" name="style.css" />
+
+	<ui:insert name="header">
+
+	</ui:insert>
+
+	<style>
+@font-face {
+	font-family: 'century_gothicregular';
+	src: url('//admin.puze.com.br/css/fonts/gothic-webfont.eot');
+	src: url('//admin.puze.com.br/css/fonts/gothic-webfont.eot?#iefix')
+		format('embedded-opentype'),
+		url('//admin.puze.com.br/css/fonts/gothic-webfont.woff')
+		format('woff'),
+		url('//admin.puze.com.br/css/fonts/gothic-webfont.ttf')
+		format('truetype'),
+		url('//admin.puze.com.br/css/fonts/gothic-webfont.svg#century_gothicregular')
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.ui-icon-bullet {
+	background-position: -82px -145px
+}
+
+#modalForm .ui-selectoneradio label {
+	margin-left: 4px;
+}
+</style>
+	<script>
+		PrimeFaces.locales['pt'] = {
+			closeText : 'Fechar',
+			prevText : 'Anterior',
+			nextText : 'Próximo',
+			currentText : 'Começo',
+			monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio',
+					'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro',
+					'Novembro', 'Dezembro' ],
+			monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+					'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+			dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+					'Sexta', 'Sábado' ],
+			dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb' ],
+			dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S' ],
+			weekHeader : 'Semana',
+			firstDay : 1,
+			isRTL : false,
+			showMonthAfterYear : false,
+			yearSuffix : '',
+			timeOnlyTitle : 'Só Horas',
+			timeText : 'Tempo',
+			hourText : 'Hora',
+			minuteText : 'Minuto',
+			secondText : 'Segundo',
+			currentText : 'Data Atual',
+			ampm : false,
+			month : 'Mês',
+			week : 'Semana',
+			day : 'Dia',
+			allDayText : 'Todo Dia'
+		};
+	</script>
+</h:head>
+
+<h:body>
+	<body>
+		<p:menubar id="menuBarHeader">
+		
+		<p:submenu label="Cadastrar">	
+			<p:menuitem value="Cadastrar" url="/integrantes/cadastro.xhtml" icon="ui-icon-person" />
+		</p:submenu>
+			<p:menuitem value="Registrar" url="/faltas/registro.xhtml" icon="ui-icon-gear" />
+			<p:menuitem value="Listar" url="/listagem/consulta.xhtml" icon="ui-icon-document" />
+		</p:menubar>
+
+		<div class="text-center">
+			<div class="main-content text-left">
+				<ui:insert name="content">
+					<p:spacer width="0" height="0"></p:spacer>
+				</ui:insert>
+			</div>
+		</div>
+
+	</body>
+</h:body>
+</html>
