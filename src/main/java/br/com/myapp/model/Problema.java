@@ -1,83 +1,214 @@
 package br.com.myapp.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Problema {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+@Entity
+public class Problema implements Serializable {
 
-	private long idProblema;
-	private Cliente idCliente;
+	private static final long serialVersionUID = 6650624143219863781L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_problema")
+	@SequenceGenerator(name = "sq_problema", sequenceName = "sq_problema", allocationSize = 1)
+	@Column(name = "ROW_ID")
+	private Long id;
+
+	@Column(name = "TITULO")
 	private String titulo;
+
+	@Column(name = "DESCRICAO")
 	private String descricao;
-	private CategoriaProblema categoria;
+
+	// Pesquisar
+	
+	@ManyToOne
+	@JoinColumn(name="CATEGORIA")
+	private CategoriaProblema categoria; // Relacionamento N:1
+
+	// Pesquisar
+	
+	@ManyToOne
+	@JoinColumn(name="CICLO")
+	private Ciclo ciclo; // Relacionamento N:1
+
+	@Column(name = "STATUS")
+	@Enumerated(EnumType.STRING)
+	private StatusProblema status;
+
+	@Column(name = "DATA_CRIACAO")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
-	private String criador;
+
+	@Column(name = "USUARIO_CRIADOR")
+	private String usuarioCriador;
+
+	@Column(name = "DATA_ATUALIZACAO")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizaco;
-	private String atualizador;
-	private StatusProblema status; //Relacionamento com a classe Status.
-	
-	//Getters e Setters:
-	
-	public long getIdProblema() {
-		return idProblema;
+
+	@Column(name = "USUARIO_ATUALIZADOR")
+	private String usuarioAtualizador;
+
+	@Override
+	public int hashCode() {
+
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+		return result;
 	}
-	public void setIdProblema(long idProblema) {
-		this.idProblema = idProblema;
+
+	@Override
+	public boolean equals(final Object obj) {
+
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (this.getClass() != obj.getClass()) {
+			return false;
+		}
+		final Problema other = (Problema) obj;
+		if (this.id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!this.id.equals(other.id)) {
+			return false;
+		}
+		return true;
 	}
+
+	@Override
+	public String toString() {
+
+		return "Problema [id=" + this.id
+				+ ", titulo=" + this.titulo
+				+ ", descricao=" + this.descricao
+				+ ", categoria=" + this.categoria
+				+ ", ciclo=" + this.ciclo
+				+ ", status=" + this.status
+				+ ", dataCriacao=" + this.dataCriacao
+				+ ", usuarioCriador=" + this.usuarioCriador
+				+ ", dataAtualizaco=" + this.dataAtualizaco
+				+ ", usuarioAtualizador=" + this.usuarioAtualizador
+				+ "]";
+	}
+
+	public Long getId() {
+
+		return this.id;
+	}
+
+	public void setId(final Long id) {
+
+		this.id = id;
+	}
+
 	public String getTitulo() {
-		return titulo;
+
+		return this.titulo;
 	}
-	public void setTitulo(String titulo) {
+
+	public void setTitulo(final String titulo) {
+
 		this.titulo = titulo;
 	}
+
 	public String getDescricao() {
-		return descricao;
+
+		return this.descricao;
 	}
-	public void setDescricao(String descricao) {
+
+	public void setDescricao(final String descricao) {
+
 		this.descricao = descricao;
 	}
+
 	public CategoriaProblema getCategoria() {
-		return categoria;
+
+		return this.categoria;
 	}
-	public void setCategoria(CategoriaProblema categoria) {
+
+	public void setCategoria(final CategoriaProblema categoria) {
+
 		this.categoria = categoria;
 	}
-	public Date getDataCriacao() {
-		return dataCriacao;
+
+	public Ciclo getCiclo() {
+
+		return this.ciclo;
 	}
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
+
+	public void setCiclo(final Ciclo ciclo) {
+
+		this.ciclo = ciclo;
 	}
-	public String getCriador() {
-		return criador;
-	}
-	public void setCriador(String criador) {
-		this.criador = criador;
-	}
-	public Date getDataAtualizaco() {
-		return dataAtualizaco;
-	}
-	public void setDataAtualizaco(Date dataAtualizaco) {
-		this.dataAtualizaco = dataAtualizaco;
-	}
-	public String getAtualizador() {
-		return atualizador;
-	}
-	public void setAtualizador(String atualizador) {
-		this.atualizador = atualizador;
-	}
+
 	public StatusProblema getStatus() {
-		return status;
+
+		return this.status;
 	}
-	public void setStatus(StatusProblema status) {
+
+	public void setStatus(final StatusProblema status) {
+
 		this.status = status;
 	}
-	public Cliente getIdCliente() {
-		return idCliente;
+
+	public Date getDataCriacao() {
+
+		return this.dataCriacao;
 	}
-	public void setIdCliente(Cliente idCliente) {
-		this.idCliente = idCliente;
+
+	public void setDataCriacao(final Date dataCriacao) {
+
+		this.dataCriacao = dataCriacao;
 	}
-	
-	
+
+	public String getUsuarioCriador() {
+
+		return this.usuarioCriador;
+	}
+
+	public void setUsuarioCriador(final String usuarioCriador) {
+
+		this.usuarioCriador = usuarioCriador;
+	}
+
+	public Date getDataAtualizaco() {
+
+		return this.dataAtualizaco;
+	}
+
+	public void setDataAtualizaco(final Date dataAtualizaco) {
+
+		this.dataAtualizaco = dataAtualizaco;
+	}
+
+	public String getUsuarioAtualizador() {
+
+		return this.usuarioAtualizador;
+	}
+
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
+		this.usuarioAtualizador = usuarioAtualizador;
+	}
+
 }
