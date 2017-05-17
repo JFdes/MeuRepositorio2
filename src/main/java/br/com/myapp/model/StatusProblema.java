@@ -1,6 +1,6 @@
 package br.com.myapp.model;
 
-public class Status {
+public class StatusProblema {
 
 
 	private long idStatus;

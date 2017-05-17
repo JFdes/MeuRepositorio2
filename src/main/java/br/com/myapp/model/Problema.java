@@ -6,14 +6,15 @@ public class Problema {
 
 
 	private long idProblema;
+	private Cliente idCliente;
 	private String titulo;
 	private String descricao;
 	private CategoriaProblema categoria;
 	private Date dataCriacao;
-	private Funcionario criador;
+	private String criador;
 	private Date dataAtualizaco;
-	private Funcionario atualizador;
-	private Status status; //Relacionamento com a classe Status.
+	private String atualizador;
+	private StatusProblema status; //Relacionamento com a classe Status.
 	
 	//Getters e Setters:
 	
@@ -47,10 +48,10 @@ public class Problema {
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-	public Funcionario getCriador() {
+	public String getCriador() {
 		return criador;
 	}
-	public void setCriador(Funcionario criador) {
+	public void setCriador(String criador) {
 		this.criador = criador;
 	}
 	public Date getDataAtualizaco() {
@@ -59,17 +60,23 @@ public class Problema {
 	public void setDataAtualizaco(Date dataAtualizaco) {
 		this.dataAtualizaco = dataAtualizaco;
 	}
-	public Funcionario getAtualizador() {
+	public String getAtualizador() {
 		return atualizador;
 	}
-	public void setAtualizador(Funcionario atualizador) {
+	public void setAtualizador(String atualizador) {
 		this.atualizador = atualizador;
 	}
-	public Status getStatus() {
+	public StatusProblema getStatus() {
 		return status;
 	}
-	public void setStatus(Status status) {
+	public void setStatus(StatusProblema status) {
 		this.status = status;
+	}
+	public Cliente getIdCliente() {
+		return idCliente;
+	}
+	public void setIdCliente(Cliente idCliente) {
+		this.idCliente = idCliente;
 	}
 	
 	

@@ -8,9 +8,9 @@ public class CategoriaProblema {
 	private long idCategoria;
 	private String categoria;
 	private Date dataCriacao;
-	private Funcionario criador;
+	private String criador;
 	private Date dataAtualizacao;
-	private Funcionario atualizador;
+	private String atualizador;
 	private boolean ativo;
 	
 	

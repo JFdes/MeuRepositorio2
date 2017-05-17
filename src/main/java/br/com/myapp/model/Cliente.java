@@ -16,7 +16,6 @@ public class Cliente {
 	private String inscest;
 	private String email;
 	private String RegimeTributario;
-	private CategoriaCliente categoriaCliente; //relacionamento com CategoriaCliente.
 	private String logradouro;
 	private String numero;
 	private String bairro;
@@ -35,7 +34,7 @@ public class Cliente {
 	private String nomeContato;
 	private String foneContato;	
 	private String obs;
-	private boolean ativo;
+	private boolean ativo; 
 	
 	//Getters e Setters:
 	
@@ -104,12 +103,6 @@ public class Cliente {
 	}
 	public void setRegimeTributario(String regimeTributario) {
 		RegimeTributario = regimeTributario;
-	}
-	public CategoriaCliente getCategoriaCliente() {
-		return categoriaCliente;
-	}
-	public void setCategoriaCliente(CategoriaCliente categoriaCliente) {
-		this.categoriaCliente = categoriaCliente;
 	}
 	public String getLogradouro() {
 		return logradouro;
