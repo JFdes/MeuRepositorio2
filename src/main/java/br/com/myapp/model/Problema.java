@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,13 +34,11 @@ public class Problema implements Serializable {
 	@Column(name = "DESCRICAO")
 	private String descricao;
 
-	// Pesquisar
-	
-	@ManyToOne
+		
+	@OneToMany
 	@JoinColumn(name="CATEGORIA")
-	private CategoriaProblema categoria; // Relacionamento N:1
+	private CategoriaProblema categoria; // Relacionamento 1:N
 
-	// Pesquisar
 	
 	@ManyToOne
 	@JoinColumn(name="CICLO")

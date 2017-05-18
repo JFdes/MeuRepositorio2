@@ -14,38 +14,38 @@ import javax.persistence.TemporalType;
 
 public class CategoriaProblema implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_categoriaProblema")
 	@SequenceGenerator(name = "sq_categoriaProblema", sequenceName = "sq_categoriaProblema", allocationSize = 1)
 	@Column(name = "ROW_ID")
 	private Long id;
-	
-	//--------------------------------------------------------
-	
+
+	// --------------------------------------------------------
+
 	@Column(name = "CATEGORIA")
 	private String categoria;
-	
+
 	@Column(name = "DATA_CRIACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
-	
+
 	@Column(name = "CRIADOR")
 	private Funcionario criador;
-	
+
 	@Column(name = "DATA_ATUALIZACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
+
 	
-	@OneToOne
 	@Column(name = "ATUALIZADOR")
-	private Funcionario atualizador; //VERIFICAR
-	
+	private String atualizador; // VERIFICAR
+
 	@Column(name = "ATIVO")
 	private boolean ativo;
 
-	//-------------------------------------------------------
-	
+	// -------------------------------------------------------
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,18 +73,12 @@ public class CategoriaProblema implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CategoriaProblema [id=" + this.id 
-				+ ", categoria=" + this.categoria 
-				+ ", dataCriacao=" + this.dataCriacao
-				+ ", criador=" + this.criador 
-				+ ", dataAtualizacao=" + this.dataAtualizacao 
-				+ ", atualizador=" + this.atualizador
-				+ ", ativo=" + this.ativo 
-				+ "]";
+		return "CategoriaProblema [id=" + this.id + ", categoria=" + this.categoria + ", dataCriacao="
+				+ this.dataCriacao + ", criador=" + this.criador + ", dataAtualizacao=" + this.dataAtualizacao
+				+ ", atualizador=" + this.atualizador + ", ativo=" + this.ativo + "]";
 	}
-	
-	
-	//--------------------------------------------------
+
+	// --------------------------------------------------
 
 	public Long getId() {
 		return id;
@@ -126,11 +120,11 @@ public class CategoriaProblema implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public Funcionario getAtualizador() {
+	public String getAtualizador() {
 		return atualizador;
 	}
 
-	public void setAtualizador(Funcionario atualizador) {
+	public void setAtualizador(String atualizador) {
 		this.atualizador = atualizador;
 	}
 
@@ -141,10 +135,7 @@ public class CategoriaProblema implements Serializable {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-	
-	//--------------------------------------------------------
-	
-	
-	
-	
+
+	// --------------------------------------------------------
+
 }

@@ -26,11 +26,11 @@ public class Cliente implements Serializable{
 	
 	@OneToOne
 	@JoinColumn(name = "CRIADOR")
-	private Funcionario criador;
+	private String criador;
 	
-	@OneToOne
-	@JoinColumn(name = "ATUALIZADOR")
-	private Funcionario atualizador;
+	
+	@Column(name = "ATUALIZADOR")
+	private String atualizador;
 	
 	@Column(name = "DATA_DESCRICAO")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -58,9 +58,9 @@ public class Cliente implements Serializable{
 	@Column(name = "REGIME_TRIBUTARIO")
 	private String RegimeTributario;
 	
-	@OneToMany
+	@OneToOne
 	@JoinColumn(name="CATEGORIA_CLIENTE")
-	private CategoriaCliente categoriaCliente; //relacionamento com CategoriaCliente. VERIFICAR!!!
+	private CategoriaCliente categoriaCliente;
 	
 	@Column(name = "LOGRADOURO")
 	private String logradouro;
@@ -117,7 +117,7 @@ public class Cliente implements Serializable{
 	@Column(name = "OBS")
 	private String obs;
 	
-	@Column(name = "ATIVO") //verificar se tem algo a mais.
+	@Column(name = "ATIVO")
 	private boolean ativo;
 
 	
@@ -196,19 +196,19 @@ public class Cliente implements Serializable{
 		this.id = id;
 	}
 
-	public Funcionario getCriador() {
+	public String getCriador() {
 		return criador;
 	}
 
-	public void setCriador(Funcionario criador) {
+	public void setCriador(String criador) {
 		this.criador = criador;
 	}
 
-	public Funcionario getAtualizador() {
+	public String getAtualizador() {
 		return atualizador;
 	}
 
-	public void setAtualizador(Funcionario atualizador) {
+	public void setAtualizador(String atualizador) {
 		this.atualizador = atualizador;
 	}
 

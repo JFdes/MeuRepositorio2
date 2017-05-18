@@ -33,15 +33,12 @@ public class Setor implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
 	
-	@OneToOne
+	
 	@Column(name="CRIADOR")
-	private Funcionario criador;
+	private String criador;
 	
 	@Column(name="ATUALIZADOR")
 	private String atualizador;
-	
-	@Column(name="ID_FUNCIONARIO")
-	private String idFuncionario; //chave estrangeira de funcionário.
 	
 	@Column(name="ATIVO")
 	private boolean ativo; //VERIFICAR
@@ -123,11 +120,11 @@ public class Setor implements Serializable{
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public Funcionario getCriador() {
+	public String getCriador() {
 		return criador;
 	}
 
-	public void setCriador(Funcionario criador) {
+	public void setCriador(String criador) {
 		this.criador = criador;
 	}
 

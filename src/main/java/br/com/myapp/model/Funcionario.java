@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -75,8 +76,9 @@ public class Funcionario implements Serializable{
 	@Column(name = "CEP")
 	private String cep;
 	
+	@ManyToOne //relacionamento n:1
 	@Column(name = "SETOR")
-	private String setor;
+	private Setor setor;
 	
 	@Column(name = "ID_SETOR")
 	private long idSetor; 
@@ -281,11 +283,11 @@ public class Funcionario implements Serializable{
 		this.cep = cep;
 	}
 
-	public String getSetor() {
+	public Setor getSetor() {
 		return setor;
 	}
 
-	public void setSetor(String setor) {
+	public void setSetor(Setor setor) {
 		this.setor = setor;
 	}
 
