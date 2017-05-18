@@ -1,40 +1,148 @@
 package br.com.myapp.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Funcionario {
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
+public class Funcionario implements Serializable{
 
-	private long idfuncionario;
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_funcionario")
+	@SequenceGenerator(name = "sq_funcionario", sequenceName = "sq_funcionario", allocationSize = 1)
+	@Column(name = "ROW_ID")
+	private Long id;
+	
+	
+	@Column(name = "NOME")
 	private String nome;
+	
+	@Column(name = "USUARIO")
 	private String usuario;
+	
+	@Column(name = "SENHA")
 	private String senha;
+	
+	@Column(name = "RG")
 	private int rg;
+	
+	@Column(name = "CPF")
 	private int cpf;
+	
+	@Column(name = "FONE")
 	private String fone;
+	
+	@Column(name = "WHATSAPP")
 	private String whatsapp;
+	
+	@Column(name = "EMAIL")
 	private String email;
+	
+	@Column(name = "DT_NASCIMENTO")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtNascimento;
+	
+	@Column(name = "DT_INCLUSAO")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtInclusao;
+	
+	@Column(name = "LOGRADOURO")
 	private String logradouro;
+	
+	@Column(name = "NUMERO")
 	private int numero;
+	
+	@Column(name = "BAIRRO")
 	private String bairro;
+	
+	@Column(name = "COMPLEMENTO")
 	private String complemento;
+		
+	@Column(name = "CIDADE")
 	private String cidade;
+	
+	@Column(name = "UF")
 	private String uf;
+	
+	@Column(name = "CEP")
 	private String cep;
+	
+	@Column(name = "SETOR")
 	private String setor;
-	private long idSetor; //chave estrangeira de setor.
+	
+	@Column(name = "ID_SETOR")
+	private long idSetor; 
+	
+	@Column(name = "ATIVO")
 	private boolean ativo;
+	
+	//------------------------------------------------
 
-	// métodos get e set dos atributos.
-
-	public long getIdfuncionario() {
-		return idfuncionario;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
-	public void setIdfuncionario(int idfuncionario) {
-		this.idfuncionario = idfuncionario;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Funcionario other = (Funcionario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Funcionario [id=" + this.id 
+				+ ", nome=" + this.nome 
+				+ ", usuario=" + this.usuario 
+				+ ", senha=" + this.senha 
+				+ ", rg=" + this.rg
+				+ ", cpf=" + this.cpf 
+				+ ", fone=" + this.fone 
+				+ ", whatsapp=" + whatsapp 
+				+ ", email=" + this.email
+				+ ", dtNascimento=" + this.dtNascimento 
+				+ ", dtInclusao=" + this.dtInclusao 
+				+ ", logradouro=" + this.logradouro 
+				+ ", numero=" + this.numero
+				+ ", bairro=" + this.bairro 
+				+ ", complemento=" + this.complemento 
+				+ ", cidade=" + this.cidade 
+				+ ", uf=" + this.uf 
+				+ ", cep=" + this.cep 
+				+ ", setor=" + this.setor 
+				+ ", idSetor=" + idSetor 
+				+ ", ativo=" + ativo 
+				+ "]";
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getNome() {
@@ -109,6 +217,14 @@ public class Funcionario {
 		this.dtNascimento = dtNascimento;
 	}
 
+	public Date getDtInclusao() {
+		return dtInclusao;
+	}
+
+	public void setDtInclusao(Date dtInclusao) {
+		this.dtInclusao = dtInclusao;
+	}
+
 	public String getLogradouro() {
 		return logradouro;
 	}
@@ -173,28 +289,25 @@ public class Funcionario {
 		this.setor = setor;
 	}
 
-
-	public Date getDtInclusao() {
-		return dtInclusao;
-	}
-
-	public void setDtInclusao(Date dtInclusao) {
-		this.dtInclusao = dtInclusao;
-	}
-
 	public long getIdSetor() {
 		return idSetor;
 	}
 
-	public void setIdSetor(int idSetor) {
+	public void setIdSetor(long idSetor) {
 		this.idSetor = idSetor;
 	}
 
-	public boolean getAtivo() {
+	public boolean isAtivo() {
 		return ativo;
 	}
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+
+	
+	//-------------------------------------------------------
+	
+	
+	
 }

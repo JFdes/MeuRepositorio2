@@ -63,6 +63,10 @@ public class Problema implements Serializable {
 	@Column(name = "USUARIO_ATUALIZADOR")
 	private String usuarioAtualizador;
 
+	
+	//------------------------------------------------
+	
+	
 	@Override
 	public int hashCode() {
 
@@ -94,6 +98,8 @@ public class Problema implements Serializable {
 		}
 		return true;
 	}
+	
+	//--------------------------------------------
 
 	@Override
 	public String toString() {
@@ -110,6 +116,9 @@ public class Problema implements Serializable {
 				+ ", usuarioAtualizador=" + this.usuarioAtualizador
 				+ "]";
 	}
+	
+	
+	//-------------------------------------------------
 
 	public Long getId() {
 

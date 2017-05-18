@@ -8,7 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,16 +24,20 @@ public class Cliente implements Serializable{
 	@Column(name = "ROW_ID")
 	private Long id;
 	
-	@Column(name = "CRIADOR")
+	@OneToOne
+	@JoinColumn(name = "CRIADOR")
 	private Funcionario criador;
 	
-	@Column(name = "ATUALIZADOR")
+	@OneToOne
+	@JoinColumn(name = "ATUALIZADOR")
 	private Funcionario atualizador;
 	
 	@Column(name = "DATA_DESCRICAO")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
 	
 	@Column(name = "DATA_DESCRICAO")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
 	
 	@Column(name = "NOME_FANTASIA")
@@ -53,7 +58,7 @@ public class Cliente implements Serializable{
 	@Column(name = "REGIME_TRIBUTARIO")
 	private String RegimeTributario;
 	
-	@ManyToOne
+	@OneToMany
 	@JoinColumn(name="CATEGORIA_CLIENTE")
 	private CategoriaCliente categoriaCliente; //relacionamento com CategoriaCliente. VERIFICAR!!!
 	
