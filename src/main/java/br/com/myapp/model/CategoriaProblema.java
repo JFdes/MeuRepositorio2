@@ -31,7 +31,7 @@ public class CategoriaProblema implements Serializable {
 	private Date dataCriacao;
 
 	@Column(name = "CRIADOR")
-	private Funcionario criador;
+	private String criador;
 
 	@Column(name = "DATA_ATUALIZACAO")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -104,11 +104,11 @@ public class CategoriaProblema implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public Funcionario getCriador() {
+	public String getCriador() {
 		return criador;
 	}
 
-	public void setCriador(Funcionario criador) {
+	public void setCriador(String criador) {
 		this.criador = criador;
 	}
 

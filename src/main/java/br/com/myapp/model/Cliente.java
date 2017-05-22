@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
@@ -25,18 +24,18 @@ public class Cliente implements Serializable{
 	private Long id;
 	
 	@OneToOne
-	@JoinColumn(name = "CRIADOR")
-	private String criador;
+	@JoinColumn(name = "USUARIO_CRIADOR")
+	private String usuarioCriador;
 	
 	
-	@Column(name = "ATUALIZADOR")
-	private String atualizador;
+	@Column(name = "USUARIO_ATUALIZADOR")
+	private String usuarioAtualizador;
 	
-	@Column(name = "DATA_DESCRICAO")
+	@Column(name = "DATA_CRIACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
 	
-	@Column(name = "DATA_DESCRICAO")
+	@Column(name = "DATA_ATUALIZACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
 	
@@ -59,8 +58,8 @@ public class Cliente implements Serializable{
 	private String RegimeTributario;
 	
 	@OneToOne
-	@JoinColumn(name="CATEGORIA_CLIENTE")
-	private CategoriaCliente categoriaCliente;
+	@JoinColumn(name="ID_CATEGORIA_CLIENTE")
+	private CategoriaCliente idCategoriaCliente;
 	
 	@Column(name = "LOGRADOURO")
 	private String logradouro;
@@ -86,36 +85,12 @@ public class Cliente implements Serializable{
 	@Column(name = "PONTO_REFERENCIA")
 	private String pontoReferencia;
 	
-	@Column(name = "FONE1")
-	private String fone1;
-	
-	@Column(name = "FONE2")
-	private String fone2;
-	
-	@Column(name = "WHATSAPP")
-	private String whatsapp;
-	
 	@Column(name = "PROPRIETARIO")
 	private String proprietario;
-	
-	@Column(name = "FONE_PROPRIETARIO")
-	private String foneProprietario;
-	
-	@Column(name = "WHATSAPP_PROPRIETARIO")
-	private String whatsappProprietario;
-	
+		
 	@Column(name = "DATA_NASCIMENTO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataNascimento;
-	
-	@Column(name = "NOME_CONTATO")
-	private String nomeContato;
-	
-	@Column(name = "FONE_CONTATO")
-	private String foneContato;	
-	
-	@Column(name = "OBS")
-	private String obs;
 	
 	@Column(name = "ATIVO")
 	private boolean ativo;
@@ -153,8 +128,8 @@ public class Cliente implements Serializable{
 	@Override
 	public String toString() {
 		return "Cliente [id=" + this.id 
-				+ ", criador=" + this.criador 
-				+ ", atualizador=" + this.atualizador 
+				+ ", usuarioCriador=" + this.usuarioCriador 
+				+ ", usuarioAtualizador=" + this.usuarioAtualizador 
 				+ ", dataCriacao=" + this.dataCriacao 
 				+ ", dataAtualizacao=" + this.dataAtualizacao 
 				+ ", nomeFantasia=" + this.nomeFantasia 
@@ -163,7 +138,7 @@ public class Cliente implements Serializable{
 				+ ", inscest=" + this.inscest 
 				+ ", email=" + this.email
 				+ ", RegimeTributario=" + this.RegimeTributario 
-				+ ", categoriaCliente=" + this.categoriaCliente 
+				+ ", idCategoriaCliente=" + this.idCategoriaCliente 
 				+ ", logradouro=" + this.logradouro 
 				+ ", numero=" + this.numero 
 				+ ", bairro=" + this.bairro 
@@ -172,16 +147,8 @@ public class Cliente implements Serializable{
 				+ ", uf=" + this.uf 
 				+ ", cep=" + this.cep 
 				+ ", pontoReferencia=" + this.pontoReferencia
-				+ ", fone1=" + this.fone1 
-				+ ", fone2=" + this.fone2 
-				+ ", whatsapp=" + this.whatsapp 
 				+ ", proprietario=" + this.proprietario
-				+ ", foneProprietario=" + this.foneProprietario 
-				+ ", whatsappProprietario=" + this.whatsappProprietario
 				+ ", dataNascimento=" + this.dataNascimento 
-				+ ", nomeContato=" + this.nomeContato 
-				+ ", foneContato=" + this.foneContato
-				+ ", obs=" + this.obs 
 				+ ", ativo=" + this.ativo 
 				+ "]";
 	}
@@ -197,19 +164,19 @@ public class Cliente implements Serializable{
 	}
 
 	public String getCriador() {
-		return criador;
+		return usuarioCriador;
 	}
 
-	public void setCriador(String criador) {
-		this.criador = criador;
+	public void setUsuarioCriador(String usuarioCriador) {
+		this.usuarioCriador = usuarioCriador;
 	}
 
-	public String getAtualizador() {
-		return atualizador;
+	public String getUsuarioAtualizador() {
+		return usuarioAtualizador;
 	}
 
-	public void setAtualizador(String atualizador) {
-		this.atualizador = atualizador;
+	public void setUsuarioAtualizador(String usuarioAtualizador) {
+		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public Date getDataCriacao() {
@@ -276,12 +243,12 @@ public class Cliente implements Serializable{
 		RegimeTributario = regimeTributario;
 	}
 
-	public CategoriaCliente getCategoriaCliente() {
-		return categoriaCliente;
+	public CategoriaCliente getIdCategoriaCliente() {
+		return idCategoriaCliente;
 	}
 
-	public void setCategoriaCliente(CategoriaCliente categoriaCliente) {
-		this.categoriaCliente = categoriaCliente;
+	public void setIdcategoriaCliente(CategoriaCliente idCategoriaCliente) {
+		this.idCategoriaCliente = idCategoriaCliente;
 	}
 
 	public String getLogradouro() {
@@ -348,30 +315,6 @@ public class Cliente implements Serializable{
 		this.pontoReferencia = pontoReferencia;
 	}
 
-	public String getFone1() {
-		return fone1;
-	}
-
-	public void setFone1(String fone1) {
-		this.fone1 = fone1;
-	}
-
-	public String getFone2() {
-		return fone2;
-	}
-
-	public void setFone2(String fone2) {
-		this.fone2 = fone2;
-	}
-
-	public String getWhatsapp() {
-		return whatsapp;
-	}
-
-	public void setWhatsapp(String whatsapp) {
-		this.whatsapp = whatsapp;
-	}
-
 	public String getProprietario() {
 		return proprietario;
 	}
@@ -380,22 +323,7 @@ public class Cliente implements Serializable{
 		this.proprietario = proprietario;
 	}
 
-	public String getFoneProprietario() {
-		return foneProprietario;
-	}
-
-	public void setFoneProprietario(String foneProprietario) {
-		this.foneProprietario = foneProprietario;
-	}
-
-	public String getWhatsappProprietario() {
-		return whatsappProprietario;
-	}
-
-	public void setWhatsappProprietario(String whatsappProprietario) {
-		this.whatsappProprietario = whatsappProprietario;
-	}
-
+	
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
@@ -404,30 +332,7 @@ public class Cliente implements Serializable{
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getNomeContato() {
-		return nomeContato;
-	}
-
-	public void setNomeContato(String nomeContato) {
-		this.nomeContato = nomeContato;
-	}
-
-	public String getFoneContato() {
-		return foneContato;
-	}
-
-	public void setFoneContato(String foneContato) {
-		this.foneContato = foneContato;
-	}
-
-	public String getObs() {
-		return obs;
-	}
-
-	public void setObs(String obs) {
-		this.obs = obs;
-	}
-
+	
 	public boolean isAtivo() {
 		return ativo;
 	}
