@@ -25,15 +25,15 @@ public class Telefone implements Serializable {
 	@JoinColumn(name = "ID_Cliente")
 	private Cliente idCliente;
 	
-	@OneToOne
+	@ManyToOne
 	@Column(name = "DDD")
 	private String ddd;
 	
-	@OneToOne
+	@ManyToOne
 	@Column(name = "NUMERO")
 	private String numero;
 	
-	@OneToOne
+	@ManyToOne
 	@Column(name = "TIPO")
 	private String tipo;
 

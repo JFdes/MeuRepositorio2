@@ -41,9 +41,6 @@ public class Funcionario implements Serializable{
 	@Column(name = "FONE")
 	private String fone;
 	
-	@Column(name = "WHATSAPP")
-	private String whatsapp;
-	
 	@Column(name = "EMAIL")
 	private String email;
 	
@@ -51,9 +48,9 @@ public class Funcionario implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dtNascimento;
 	
-	@Column(name = "DT_INCLUSAO")
+	@Column(name = "DATA_ADMISSAO")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dtInclusao;
+	private Date dataAdmissao;
 	
 	@Column(name = "LOGRADOURO")
 	private String logradouro;
@@ -76,12 +73,9 @@ public class Funcionario implements Serializable{
 	@Column(name = "CEP")
 	private String cep;
 	
-	@ManyToOne //relacionamento n:1
-	@Column(name = "SETOR")
-	private Setor setor;
-	
+	@ManyToOne
 	@Column(name = "ID_SETOR")
-	private long idSetor; 
+	private Setor idSetor; 
 	
 	@Column(name = "ATIVO")
 	private boolean ativo;
@@ -122,10 +116,9 @@ public class Funcionario implements Serializable{
 				+ ", rg=" + this.rg
 				+ ", cpf=" + this.cpf 
 				+ ", fone=" + this.fone 
-				+ ", whatsapp=" + whatsapp 
 				+ ", email=" + this.email
 				+ ", dtNascimento=" + this.dtNascimento 
-				+ ", dtInclusao=" + this.dtInclusao 
+				+ ", dataAdmissao=" + this.dataAdmissao 
 				+ ", logradouro=" + this.logradouro 
 				+ ", numero=" + this.numero
 				+ ", bairro=" + this.bairro 
@@ -133,7 +126,6 @@ public class Funcionario implements Serializable{
 				+ ", cidade=" + this.cidade 
 				+ ", uf=" + this.uf 
 				+ ", cep=" + this.cep 
-				+ ", setor=" + this.setor 
 				+ ", idSetor=" + idSetor 
 				+ ", ativo=" + ativo 
 				+ "]";
@@ -195,14 +187,6 @@ public class Funcionario implements Serializable{
 		this.fone = fone;
 	}
 
-	public String getWhatsapp() {
-		return whatsapp;
-	}
-
-	public void setWhatsapp(String whatsapp) {
-		this.whatsapp = whatsapp;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -220,11 +204,11 @@ public class Funcionario implements Serializable{
 	}
 
 	public Date getDtInclusao() {
-		return dtInclusao;
+		return dataAdmissao;
 	}
 
-	public void setDtInclusao(Date dtInclusao) {
-		this.dtInclusao = dtInclusao;
+	public void setDtInclusao(Date dataAdmissao) {
+		this.dataAdmissao = dataAdmissao;
 	}
 
 	public String getLogradouro() {
@@ -283,19 +267,11 @@ public class Funcionario implements Serializable{
 		this.cep = cep;
 	}
 
-	public Setor getSetor() {
-		return setor;
-	}
-
-	public void setSetor(Setor setor) {
-		this.setor = setor;
-	}
-
-	public long getIdSetor() {
+	public Setor getIdSetor() {
 		return idSetor;
 	}
 
-	public void setIdSetor(long idSetor) {
+	public void setIdSetor(Setor idSetor) {
 		this.idSetor = idSetor;
 	}
 

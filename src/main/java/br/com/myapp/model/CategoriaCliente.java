@@ -1,13 +1,18 @@
 package br.com.myapp.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class CategoriaCliente implements Serializable {
@@ -20,12 +25,33 @@ public class CategoriaCliente implements Serializable {
 	@Column(name = "ROW_ID")
 	private Long id;
 
-	@Column(name = "CATEGORIA_CLIENTE")
-	private String categoriaCliente;
+	@Column(name = "CATEGORIA")
+	private String categoria;
+		
+	@OneToMany // VERIFICAR RELAÇÃO
+	@JoinColumn(name = "USUARIO_CRIADOR")
+	private String usuarioCriador;
+	
+	
+	@Column(name = "USUARIO_ATUALIZADOR")
+	private String usuarioAtualizador;
+	
+	@Column(name = "DATA_CRIACAO")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCriacao;
+	
+	@Column(name = "DATA_ATUALIZACAO")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataAtualizacao;
 
 	@Column(name = "ATIVO")
 	private boolean ativo;
 
+	
+	//------------------------------------
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -53,8 +79,14 @@ public class CategoriaCliente implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CategoriaCliente [id=" + this.id + ", CategoriaCliente=" + this.categoriaCliente + ", ativo="
-				+ this.ativo + "]";
+		return "CategoriaCliente [id=" + this.id 
+				+ ", categoria=" + this.categoria 
+				+ ", usuarioCriador=" + this.usuarioCriador
+				+ ", usuarioAtualizador=" + this.usuarioAtualizador 
+				+ ", dataCriacao=" + this.dataCriacao 
+				+ ", dataAtualizacao=" + this.dataAtualizacao 
+				+ ", ativo=" + this.ativo 
+				+ "]";
 	}
 
 	public Long getId() {
@@ -65,12 +97,44 @@ public class CategoriaCliente implements Serializable {
 		this.id = id;
 	}
 
-	public String getCategoriaCliente() {
-		return categoriaCliente;
+	public String getCategoria() {
+		return categoria;
 	}
 
-	public void setCategoriaCliente(String categoriaCliente) {
-		this.categoriaCliente = categoriaCliente;
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getUsuarioCriador() {
+		return usuarioCriador;
+	}
+
+	public void setUsuarioCriador(String usuarioCriador) {
+		this.usuarioCriador = usuarioCriador;
+	}
+
+	public String getUsuarioAtualizador() {
+		return usuarioAtualizador;
+	}
+
+	public void setUsuarioAtualizador(String usuarioAtualizador) {
+		this.usuarioAtualizador = usuarioAtualizador;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
 	}
 
 	public boolean isAtivo() {
@@ -80,5 +144,6 @@ public class CategoriaCliente implements Serializable {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-
+	
+	
 }

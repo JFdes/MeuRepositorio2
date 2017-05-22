@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -22,9 +21,9 @@ public class Setor implements Serializable{
 	@Column(name = "ROW_ID")
 	private Long id;
 	
-	@Column(name = "SETOR")
-	private String setor;
-	
+	@Column(name = "NOME")
+	private String nome;
+		
 	@Column(name = "DATA_CRIACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
@@ -34,11 +33,11 @@ public class Setor implements Serializable{
 	private Date dataAtualizacao;
 	
 	
-	@Column(name="CRIADOR")
-	private String criador;
+	@Column(name="USUARIO_CRIADOR")
+	private String usuarioCriador;
 	
-	@Column(name="ATUALIZADOR")
-	private String atualizador;
+	@Column(name="USUARIO_ATUALIZADOR")
+	private String usuarioAtualizador;
 	
 	@Column(name="ATIVO")
 	private boolean ativo; //VERIFICAR
@@ -72,21 +71,22 @@ public class Setor implements Serializable{
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Setor [id=" + this.id 
-				+ ", setor=" + this.setor 
-				+ ", dataCriacao=" + this.dataCriacao 
-				+ ", dataAtualizacao=" + this.dataAtualizacao 
-				+ ", criador=" + this.criador 
-				+ ", atualizador=" + this.atualizador 
-				+ ", idFuncionario=" + this.idFuncionario 
-				+ ", ativo=" + this.ativo 
-				+ "]";
-	}
+	
 	
 	
 	//--------------------------------------------
+
+	@Override
+	public String toString() {
+		return "Setor [id=" + this.id 
+				+ ", nome=" + this.nome 
+				+ ", dataCriacao=" + this.dataCriacao 
+				+ ", dataAtualizacao=" + this.dataAtualizacao 
+				+ ", usuarioCriador=" + this.usuarioCriador 
+				+ ", usuarioAtualizador=" + this.usuarioAtualizador 
+				+ ", ativo=" + this.ativo 
+				+ "]";
+	}
 
 	public Long getId() {
 		return id;
@@ -97,11 +97,11 @@ public class Setor implements Serializable{
 	}
 
 	public String getSetor() {
-		return setor;
+		return nome;
 	}
 
-	public void setSetor(String setor) {
-		this.setor = setor;
+	public void setSetor(String nome) {
+		this.nome = nome;
 	}
 
 	public Date getDataCriacao() {
@@ -121,27 +121,19 @@ public class Setor implements Serializable{
 	}
 
 	public String getCriador() {
-		return criador;
+		return usuarioCriador;
 	}
 
-	public void setCriador(String criador) {
-		this.criador = criador;
+	public void setCriador(String usuarioCriado) {
+		this.usuarioCriador = usuarioCriado;
 	}
 
-	public String getAtualizador() {
-		return atualizador;
+	public String getUsuarioAtualizador() {
+		return usuarioAtualizador;
 	}
 
-	public void setAtualizador(String atualizador) {
-		this.atualizador = atualizador;
-	}
-
-	public String getIdFuncionario() {
-		return idFuncionario;
-	}
-
-	public void setIdFuncionario(String idFuncionario) {
-		this.idFuncionario = idFuncionario;
+	public void setAtualizador(String usuarioAtualizador) {
+		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public boolean isAtivo() {

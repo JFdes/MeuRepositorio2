@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
@@ -23,10 +25,9 @@ public class Cliente implements Serializable{
 	@Column(name = "ROW_ID")
 	private Long id;
 	
-	@OneToOne
+	
 	@JoinColumn(name = "USUARIO_CRIADOR")
 	private String usuarioCriador;
-	
 	
 	@Column(name = "USUARIO_ATUALIZADOR")
 	private String usuarioAtualizador;
@@ -57,7 +58,7 @@ public class Cliente implements Serializable{
 	@Column(name = "REGIME_TRIBUTARIO")
 	private String RegimeTributario;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="ID_CATEGORIA_CLIENTE")
 	private CategoriaCliente idCategoriaCliente;
 	

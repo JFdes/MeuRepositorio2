@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,16 +27,30 @@ public class Ciclo implements Serializable{
 	@Column(name = "DESCRICAO")
 	private String descricao;
 	
-	@Column(name = "INICIO")
+	@Column(name = "DATA_INICIO")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date inicio;
+	private Date dataInicio;
 	
-	@Column(name = "FIM")
+	@Column(name = "DATA_FIM")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date fim;
+	private Date dataFim;
+	
+	@OneToMany
+	@JoinColumn(name = "USUARIO_CRIADOR")
+	private String usuarioCriador;
+	
+	
+	@Column(name = "USUARIO_ATUALIZADOR")
+	private String usuarioAtualizador;
+	
+	@Column(name = "DATA_CRIACAO")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCriacao;
+	
+	@Column(name = "DATA_ATUALIZACAO")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataAtualizacao;
 
-	//---------------------------------------------
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,20 +75,19 @@ public class Ciclo implements Serializable{
 			return false;
 		return true;
 	}
-	
-	//-------------------------------------------------------
 
 	@Override
 	public String toString() {
-		return "Ciclo [id=" + this.id 
+		return "Ciclo [id=" + id 
 				+ ", descricao=" + this.descricao 
-				+ ", inicio=" + this.inicio 
-				+ ", fim=" + this.fim 
+				+ ", dataInicio=" + this.dataInicio 
+				+ ", dataFim=" + this.dataFim
+				+ ", usuarioCriador=" + usuarioCriador 
+				+ ", usuarioAtualizador=" + usuarioAtualizador 
+				+ ", dataCriacao=" + dataCriacao 
+				+ ", dataAtualizacao=" + dataAtualizacao 
 				+ "]";
 	}
-	
-	
-	//------------------------------------------------------
 
 	public Long getId() {
 		return id;
@@ -89,24 +105,54 @@ public class Ciclo implements Serializable{
 		this.descricao = descricao;
 	}
 
-	public Date getInicio() {
-		return inicio;
+	public Date getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setInicio(Date inicio) {
-		this.inicio = inicio;
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
 	}
 
-	public Date getFim() {
-		return fim;
+	public Date getDataFim() {
+		return dataFim;
 	}
 
-	public void setFim(Date fim) {
-		this.fim = fim;
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
 	}
 
-	
-	
-	
+	public String getUsuarioCriador() {
+		return usuarioCriador;
+	}
+
+	public void setUsuarioCriador(String usuarioCriador) {
+		this.usuarioCriador = usuarioCriador;
+	}
+
+	public String getUsuarioAtualizador() {
+		return usuarioAtualizador;
+	}
+
+	public void setUsuarioAtualizador(String usuarioAtualizador) {
+		this.usuarioAtualizador = usuarioAtualizador;
+	}
+
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
+
+		
 	
 }

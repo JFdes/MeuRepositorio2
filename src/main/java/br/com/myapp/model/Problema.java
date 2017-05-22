@@ -27,22 +27,22 @@ public class Problema implements Serializable {
 	@SequenceGenerator(name = "sq_problema", sequenceName = "sq_problema", allocationSize = 1)
 	@Column(name = "ROW_ID")
 	private Long id;
+	
+	
+	@ManyToOne
+	@JoinColumn(name="ID_CLIENTE")
+	private Cliente idCliente;
+	
 
 	@Column(name = "TITULO")
 	private String titulo;
 
 	@Column(name = "DESCRICAO")
 	private String descricao;
-
-		
-	@OneToMany
-	@JoinColumn(name="CATEGORIA")
-	private CategoriaProblema categoria; // Relacionamento 1:N
-
 	
 	@ManyToOne
-	@JoinColumn(name="CICLO")
-	private Ciclo ciclo; // Relacionamento N:1
+	@JoinColumn(name="ID_CICLO")
+	private Ciclo idCiclo; // Relacionamento N:1
 
 	@Column(name = "STATUS")
 	@Enumerated(EnumType.STRING)
@@ -61,6 +61,7 @@ public class Problema implements Serializable {
 
 	@Column(name = "USUARIO_ATUALIZADOR")
 	private String usuarioAtualizador;
+
 
 	
 	//------------------------------------------------
@@ -106,8 +107,7 @@ public class Problema implements Serializable {
 		return "Problema [id=" + this.id
 				+ ", titulo=" + this.titulo
 				+ ", descricao=" + this.descricao
-				+ ", categoria=" + this.categoria
-				+ ", ciclo=" + this.ciclo
+				+ ", idCiclo=" + this.idCiclo
 				+ ", status=" + this.status
 				+ ", dataCriacao=" + this.dataCriacao
 				+ ", usuarioCriador=" + this.usuarioCriador
@@ -149,24 +149,15 @@ public class Problema implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public CategoriaProblema getCategoria() {
 
-		return this.categoria;
+	public Ciclo getIdCiclo() {
+
+		return this.idCiclo;
 	}
 
-	public void setCategoria(final CategoriaProblema categoria) {
+	public void setCiclo(final Ciclo idCiclo) {
 
-		this.categoria = categoria;
-	}
-
-	public Ciclo getCiclo() {
-
-		return this.ciclo;
-	}
-
-	public void setCiclo(final Ciclo ciclo) {
-
-		this.ciclo = ciclo;
+		this.idCiclo = idCiclo;
 	}
 
 	public StatusProblema getStatus() {

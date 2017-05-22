@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
@@ -25,26 +27,25 @@ public class CategoriaProblema implements Serializable {
 
 	@Column(name = "CATEGORIA")
 	private String categoria;
-
+		
+	@OneToMany // VERIFICAR RELAÇÃO
+	@JoinColumn(name = "USUARIO_CRIADOR")
+	private String usuarioCriador;
+	
+	
+	@Column(name = "USUARIO_ATUALIZADOR")
+	private String usuarioAtualizador;
+	
 	@Column(name = "DATA_CRIACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
-
-	@Column(name = "CRIADOR")
-	private String criador;
-
+	
 	@Column(name = "DATA_ATUALIZACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
 
-	
-	@Column(name = "ATUALIZADOR")
-	private String atualizador; // VERIFICAR
-
 	@Column(name = "ATIVO")
 	private boolean ativo;
-
-	// -------------------------------------------------------
 
 	@Override
 	public int hashCode() {
@@ -73,12 +74,15 @@ public class CategoriaProblema implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CategoriaProblema [id=" + this.id + ", categoria=" + this.categoria + ", dataCriacao="
-				+ this.dataCriacao + ", criador=" + this.criador + ", dataAtualizacao=" + this.dataAtualizacao
-				+ ", atualizador=" + this.atualizador + ", ativo=" + this.ativo + "]";
+		return "CategoriaProblema [id=" + this.id 
+				+ ", categoria=" + this.categoria 
+				+ ", usuarioCriador=" + this.usuarioCriador
+				+ ", usuarioAtualizador=" + this.usuarioAtualizador 
+				+ ", dataCriacao=" + this.dataCriacao 
+				+ ", dataAtualizacao=" + this.dataAtualizacao 
+				+ ", ativo=" + this.ativo 
+				+ "]";
 	}
-
-	// --------------------------------------------------
 
 	public Long getId() {
 		return id;
@@ -96,20 +100,28 @@ public class CategoriaProblema implements Serializable {
 		this.categoria = categoria;
 	}
 
+	public String getUsuarioCriador() {
+		return usuarioCriador;
+	}
+
+	public void setUsuarioCriador(String usuarioCriador) {
+		this.usuarioCriador = usuarioCriador;
+	}
+
+	public String getUsuarioAtualizador() {
+		return usuarioAtualizador;
+	}
+
+	public void setUsuarioAtualizador(String usuarioAtualizador) {
+		this.usuarioAtualizador = usuarioAtualizador;
+	}
+
 	public Date getDataCriacao() {
 		return dataCriacao;
 	}
 
 	public void setDataCriacao(Date dataCriacao) {
 		this.dataCriacao = dataCriacao;
-	}
-
-	public String getCriador() {
-		return criador;
-	}
-
-	public void setCriador(String criador) {
-		this.criador = criador;
 	}
 
 	public Date getDataAtualizacao() {
@@ -120,14 +132,6 @@ public class CategoriaProblema implements Serializable {
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public String getAtualizador() {
-		return atualizador;
-	}
-
-	public void setAtualizador(String atualizador) {
-		this.atualizador = atualizador;
-	}
-
 	public boolean isAtivo() {
 		return ativo;
 	}
@@ -136,6 +140,6 @@ public class CategoriaProblema implements Serializable {
 		this.ativo = ativo;
 	}
 
-	// --------------------------------------------------------
+	
 
 }
