@@ -19,7 +19,7 @@ public class Setor implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_setor")
 	@SequenceGenerator(name = "sq_setor", sequenceName = "sq_setor", allocationSize = 1)
 	@Column(name = "ROW_ID")
-	private Long id;
+	public Long id;
 	
 	@Column(name = "NOME")
 	private String nome;

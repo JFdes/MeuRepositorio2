@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,12 +20,12 @@ public class CategoriaProblema implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_categoriaProblema")
 	@SequenceGenerator(name = "sq_categoriaProblema", sequenceName = "sq_categoriaProblema", allocationSize = 1)
 	@Column(name = "ROW_ID")
-	private Long id;
+	public Long id;
 
 	// --------------------------------------------------------
 
-	@Column(name = "CATEGORIA")
-	private String categoria;
+	@Column(name = "NOME_CATEGORIA")
+	private String nomeCategoria;
 		
 	@OneToMany // VERIFICAR RELAÇÃO
 	@JoinColumn(name = "USUARIO_CRIADOR")
@@ -75,7 +74,7 @@ public class CategoriaProblema implements Serializable {
 	@Override
 	public String toString() {
 		return "CategoriaProblema [id=" + this.id 
-				+ ", categoria=" + this.categoria 
+				+ ", nomeCategoria=" + this.nomeCategoria 
 				+ ", usuarioCriador=" + this.usuarioCriador
 				+ ", usuarioAtualizador=" + this.usuarioAtualizador 
 				+ ", dataCriacao=" + this.dataCriacao 
@@ -93,11 +92,11 @@ public class CategoriaProblema implements Serializable {
 	}
 
 	public String getCategoria() {
-		return categoria;
+		return nomeCategoria;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
 	}
 
 	public String getUsuarioCriador() {

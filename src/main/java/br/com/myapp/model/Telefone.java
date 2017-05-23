@@ -19,7 +19,7 @@ public class Telefone implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_telefone")
 	@SequenceGenerator(name = "sq_telefone", sequenceName = "sq_telefone", allocationSize = 1)
 	@Column(name = "ROW_ID")
-	private Long id;
+	public Long id;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_Cliente")

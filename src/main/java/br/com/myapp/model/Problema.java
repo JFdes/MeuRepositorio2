@@ -26,7 +26,7 @@ public class Problema implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_problema")
 	@SequenceGenerator(name = "sq_problema", sequenceName = "sq_problema", allocationSize = 1)
 	@Column(name = "ROW_ID")
-	private Long id;
+	public Long id;
 	
 	
 	@ManyToOne

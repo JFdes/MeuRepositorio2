@@ -20,7 +20,7 @@ public class Funcionario implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_funcionario")
 	@SequenceGenerator(name = "sq_funcionario", sequenceName = "sq_funcionario", allocationSize = 1)
 	@Column(name = "ROW_ID")
-	private Long id;
+	public Long id;
 	
 	
 	@Column(name = "NOME")

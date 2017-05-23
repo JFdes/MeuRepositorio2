@@ -23,7 +23,7 @@ public class CategoriaCliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_categoriaCliente")
 	@SequenceGenerator(name = "sq_categoriaCliente", sequenceName = "sq_categoriaCliente", allocationSize = 1)
 	@Column(name = "ROW_ID")
-	private Long id;
+	public Long id;
 
 	@Column(name = "CATEGORIA")
 	private String categoria;

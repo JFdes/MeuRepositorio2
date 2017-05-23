@@ -22,7 +22,7 @@ public class Ciclo implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_ciclo")
 	@SequenceGenerator(name = "sq_ciclo", sequenceName = "sq_ciclo", allocationSize = 1)
 	@Column(name = "ROW_ID")
-	private Long id;
+	public Long id;
 	
 	@Column(name = "DESCRICAO")
 	private String descricao;
