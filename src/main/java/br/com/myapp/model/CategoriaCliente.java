@@ -1,7 +1,7 @@
 package br.com.myapp.model;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,8 +28,7 @@ public class CategoriaCliente implements Serializable {
 	@Column(name = "CATEGORIA")
 	private String categoria;
 		
-	@OneToMany // VERIFICAR RELAÇÃO
-	@JoinColumn(name = "USUARIO_CRIADOR")
+	@Column(name = "USUARIO_CRIADOR")
 	private String usuarioCriador;
 	
 	

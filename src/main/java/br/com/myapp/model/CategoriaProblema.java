@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@Entity
 public class CategoriaProblema implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,8 +29,7 @@ public class CategoriaProblema implements Serializable {
 	@Column(name = "NOME_CATEGORIA")
 	private String nomeCategoria;
 		
-	@OneToMany // VERIFICAR RELAÇÃO
-	@JoinColumn(name = "USUARIO_CRIADOR")
+	@Column(name = "USUARIO_CRIADOR")
 	private String usuarioCriador;
 	
 	

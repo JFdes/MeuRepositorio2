@@ -3,14 +3,16 @@ package br.com.myapp.model;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+
+@Entity
 public class Telefone implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -25,15 +27,15 @@ public class Telefone implements Serializable {
 	@JoinColumn(name = "ID_Cliente")
 	private Cliente idCliente;
 	
-	@ManyToOne
+	
 	@Column(name = "DDD")
 	private String ddd;
 	
-	@ManyToOne
+	
 	@Column(name = "NUMERO")
 	private String numero;
 	
-	@ManyToOne
+	
 	@Column(name = "TIPO")
 	private String tipo;
 
