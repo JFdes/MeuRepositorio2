@@ -16,7 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
+@Entity(name = "PROBLEMA")
 public class Problema implements Serializable {
 
 	private static final long serialVersionUID = 6650624143219863781L;

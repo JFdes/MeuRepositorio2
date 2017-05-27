@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 
-@Entity
+@Entity(name = "TELEFONE")
 public class Telefone implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

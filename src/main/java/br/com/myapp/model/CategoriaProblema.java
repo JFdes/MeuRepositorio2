@@ -8,14 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
+@Entity(name = "CATEGORIA_PROBLEMA")
 public class CategoriaProblema implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,18 +27,17 @@ public class CategoriaProblema implements Serializable {
 
 	@Column(name = "NOME_CATEGORIA")
 	private String nomeCategoria;
-		
+
 	@Column(name = "USUARIO_CRIADOR")
 	private String usuarioCriador;
-	
-	
+
 	@Column(name = "USUARIO_ATUALIZADOR")
 	private String usuarioAtualizador;
-	
+
 	@Column(name = "DATA_CRIACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
-	
+
 	@Column(name = "DATA_ATUALIZACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
@@ -74,14 +72,9 @@ public class CategoriaProblema implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CategoriaProblema [id=" + this.id 
-				+ ", nomeCategoria=" + this.nomeCategoria 
-				+ ", usuarioCriador=" + this.usuarioCriador
-				+ ", usuarioAtualizador=" + this.usuarioAtualizador 
-				+ ", dataCriacao=" + this.dataCriacao 
-				+ ", dataAtualizacao=" + this.dataAtualizacao 
-				+ ", ativo=" + this.ativo 
-				+ "]";
+		return "CategoriaProblema [id=" + this.id + ", nomeCategoria=" + this.nomeCategoria + ", usuarioCriador="
+				+ this.usuarioCriador + ", usuarioAtualizador=" + this.usuarioAtualizador + ", dataCriacao="
+				+ this.dataCriacao + ", dataAtualizacao=" + this.dataAtualizacao + ", ativo=" + this.ativo + "]";
 	}
 
 	public Long getId() {
@@ -139,7 +132,5 @@ public class CategoriaProblema implements Serializable {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-
-	
 
 }
