@@ -1,16 +1,14 @@
-<style>
-
-div {
+<
+style>div {
 	
 }
 
 .fill-height {
-
-    background-color: #ffffff;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    width: 100%;
+	background-color: #ffffff;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	width: 100%;
 	border-left: 1px solid #e7e7e7;
 	margin-left: 250px;
 }
@@ -23,13 +21,13 @@ div {
 }
 
 .dropdown-menu-personalizado {
-    border-radius: 0 !important;
-    border: none !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    position: relative !important;
-    width: 100% !important;
+	border-radius: 0 !important;
+	border: none !important;
+	box-shadow: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	position: relative !important;
+	width: 100% !important;
 }
 
 .sidebar-nav li {
@@ -37,15 +35,14 @@ div {
 	text-align: left;
 }
 
-.sidebar-nav > li > a {
+.sidebar-nav>li>a {
 	padding-left: 30px !important;
-}	
+}
 
 .main-content {
 	position: absolute;
 	right: 0;
 	left: 250px;
-	
 }
 
 .navbar {
@@ -75,7 +72,7 @@ div {
 	height: 50px;
 }
 
-#myNavbar > .navbar-nav {
+#myNavbar>.navbar-nav {
 	margin-left: 30px;
 }
 
@@ -115,7 +112,7 @@ div {
 	margin-bottom: 25px;
 }
 
-.content-inline-block > input {
+.content-inline-block>input {
 	display: inline-block;
 }
 
@@ -137,7 +134,7 @@ input.ui-state-error {
 
 .ui-dialog-titlebar {
 	background-color: #85b2cb !important;
-    font-size: 2em !important;
+	font-size: 2em !important;
 	padding: .3em .4em .2em 1em !important;
 }
 
@@ -147,25 +144,25 @@ input.ui-state-error {
 
 .commandbutton-as-icon {
 	background-color: transparent !important;
-    background-size: 0px !important;
-    border: 0 !important;
-    padding: 0 !important;
+	background-size: 0px !important;
+	border: 0 !important;
+	padding: 0 !important;
 }
 
 .ui-selectonemenu-trigger {
 	padding: 0px !important;
 }
 
-.table-check > .form-group {
+.table-check>.form-group {
 	margin-bottom: 0px !important;
 }
 
 .modal-questao .modal-dialog {
-	width: 940px;	
+	width: 940px;
 }
 
 .modal-comentario-lote .modal-dialog {
-	width: 485px;	
+	width: 485px;
 }
 
 .main-content {
@@ -186,4 +183,7 @@ input.ui-state-error {
 	background-color: transparent !important;
 }
 
-</style>
+
+</
+style
+>

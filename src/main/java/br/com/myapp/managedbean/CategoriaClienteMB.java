@@ -61,6 +61,8 @@ public class CategoriaClienteMB {
 			}
 		}
 	}
+	
+	//---------------------------------------------Método para salvar a Categoria:
 
 	public void salvar() {
 
@@ -71,12 +73,14 @@ public class CategoriaClienteMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 
-		this.doRedirect("/faltas/registro.xhtml");
+		this.doRedirect("/webapp/index.xhtml");
 	}
+	
+	//---------------------------------------------Método para editar a Categoria:
 
 	public void editar() {
 
-		this.doRedirect("/categoriaClientes/cadastro.xhtml?id=" + this.categoriaCliente.getId());
+		this.doRedirect("/clientes/cliente.xhtml?id=" + this.categoriaCliente.getId());
 	}
 
 	public void remover() {

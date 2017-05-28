@@ -8,7 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import br.com.myapp.dao.CicloDAO;
-import br.com.myapp.dao.IntegranteDAO;
 import br.com.myapp.exception.DAOException;
 import br.com.myapp.model.Ciclo;
 

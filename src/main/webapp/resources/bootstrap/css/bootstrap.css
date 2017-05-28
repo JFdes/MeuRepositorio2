@@ -6753,6 +6753,15 @@ button.close {
 .visible-print-inline-block {
   display: none !important;
 }
+
+
+.cliente {
+	width: 16px; height: 16px;
+	background-image: url("#{resources['images/cliente.png']}")
+		!important;
+}
+
+
 @media print {
   .visible-print-inline-block {
     display: inline-block !important;
