@@ -92,7 +92,10 @@
 			<p:menuitem value="Cadastrar Cliente" url="/clientes/cliente.xhtml" icon="ui-icon-person" />
 		</p:submenu>
 			<p:menuitem value="Registrar" url="/faltas/registro.xhtml" icon="ui-icon-gear" />
-			<p:menuitem value="Listar" url="/listagem/consulta.xhtml" icon="ui-icon-document" />
+		<p:submenu label="Listar" icon="ui-icon-person">
+			<p:menuitem value="Categoria Cliente" url="/listagem/consultaCategoriaCliente.xhtml" icon="ui-icon-tag" />
+			<p:menuitem value="Cliente" url="/listagem/consultaCliente.xhtml" icon="ui-icon-person" />
+		</p:submenu>
 		</p:menubar>
 
 		<div class="text-center">

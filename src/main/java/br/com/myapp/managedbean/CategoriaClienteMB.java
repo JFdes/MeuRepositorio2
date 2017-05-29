@@ -73,15 +73,17 @@ public class CategoriaClienteMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 
-		this.doRedirect("/webapp/index.xhtml");
+		this.doRedirect("/listagem/consultaCategoriaCliente.xhtml");
 	}
 	
 	//---------------------------------------------Método para editar a Categoria:
 
 	public void editar() {
 
-		this.doRedirect("/clientes/cliente.xhtml?id=" + this.categoriaCliente.getId());
+		this.doRedirect("/clientes/categoriaCliente.xhtml?id=" + this.categoriaCliente.getId());
 	}
+	
+	
 
 	public void remover() {
 
