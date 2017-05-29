@@ -33,6 +33,17 @@
 						value="#{categoriaClienteMB.categoriaCliente.categoria}"
 						class="form-control" style="width: 500px" required="true" />
 				</h:panelGrid>
+				
+				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
+					width="100%" styleClass="marginBottomForm">
+					<p:outputLabel for="ativo" value="Status:" />
+					<p:selectOneRadio required="true" id="ativo" value="#{categoriaClienteMB.categoriaCliente.ativo}" class="form-control" style="width: 250px" >
+						<f:selectItem itemLabel="Ativado" itemValue="true"/>
+						<f:selectItem itemLabel="Desativado" itemValue="false" />	
+					</p:selectOneRadio>
+					
+					
+				</h:panelGrid>
 
 
 				<h:panelGrid columns="2" columnClasses="column-padding, column-left"

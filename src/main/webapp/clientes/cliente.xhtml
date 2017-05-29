@@ -13,7 +13,7 @@
 
 	<div style="padding-top: 20px" class="panel-body col-xs-12">
 		<h:form id="alunoForm">
-		<h1><img src="../resources/images/cadastrar.png" />#{integranteMB.integrante.id == null ? 'Cadastro de Integrante': 'Integrante Cadastrado: '.concat(integranteMB.integrante.nome)}</h1>
+		<h1><img src="../resources/images/cadastrar.png" />#{clienteMB.cliente.id == null ? 'Cadastro de Cliente': 'Cliente Cadastrado: '.concat(clienteMB.cliente.nomeFantasia)}</h1>
 			<hr></hr>
 		
 			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" showIcon="true" />
@@ -23,68 +23,20 @@
 			
 			
 			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<p:outputLabel for="nome" value="Nome:" />
-				<p:inputText id="nome" value="#{integranteMB.integrante.nome}" class="form-control" style="width: 500px" required="true"/>
-			</h:panelGrid>	
-			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<p:outputLabel for="cpf" value="CPF:" />
-				<p:inputText id="cpf" value="#{integranteMB.integrante.cpf}" class="form-control" style="width: 300px" required="true"/>
-			</h:panelGrid>
-			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<p:outputLabel for="dataNascimento" value="Data Nascimento:" />
-        		<p:calendar id="dataNascimento" value="#{integranteMB.integrante.dataNascimento}" pattern="dd-MM-yyyy" mask="true" />
-			</h:panelGrid>
-			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<p:outputLabel for="sexo" value="Sexo:" />
-		        <p:selectOneMenu id="sexo" value="#{integranteMB.integrante.sexo}" style="width:125px">
-		            <f:selectItem itemLabel="Selecione..." itemValue="" />
-		            <f:selectItems value="#{integranteMB.sexos}" var="sexo" itemLabel="#{sexo.value}" itemValue="#{sexo}" />
-		        </p:selectOneMenu>
-		    </h:panelGrid>
-			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<p:outputLabel for="email" value="Email:" />
-				<p:inputText id="email" value="#{integranteMB.integrante.email}" class="form-control" style="width: 400px" required="true"/>
-			</h:panelGrid>
-			
-			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<p:outputLabel for="logradouro" value="Logradouro" />
-				<p:inputText id="logradouro" value="#{integranteMB.integrante.logradouro}" class="form-control" style="width: 500px" required="true"/>
+				<p:outputLabel for="nomeFantasia" value="NomeFantasia:" />
+				<p:inputText id="nomeFantasia" value="#{clienteMB.cliente.nomeFantasia}" class="form-control" style="width: 500px" required="true"/>
 			</h:panelGrid>	
 			
 			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<p:outputLabel for="numero" value="Numero" />
-				<p:inputText id="numero" value="#{integranteMB.integrante.numero}" class="form-control" style="width: 70px" required="true"/>
-			</h:panelGrid>	
 			
 			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<p:outputLabel for="cidade" value="Cidade" />
-				<p:inputText id="cidade" value="#{integranteMB.integrante.cidade}" class="form-control" style="width: 300px" required="true"/>
-			</h:panelGrid>
-			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<p:outputLabel for="uf" value="UF" />
-				<p:inputText id="uf" value="#{integranteMB.integrante.uf}" class="form-control" style="width: 50px" required="true"/>
-			</h:panelGrid>
-			
-			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<p:outputLabel for="cep" value="CEP" />
-				<p:inputText id="cep" value="#{integranteMB.integrante.cep}" class="form-control" style="width: 300px" required="true"/>
-			</h:panelGrid>
 			
 			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
 				<h:panelGroup />
 				
 				<h:panelGroup>
-					<b:commandButton value="Salvar" class="btn btn-primary" actionListener="#{integranteMB.salvar()}"></b:commandButton>
-					<a href="/myapp/integrantes/cadastro.xhtml" class="btn btn-warn" >
+					<b:commandButton value="Salvar" class="btn btn-primary" actionListener="#{clienteMB.salvar()}"></b:commandButton>
+					<a href="/myapp/clientes/cliente.xhtml" class="btn btn-warn" >
 						
 					</a>
 					

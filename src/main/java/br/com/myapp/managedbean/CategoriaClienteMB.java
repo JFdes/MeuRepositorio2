@@ -2,8 +2,6 @@ package br.com.myapp.managedbean;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +18,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
 import br.com.myapp.model.CategoriaCliente;
-import br.com.myapp.model.Sexo;
 import br.com.myapp.service.CategoriaClienteService;
 
 @ManagedBean
@@ -42,7 +39,8 @@ public class CategoriaClienteMB {
 	private CategoriaCliente categoriaCliente = new CategoriaCliente();
 
 	private List<CategoriaCliente> categoriaClientes = new ArrayList<CategoriaCliente>();
-
+	
+	
 	//----------------------------------------------	
 	@EJB
 	private CategoriaClienteService categoriaClienteService;
@@ -118,11 +116,6 @@ public class CategoriaClienteMB {
 
 	
 	
-	
-	public Collection<Sexo> getSexos() {
-
-		return Arrays.asList(Sexo.values());
-	}
 	
 	
 	//----------------------------------------------
