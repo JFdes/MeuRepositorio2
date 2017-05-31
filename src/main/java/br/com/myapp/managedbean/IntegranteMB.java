@@ -231,7 +231,10 @@ public class IntegranteMB {
 		this.integrante = integrante;
 	}
 
-	public List<Integrante> getIntegrantes() throws BusinessException {
+	
+	//----------------------------------------------- carrega a lista para o redirecionamento da View.
+	
+	public List<Integrante> getIntegrantes() throws BusinessException { 
 
 		this.integrantes = (List<Integrante>) this.integranteService.buscarTodos();
 		return this.integrantes;

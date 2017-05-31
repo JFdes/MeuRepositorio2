@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
 import br.com.myapp.model.CategoriaCliente;
+import br.com.myapp.model.Integrante;
 import br.com.myapp.service.CategoriaClienteService;
 
 @ManagedBean
@@ -176,26 +177,23 @@ public class CategoriaClienteMB {
 		this.categoriaCliente = categoriaCliente;
 	}
 
-	public List<CategoriaCliente> getCategoriaClientes() {
-		return categoriaClientes;
-	}
-
-	public void setCategoriaClientes(List<CategoriaCliente> categoriaClientes) {
-		this.categoriaClientes = categoriaClientes;
-	}
-
-	public CategoriaClienteService getCategoriaClienteService() {
-		return categoriaClienteService;
-	}
-
-	public void setCategoriaClienteService(CategoriaClienteService categoriaClienteService) {
-		this.categoriaClienteService = categoriaClienteService;
-	}
-	
-	//----------------------------------------------
-	
 	
 
+	//----------------------------------------------- carrega a lista para o redirecionamento da View.
+	
+		public List<CategoriaCliente> getCategoriaClientes() throws BusinessException { 
+
+			this.categoriaClientes = (List<CategoriaCliente>) this.categoriaClienteService.buscarTodos();
+			return this.categoriaClientes;
+		}
+
+		public void setCategoriaClientes(final List<CategoriaCliente> categoriaClientes) {
+
+			this.categoriaClientes = categoriaClientes;
+		}
+		
+		
+	//--------------------------------------------------
 
 
 }

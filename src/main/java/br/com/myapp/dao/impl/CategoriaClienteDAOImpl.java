@@ -27,12 +27,13 @@ public class CategoriaClienteDAOImpl implements CategoriaClienteDAO {
 		}
 	}
 
+	//-------------------------------------Carrega todos os dados do banco.
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<CategoriaCliente> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from Integrante i";
+			final String jpql = "select i from CATEGORIA_CLIENTE i";
 			final Query query = this.em.createQuery(jpql, CategoriaCliente.class);
 			return query.getResultList();
 		} catch (final Exception e) {
@@ -54,7 +55,7 @@ public class CategoriaClienteDAOImpl implements CategoriaClienteDAO {
 	public void deletar(final CategoriaCliente categoriaCliente) throws DAOException {
 
 		try {
-			final String jpql = "delete from Integrante where id = :id";
+			final String jpql = "delete from CATEGORIA_CLIENTE where id = :id";
 			final Query query = this.em.createQuery(jpql);
 			query.setParameter("id", categoriaCliente.getId());
 			query.executeUpdate();
@@ -77,7 +78,7 @@ public class CategoriaClienteDAOImpl implements CategoriaClienteDAO {
 	public CategoriaCliente buscar(final Long id) throws DAOException {
 
 		try {
-			final String jpql = "select i from Integrante i where i.id = :id";
+			final String jpql = "select i from CATEGORIA_CLIENTE i where i.id = :id";
 			final Query query = this.em.createQuery(jpql, CategoriaCliente.class);
 			query.setParameter("id", id);
 			return (CategoriaCliente) query.getSingleResult();

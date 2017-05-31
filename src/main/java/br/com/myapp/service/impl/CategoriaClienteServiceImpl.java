@@ -21,10 +21,13 @@ public class CategoriaClienteServiceImpl implements CategoriaClienteService {
 	public void criar(final CategoriaCliente categoriaCliente) throws BusinessException {
 
 		try {
+
 			if(categoriaCliente.id==null){
 				this.dao.criar(categoriaCliente);
 			}
-						
+			else
+				atualizar(categoriaCliente);
+			
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
