@@ -32,7 +32,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
 	public Collection<Telefone> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from Telefone i";
+			final String jpql = "select i from TELEFONE i";
 			final Query query = this.em.createQuery(jpql, Telefone.class);
 			return query.getResultList();
 		} catch (final Exception e) {
@@ -54,7 +54,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
 	public void deletar(final Telefone telefone) throws DAOException {
 
 		try {
-			final String jpql = "delete from Telefone where id = :id";
+			final String jpql = "delete from TELEFONE where id = :id";
 			final Query query = this.em.createQuery(jpql);
 			query.setParameter("id", telefone.getId());
 			query.executeUpdate();
@@ -77,7 +77,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
 	public Telefone buscar(final Long id) throws DAOException {
 
 		try {
-			final String jpql = "select i from Telefone i where i.id = :id";
+			final String jpql = "select i from TELEFONE i where i.id = :id";
 			final Query query = this.em.createQuery(jpql, Telefone.class);
 			query.setParameter("id", id);
 			return (Telefone) query.getSingleResult();

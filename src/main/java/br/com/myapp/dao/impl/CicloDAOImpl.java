@@ -32,7 +32,7 @@ public class CicloDAOImpl implements CicloDAO {
 	public Collection<Ciclo> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from Ciclo i";
+			final String jpql = "select i from CICLO i";
 			final Query query = this.em.createQuery(jpql, Ciclo.class);
 			return query.getResultList();
 		} catch (final Exception e) {
@@ -77,7 +77,7 @@ public class CicloDAOImpl implements CicloDAO {
 	public Ciclo buscar(final Long id) throws DAOException {
 
 		try {
-			final String jpql = "select i from Ciclo i where i.id = :id";
+			final String jpql = "select i from CICLO i where i.id = :id";
 			final Query query = this.em.createQuery(jpql, Ciclo.class);
 			query.setParameter("id", id);
 			return (Ciclo) query.getSingleResult();

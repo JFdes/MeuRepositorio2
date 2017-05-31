@@ -32,7 +32,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 	public Collection<Cliente> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from Cliente i";
+			final String jpql = "select i from CLIENTE i";
 			final Query query = this.em.createQuery(jpql, Cliente.class);
 			return query.getResultList();
 		} catch (final Exception e) {
@@ -54,7 +54,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 	public void deletar(final Cliente cliente) throws DAOException {
 
 		try {
-			final String jpql = "delete from Cliente where id = :id";
+			final String jpql = "delete from CLIENTE where id = :id";
 			final Query query = this.em.createQuery(jpql);
 			query.setParameter("id", cliente.getId());
 			query.executeUpdate();
@@ -77,7 +77,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 	public Cliente buscar(final Long id) throws DAOException {
 
 		try {
-			final String jpql = "select i from Cliente i where i.id = :id";
+			final String jpql = "select i from CLIENTE i where i.id = :id";
 			final Query query = this.em.createQuery(jpql, Cliente.class);
 			query.setParameter("id", id);
 			return (Cliente) query.getSingleResult();

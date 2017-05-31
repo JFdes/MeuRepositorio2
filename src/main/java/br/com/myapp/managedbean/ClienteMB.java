@@ -341,13 +341,21 @@ public class ClienteMB {
 		this.cliente = cliente;
 	}
 
-	public List<Cliente> getClientes() {
-		return clientes;
-	}
+	
+	//----------------------------------------------- carrega a lista para o redirecionamento da View.
+	
+		public List<Cliente> getClientes() throws BusinessException { 
 
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
-	}
+			this.clientes = (List<Cliente>) this.clienteService.buscarTodos();
+			return this.clientes;
+		}
+
+		public void setClientes(final List<Cliente> clientes) {
+
+			this.clientes = clientes;
+		}
+	
+	
 
 	public ClienteService getClienteService() {
 		return clienteService;

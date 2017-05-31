@@ -32,7 +32,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 	public Collection<Funcionario> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from Funcionario i";
+			final String jpql = "select i from FUNCIONARIO i";
 			final Query query = this.em.createQuery(jpql, Funcionario.class);
 			return query.getResultList();
 		} catch (final Exception e) {
@@ -54,7 +54,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 	public void deletar(final Funcionario funcionario) throws DAOException {
 
 		try {
-			final String jpql = "delete from Funcionario where id = :id";
+			final String jpql = "delete from FUNCIONARIO where id = :id";
 			final Query query = this.em.createQuery(jpql);
 			query.setParameter("id", funcionario.getId());
 			query.executeUpdate();
@@ -77,7 +77,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 	public Funcionario buscar(final Long id) throws DAOException {
 
 		try {
-			final String jpql = "select i from Funcionario i where i.id = :id";
+			final String jpql = "select i from FUNCIONARIO i where i.id = :id";
 			final Query query = this.em.createQuery(jpql, Funcionario.class);
 			query.setParameter("id", id);
 			return (Funcionario) query.getSingleResult();

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui">
+
+<ui:composition template="/template.xhtml">
+
+	<ui:define name="content">
+
+		<div style="padding-top: 20px" class="panel-body col-xs-12">
+			<h:form id="alunoForm">
+				<h1>
+					<img src="../resources/images/cadastrar.png" />#{categoriaProblemaMB.categoriaProblema.id
+					== null ? 'Cadastro Categoria de Problemas': 'Categoria de Problema Cadastrada:
+					'.concat(categoriaProblemaMB.categoriaProblema.nomeCategoria)}
+				</h1>
+				<hr></hr>
+
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" globalOnly="true" showIcon="true" />
+
+				<p:spacer height="20px"></p:spacer>
+
+
+				
+				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
+					width="100%" styleClass="marginBottomForm">
+					<p:outputLabel for="categoria" value="Categoria:" />
+					<p:inputText id="categoria"
+						value="#{categoriaProblemaMB.categoriaProblema.categoria}"
+						class="form-control" style="width: 500px" required="true" />
+				</h:panelGrid>
+				
+				
+
+				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
+					width="100%" styleClass="marginBottomForm">
+					<p:outputLabel for="ativo" value="Status:" />
+					<p:selectOneRadio required="true" id="ativo"
+						value="#{categoriaProblemaMB.categoriaProblema.ativo}"
+						class="form-control" style="width: 250px">
+						<f:selectItem itemLabel="Ativado" itemValue="true" />
+						<f:selectItem itemLabel="Desativado" itemValue="false" />
+					</p:selectOneRadio>
+				</h:panelGrid>
+
+
+				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
+					width="100%" styleClass="marginBottomForm">
+					<h:panelGroup />
+
+					<h:panelGroup>
+						<b:commandButton value="Salvar" class="btn btn-primary"
+							actionListener="#{categoriaProblemaMB.salvar()}"></b:commandButton>
+						<a href="/myapp/problemas/categoriaProblema.xhtml"
+							class="btn btn-warn"> </a>
+
+
+					</h:panelGroup>
+				</h:panelGrid>
+				
+				
+				
+				
+
+			</h:form>
+		</div>
+
+	</ui:define>
+
+</ui:composition>
+
+</html>

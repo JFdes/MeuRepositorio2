@@ -17,33 +17,35 @@ import javax.faces.context.FacesContext;
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
-import br.com.myapp.model.CategoriaCliente;
-import br.com.myapp.service.CategoriaClienteService;
+import br.com.myapp.model.CategoriaProblema;
+import br.com.myapp.service.CategoriaProblemaService;
 
 @ManagedBean
 @ViewScoped
-public class CategoriaClienteMB {
+public class CategoriaProblemaMB {
 
-	private String categoria;
 	
+	//---------------------------------------------------- Atributos da classe.
+	private CategoriaProblema categoriaProblema = new CategoriaProblema();
+
+	private List<CategoriaProblema> categoriaProblemas = new ArrayList<CategoriaProblema>();
+	
+	private String nomeCategoria;
+
 	private String usuarioCriador;
-	
+
 	private String usuarioAtualizador;
-	
+
 	private Date dataCriacao;
-	
+
 	private Date dataAtualizacao;
 
 	private boolean ativo;
-
-	private CategoriaCliente categoriaCliente = new CategoriaCliente();
-
-	private List<CategoriaCliente> categoriaClientes = new ArrayList<CategoriaCliente>();
 	
-	
-	//----------------------------------------------	
+	//-----------------------------------------------------
+
 	@EJB
-	private CategoriaClienteService categoriaClienteService;
+	private CategoriaProblemaService categoriaProblemaService;
 
 	@PostConstruct
 	public void init() {
@@ -53,45 +55,45 @@ public class CategoriaClienteMB {
 		if (StringUtils.isNotBlank(id)) {
 
 			try {
-				this.categoriaCliente = this.categoriaClienteService.buscar(Long.valueOf(id));
+				this.categoriaProblema = this.categoriaProblemaService.buscar(Long.valueOf(id));
 			} catch (final BusinessException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	//---------------------------------------------Método para salvar a Categoria:
 
+	//----------------------------------------------------- Método salvar.
 	public void salvar() {
 
 		try {
 
-			this.categoriaClienteService.criar(this.categoriaCliente);
+			this.categoriaProblemaService.criar(this.categoriaProblema);
 		} catch (final BusinessException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 
-		this.doRedirect("/listagem/consultaCategoriaCliente.xhtml");
+		this.doRedirect("/listagem/consultaCategoriaProblema.xhtml"); // Redireciona para a wiew de listagem.
 	}
-	
-	//---------------------------------------------Método para editar a Categoria:
 
+	//----------------------------------------------------- Método editar (redireciona para a wiew de cadastro)
 	public void editar() {
 
-		this.doRedirect("/clientes/categoriaCliente.xhtml?id=" + this.categoriaCliente.getId());
+		this.doRedirect("/problemas/problema.xhtml?id=" + this.categoriaProblema.getId());
 	}
 	
-	
+	//----------------------------------------------------- Método remover.
 
 	public void remover() {
 
 		try {
 
-			this.categoriaClienteService.deletar(this.categoriaCliente);
+			this.categoriaProblemaService.deletar(this.categoriaProblema);
 		} catch (final BusinessException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 	}
+	
+	//-----------------------------------------------------
 
 	public void doRedirect(final String redirectPage) throws FacesException {
 
@@ -104,7 +106,7 @@ public class CategoriaClienteMB {
 		}
 	}
 	
-	//----------------------------------------------	
+	//-----------------------------------------------------
 
 	public String getParam(final String param) {
 
@@ -114,18 +116,41 @@ public class CategoriaClienteMB {
 		return projectId;
 	}
 
+	//-----------------------------------------------
 	
 	
-	
-	
-	//----------------------------------------------
+	public CategoriaProblema getCategoriaProblema() {
 
-	public String getCategoria() {
-		return categoria;
+		return this.categoriaProblema;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setCategoriaProblema(final CategoriaProblema categoriaProblema) {
+
+		this.categoriaProblema = categoriaProblema;
+	}
+
+	
+	//----------------------------------------------- (get e set da lista) carrega a lista para o redirecionamento da View.
+	
+	public List<CategoriaProblema> getCategoriaProblemas() throws BusinessException { 
+
+		this.categoriaProblemas = (List<CategoriaProblema>) this.categoriaProblemaService.buscarTodos();
+		return this.categoriaProblemas;
+	}
+
+	public void setCategoriaProblemas(final List<CategoriaProblema> categoriaProblemas) {
+
+		this.categoriaProblemas = categoriaProblemas;
+	}
+	
+	//-----------------------------------------------------
+
+	public String getNomeCategoria() {
+		return nomeCategoria;
+	}
+
+	public void setNomeCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
 	}
 
 	public String getUsuarioCriador() {
@@ -168,31 +193,12 @@ public class CategoriaClienteMB {
 		this.ativo = ativo;
 	}
 
-	public CategoriaCliente getCategoriaCliente() {
-		return categoriaCliente;
+	public CategoriaProblemaService getCategoriaProblemaService() {
+		return categoriaProblemaService;
 	}
 
-	public void setCategoriaCliente(CategoriaCliente categoriaCliente) {
-		this.categoriaCliente = categoriaCliente;
+	public void setCategoriaProblemaService(CategoriaProblemaService categoriaProblemaService) {
+		this.categoriaProblemaService = categoriaProblemaService;
 	}
-
 	
-
-	//----------------------------------------------- carrega a lista para o redirecionamento da View.
-	
-		public List<CategoriaCliente> getCategoriaClientes() throws BusinessException { 
-
-			this.categoriaClientes = (List<CategoriaCliente>) this.categoriaClienteService.buscarTodos();
-			return this.categoriaClientes;
-		}
-
-		public void setCategoriaClientes(final List<CategoriaCliente> categoriaClientes) {
-
-			this.categoriaClientes = categoriaClientes;
-		}
-		
-		
-	//--------------------------------------------------
-
-
 }

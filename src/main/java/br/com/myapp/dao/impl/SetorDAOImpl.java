@@ -32,7 +32,7 @@ public class SetorDAOImpl implements SetorDAO {
 	public Collection<Setor> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from Setor i";
+			final String jpql = "select i from SETOR i";
 			final Query query = this.em.createQuery(jpql, Setor.class);
 			return query.getResultList();
 		} catch (final Exception e) {
@@ -54,7 +54,7 @@ public class SetorDAOImpl implements SetorDAO {
 	public void deletar(final Setor setor) throws DAOException {
 
 		try {
-			final String jpql = "delete from Setor where id = :id";
+			final String jpql = "delete from SETOR where id = :id";
 			final Query query = this.em.createQuery(jpql);
 			query.setParameter("id", setor.getId());
 			query.executeUpdate();
@@ -77,7 +77,7 @@ public class SetorDAOImpl implements SetorDAO {
 	public Setor buscar(final Long id) throws DAOException {
 
 		try {
-			final String jpql = "select i from Setor i where i.id = :id";
+			final String jpql = "select i from SETOR i where i.id = :id";
 			final Query query = this.em.createQuery(jpql, Setor.class);
 			query.setParameter("id", id);
 			return (Setor) query.getSingleResult();

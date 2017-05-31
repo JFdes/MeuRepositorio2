@@ -11,9 +11,9 @@
 	<ui:define name="content">
 
 		<div style="padding-top: 20px" class="panel-body col-xs-12"> <h1>
-		<img src="../resources/images/registrar.png" />Clientes</h1>
+		<img src="../resources/images/registrar.png" />Categoria de Problema</h1>
 		<hr></hr> <h:form>
-			<h:dataTable value="#{clienteMB.clientes}"
+			<h:dataTable value="#{categoriaProblemaMB.categoriaProblemas}"
 				var="item" width="80%" border="1">
 
 				<h:column>
@@ -22,8 +22,8 @@
 				</h:column>
 
 				<h:column>
-					<f:facet name="header">NOME FANTASIA</f:facet>
-						#{item.nomeFantasia}		
+					<f:facet name="header">NOME CATEGORIA</f:facet>
+						#{item.categoria}		
 				</h:column>
 
 				
@@ -36,19 +36,19 @@
 
 				<h:column>
 					<f:facet name="header">EDITAR</f:facet>
-					<h:commandLink action="#{clienteMB.editar()}">
+					<h:commandLink action="#{categoriaProblemaMB.editar()}">
 						<img src="../resources/images/lapis.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{clienteMB.cliente}" />
+							target="#{categoriaProblemaMB.categoriaProblema}" />
 					</h:commandLink>
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">REMOVER</f:facet>
-					<h:commandLink action="#{clienteMB.remover()}">
+					<h:commandLink action="#{categoriaProblemaMB.remover()}">
 						<img src="../resources/images/lixeira.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{clienteMB.cliente}" />
+							target="#{categoriaProblemaMB.categoriaProblema}" />
 					</h:commandLink>
 				</h:column>
 

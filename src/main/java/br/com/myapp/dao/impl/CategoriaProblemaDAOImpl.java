@@ -32,7 +32,7 @@ public class CategoriaProblemaDAOImpl implements CategoriaProblemaDAO {
 	public Collection<CategoriaProblema> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from CategoriaProblema i";
+			final String jpql = "select i from CATEGORIA_PROBLEMA i";
 			final Query query = this.em.createQuery(jpql, CategoriaProblema.class);
 			return query.getResultList();
 		} catch (final Exception e) {
@@ -54,7 +54,7 @@ public class CategoriaProblemaDAOImpl implements CategoriaProblemaDAO {
 	public void deletar(final CategoriaProblema categoriaProblema) throws DAOException {
 
 		try {
-			final String jpql = "delete from CategoriaProblema where id = :id";
+			final String jpql = "delete from CATEGORIA_PROBLEMA where id = :id";
 			final Query query = this.em.createQuery(jpql);
 			query.setParameter("id", categoriaProblema.getId());
 			query.executeUpdate();
@@ -77,7 +77,7 @@ public class CategoriaProblemaDAOImpl implements CategoriaProblemaDAO {
 	public CategoriaProblema buscar(final Long id) throws DAOException {
 
 		try {
-			final String jpql = "select i from CategoriaProblema i where i.id = :id";
+			final String jpql = "select i from CATEGORIA_PROBLEMA i where i.id = :id";
 			final Query query = this.em.createQuery(jpql, CategoriaProblema.class);
 			query.setParameter("id", id);
 			return (CategoriaProblema) query.getSingleResult();
