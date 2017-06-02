@@ -54,7 +54,7 @@ public class CicloDAOImpl implements CicloDAO {
 	public void deletar(final Ciclo ciclo) throws DAOException {
 
 		try {
-			final String jpql = "delete from Ciclo where id = :id";
+			final String jpql = "delete from CICLO where id = :id";
 			final Query query = this.em.createQuery(jpql);
 			query.setParameter("id", ciclo.getId());
 			query.executeUpdate();
