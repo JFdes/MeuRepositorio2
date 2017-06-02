@@ -85,6 +85,10 @@ public class FuncionarioMB {
 			}
 		}
 	}
+	
+	public void logar(){
+		
+	}
 
 	public void salvar() {
 
