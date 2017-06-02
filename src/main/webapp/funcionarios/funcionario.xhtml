@@ -13,7 +13,7 @@
 
 	<div style="padding-top: 20px" class="panel-body col-xs-12">
 		<h:form id="alunoForm">
-		<h1><img src="../resources/images/cadastrar.png" />#{setorMB.setor.id == null ? 'Cadastro de Setor': 'Editando Setor: '.concat(setorMB.setor.nome)}</h1>
+		<h1><img src="../resources/images/cadastrar.png" />#{funcionarioMB.funcionario.id == null ? 'Cadastro de Funcionário': 'Editando Funcionário: '.concat(funcionarioMB.funcionario.nome)}</h1>
 			<hr></hr>
 		
 			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" showIcon="true" />
@@ -24,17 +24,21 @@
 			
 			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
 				<p:outputLabel for="nome" value="Nome:" />
-				<p:inputText id="nome" value="#{setorMB.setor.nome}" class="form-control" style="width: 500px" required="true"/>
+				<p:inputText id="nome" value="#{funcionarioMB.funcionario.nome}" class="form-control" style="width: 500px" required="true"/>
 			</h:panelGrid>	
 			
-			
 				
-				<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
+			
+			
+			
+			
+			
+			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
 				<h:panelGroup />
 				
 				<h:panelGroup>
-					<b:commandButton value="Salvar" class="btn btn-primary" actionListener="#{setorMB.salvar()}"></b:commandButton>
-					<a href="/myapp/funcionarios/setor.xhtml" class="btn btn-warn" >
+					<b:commandButton value="Salvar" class="btn btn-primary" actionListener="#{funcionarioMB.salvar()}"></b:commandButton>
+					<a href="/myapp/funcionarios/funcionario.xhtml" class="btn btn-warn" >
 						
 					</a>
 					

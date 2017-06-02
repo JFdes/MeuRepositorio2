@@ -78,7 +78,7 @@ public class CategoriaProblemaMB {
 	//----------------------------------------------------- Método editar (redireciona para a wiew de cadastro)
 	public void editar() {
 
-		this.doRedirect("/problemas/problema.xhtml?id=" + this.categoriaProblema.getId());
+		this.doRedirect("/problemas/categoriaProblema.xhtml?id=" + this.categoriaProblema.getId());
 	}
 	
 	//----------------------------------------------------- Método remover.
