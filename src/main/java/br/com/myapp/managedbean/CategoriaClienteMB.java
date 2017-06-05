@@ -25,13 +25,13 @@ import br.com.myapp.service.CategoriaClienteService;
 public class CategoriaClienteMB {
 
 	private String categoria;
-	
+
 	private String usuarioCriador;
-	
+
 	private String usuarioAtualizador;
-	
+
 	private Date dataCriacao;
-	
+
 	private Date dataAtualizacao;
 
 	private boolean ativo;
@@ -39,9 +39,8 @@ public class CategoriaClienteMB {
 	private CategoriaCliente categoriaCliente = new CategoriaCliente();
 
 	private List<CategoriaCliente> categoriaClientes = new ArrayList<CategoriaCliente>();
-	
-	
-	//----------------------------------------------	
+
+	// ----------------------------------------------
 	@EJB
 	private CategoriaClienteService categoriaClienteService;
 
@@ -59,29 +58,39 @@ public class CategoriaClienteMB {
 			}
 		}
 	}
-	
-	//---------------------------------------------Método para salvar a Categoria:
 
-	public void salvar() {
+	// ---------------------------------------------Método para salvar a
+	// Categoria:
 
+		public void salvar() {
+		
 		try {
+			Date data = new Date();
 
+			if(categoriaCliente.id==null) {
+				this.categoriaCliente.setDataCriacao(data);
+				this.categoriaCliente.setAtivo(true);	
+			}
+			else
+				this.categoriaCliente.setDataAtualizacao(data);
+
+			
 			this.categoriaClienteService.criar(this.categoriaCliente);
 		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
-		}
+					FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+			}
 
 		this.doRedirect("/listagem/consultaCategoriaCliente.xhtml");
 	}
-	
-	//---------------------------------------------Método para editar a Categoria:
+
+	// ---------------------------------------------Método para editar a
+	// Categoria:
 
 	public void editar() {
 
 		this.doRedirect("/clientes/categoriaCliente.xhtml?id=" + this.categoriaCliente.getId());
 	}
-	
-	
 
 	public void remover() {
 
@@ -89,7 +98,8 @@ public class CategoriaClienteMB {
 
 			this.categoriaClienteService.deletar(this.categoriaCliente);
 		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 	}
 
@@ -103,8 +113,8 @@ public class CategoriaClienteMB {
 			throw new FacesException(e);
 		}
 	}
-	
-	//----------------------------------------------	
+
+	// ----------------------------------------------
 
 	public String getParam(final String param) {
 
@@ -114,11 +124,7 @@ public class CategoriaClienteMB {
 		return projectId;
 	}
 
-	
-	
-	
-	
-	//----------------------------------------------
+	// ----------------------------------------------
 
 	public String getCategoria() {
 		return categoria;
@@ -176,23 +182,20 @@ public class CategoriaClienteMB {
 		this.categoriaCliente = categoriaCliente;
 	}
 
-	
+	// ----------------------------------------------- carrega a lista para o
+	// redirecionamento da View.
 
-	//----------------------------------------------- carrega a lista para o redirecionamento da View.
-	
-		public List<CategoriaCliente> getCategoriaClientes() throws BusinessException { 
+	public List<CategoriaCliente> getCategoriaClientes() throws BusinessException {
 
-			this.categoriaClientes = (List<CategoriaCliente>) this.categoriaClienteService.buscarTodos();
-			return this.categoriaClientes;
-		}
+		this.categoriaClientes = (List<CategoriaCliente>) this.categoriaClienteService.buscarTodos();
+		return this.categoriaClientes;
+	}
 
-		public void setCategoriaClientes(final List<CategoriaCliente> categoriaClientes) {
+	public void setCategoriaClientes(final List<CategoriaCliente> categoriaClientes) {
 
-			this.categoriaClientes = categoriaClientes;
-		}
-		
-		
-	//--------------------------------------------------
+		this.categoriaClientes = categoriaClientes;
+	}
 
+	// --------------------------------------------------
 
 }

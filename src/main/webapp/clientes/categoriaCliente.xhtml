@@ -20,45 +20,34 @@
 				</h1>
 				<hr></hr>
 
-				<p:messages id="messages" showDetail="true" autoUpdate="true"
-					closable="true" globalOnly="true" showIcon="true" />
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" showIcon="true" />
 
 				<p:spacer height="20px"></p:spacer>
 
 
-				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
-					width="100%" styleClass="marginBottomForm">
+				<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
 					<p:outputLabel for="categoria" value="Categoria:" />
-					<p:inputText id="categoria"
-						value="#{categoriaClienteMB.categoriaCliente.categoria}"
-						class="form-control" style="width: 500px" required="true" />
+					<p:inputText id="categoria" value="#{categoriaClienteMB.categoriaCliente.categoria}" class="form-control" style="width: 500px" required="true" />
 				</h:panelGrid>
 				
-				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
-					width="100%" styleClass="marginBottomForm">
+				<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
 					<p:outputLabel for="ativo" value="Status:" />
-					<p:selectOneRadio required="true" id="ativo" value="#{categoriaClienteMB.categoriaCliente.ativo}" class="form-control" style="width: 250px" >
-						<f:selectItem itemLabel="Ativado" itemValue="true"/>
+					<p:selectOneRadio required="true" id="ativo" value="#{categoriaClienteMB.categoriaCliente.ativo}" class="form-control" style="width: 250px">
+						<f:selectItem itemLabel="Ativado" itemValue="true" />
 						<f:selectItem itemLabel="Desativado" itemValue="false" />	
 					</p:selectOneRadio>
-					
-					
 				</h:panelGrid>
-
-
-				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
-					width="100%" styleClass="marginBottomForm">
+				
+				
+				
+				<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
 					<h:panelGroup />
 
 					<h:panelGroup>
-						<b:commandButton value="Salvar" class="btn btn-primary"
-							actionListener="#{categoriaClienteMB.salvar()}"></b:commandButton>
-						<a href="/myapp/clientes/cliente.xhtml" class="btn btn-warn">
-
-						</a>
-
-
+						<b:commandButton value="Salvar" class="btn btn-primary" actionListener="#{categoriaClienteMB.salvar()}"/>
+						<a href="/myapp/clientes/cliente.xhtml" class="btn btn-warn"/>
 					</h:panelGroup>
+					
 				</h:panelGrid>
 
 			</h:form>
