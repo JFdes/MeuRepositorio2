@@ -32,7 +32,7 @@ public class FuncionarioDAOImpl implements FuncionarioDAO {
 	public Collection<Funcionario> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from FUNCIONARIO i";
+			final String jpql = "select i from FUNCIONARIO i order by i.id";
 			final Query query = this.em.createQuery(jpql, Funcionario.class);
 			return query.getResultList();
 		} catch (final Exception e) {

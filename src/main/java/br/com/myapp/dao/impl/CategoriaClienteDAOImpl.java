@@ -33,7 +33,7 @@ public class CategoriaClienteDAOImpl implements CategoriaClienteDAO {
 	public Collection<CategoriaCliente> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from CATEGORIA_CLIENTE i";
+			final String jpql = "select i from CATEGORIA_CLIENTE i order by i.id";
 			final Query query = this.em.createQuery(jpql, CategoriaCliente.class);
 			return query.getResultList();
 		} catch (final Exception e) {

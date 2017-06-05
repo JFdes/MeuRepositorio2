@@ -32,7 +32,7 @@ public class SetorDAOImpl implements SetorDAO {
 	public Collection<Setor> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from SETOR i";
+			final String jpql = "select i from SETOR i order by i.nome";
 			final Query query = this.em.createQuery(jpql, Setor.class);
 			return query.getResultList();
 		} catch (final Exception e) {

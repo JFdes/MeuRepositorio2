@@ -32,7 +32,7 @@ public class ProblemaDAOImpl implements ProblemaDAO {
 	public Collection<Problema> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from PROBLEMA i";
+			final String jpql = "select i from PROBLEMA i order by i.idCliente";
 			final Query query = this.em.createQuery(jpql, Problema.class);
 			return query.getResultList();
 		} catch (final Exception e) {

@@ -32,7 +32,7 @@ public class ClienteDAOImpl implements ClienteDAO {
 	public Collection<Cliente> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from CLIENTE i";
+			final String jpql = "select i from CLIENTE i order by i.nomeFantasia";
 			final Query query = this.em.createQuery(jpql, Cliente.class);
 			return query.getResultList();
 		} catch (final Exception e) {

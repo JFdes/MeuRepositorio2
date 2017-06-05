@@ -32,7 +32,7 @@ public class TelefoneDAOImpl implements TelefoneDAO {
 	public Collection<Telefone> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from TELEFONE i";
+			final String jpql = "select i from TELEFONE i order by i.idCliente";
 			final Query query = this.em.createQuery(jpql, Telefone.class);
 			return query.getResultList();
 		} catch (final Exception e) {

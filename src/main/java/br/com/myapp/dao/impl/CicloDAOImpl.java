@@ -32,7 +32,7 @@ public class CicloDAOImpl implements CicloDAO {
 	public Collection<Ciclo> buscarTodos() throws DAOException {
 
 		try {
-			final String jpql = "select i from CICLO i";
+			final String jpql = "select i from CICLO i order by i.id";
 			final Query query = this.em.createQuery(jpql, Ciclo.class);
 			return query.getResultList();
 		} catch (final Exception e) {
