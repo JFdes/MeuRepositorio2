@@ -20,20 +20,38 @@
 					<f:facet name="header">ID</f:facet>
 						#{item.id}		
 				</h:column>
-
-				<h:column>
-					<f:facet name="header">NOME CATEGORIA</f:facet>
-						#{item.categoria}		
-				</h:column>
-
 				
-
-
 				<h:column>
 					<f:facet name="header">ATIVO</f:facet>
 						#{item.ativo}		
 				</h:column>
+				
+				<h:column>
+					<f:facet name="header">CATEGORIA</f:facet>
+						#{item.nomeCategoria}		
+				</h:column>				
+				
+				<h:column>
+					<f:facet name="header">CRIADA EM</f:facet>
+						#{item.dataCriacao}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">CRIADA POR</f:facet>
+						#{item.usuarioCriador}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">ATUALIZADA EM</f:facet>
+						#{item.dataAtualizacao}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">ATUALIZADO POR</f:facet>
+						#{item.usuarioAtualizador}		
+				</h:column>
 
+				
 				<h:column>
 					<f:facet name="header">EDITAR</f:facet>
 					<h:commandLink action="#{categoriaProblemaMB.editar()}">
@@ -52,7 +70,7 @@
 					</h:commandLink>
 				</h:column>
 
-
+				
 			</h:dataTable>
 		</h:form> </div>
 

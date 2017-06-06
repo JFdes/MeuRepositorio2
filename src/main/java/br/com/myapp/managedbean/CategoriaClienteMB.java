@@ -39,6 +39,7 @@ public class CategoriaClienteMB {
 	private CategoriaCliente categoriaCliente = new CategoriaCliente();
 
 	private List<CategoriaCliente> categoriaClientes = new ArrayList<CategoriaCliente>();
+	
 
 	// ----------------------------------------------
 	@EJB
@@ -113,6 +114,8 @@ public class CategoriaClienteMB {
 			throw new FacesException(e);
 		}
 	}
+	
+	
 
 	// ----------------------------------------------
 
@@ -196,6 +199,10 @@ public class CategoriaClienteMB {
 		this.categoriaClientes = categoriaClientes;
 	}
 
+	
+	
 	// --------------------------------------------------
+	
+	
 
 }

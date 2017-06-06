@@ -26,7 +26,7 @@ public class CategoriaProblema implements Serializable {
 	// --------------------------------------------------------
 
 	@Column(name = "NOME_CATEGORIA")
-	private String categoria;
+	private String nomeCategoria;
 
 	@Column(name = "USUARIO_CRIADOR")
 	private String usuarioCriador;
@@ -72,7 +72,7 @@ public class CategoriaProblema implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CategoriaProblema [id=" + this.id + ", categoria=" + this.categoria + ", usuarioCriador="
+		return "CategoriaProblema [id=" + this.id + ", nomeCategoria=" + this.nomeCategoria + ", usuarioCriador="
 				+ this.usuarioCriador + ", usuarioAtualizador=" + this.usuarioAtualizador + ", dataCriacao="
 				+ this.dataCriacao + ", dataAtualizacao=" + this.dataAtualizacao + ", ativo=" + this.ativo + "]";
 	}
@@ -85,12 +85,12 @@ public class CategoriaProblema implements Serializable {
 		this.id = id;
 	}
 
-	public String getCategoria() {
-		return categoria;
+	public String getNomeCategoria() {
+		return nomeCategoria;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setNomeCategoria(String nomeCategoria) {
+		this.nomeCategoria = nomeCategoria;
 	}
 
 	public String getUsuarioCriador() {

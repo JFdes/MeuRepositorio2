@@ -13,10 +13,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
-@Entity(name = "CATEGORIA_CLIENTE")
-public class CategoriaCliente implements Serializable {
+@Entity(name = "CATEGORIA_CLIENTE") //anotação
+public class CategoriaCliente implements Serializable { //comunicação do O.O (orientação a objetos) com o relacional (banco).
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L; // identificador único do objeto (hibernate).
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_categoriaCliente")
@@ -51,7 +51,7 @@ public class CategoriaCliente implements Serializable {
 	
 	
 	@Override
-	public int hashCode() {
+	public int hashCode() { //método para auxiliar a performance do java. Dá mais velocidade.
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());

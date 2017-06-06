@@ -69,6 +69,13 @@ public class CicloMB {
 	public void salvar() {
 
 		try {
+			Date data = new Date();
+
+			if(ciclo.id==null) {
+				this.ciclo.setDataCriacao(data);
+			}
+			else
+				this.ciclo.setDataAtualizacao(data);
 
 			this.cicloService.criar(this.ciclo);
 		} catch (final BusinessException e) {
@@ -95,6 +102,29 @@ public class CicloMB {
 		} catch (final BusinessException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
+	}
+	
+	//-------------------------------------------------
+	
+	public void abrirCiclo(){ //abre o cliclo criado.
+		Date data = new Date();
+		this.ciclo.setDataInicio(data);
+		this.doRedirect("/listagem/consultaCiclo.xhtml");
+			
+	}
+	
+	public void finalizarCiclo(){ //finaliza o clico aberto.
+		
+			Date data = new Date();
+
+			if(ciclo.getDataInicio()!=null) {
+				this.ciclo.setDataFim(data);
+			}
+			else
+				abrirCiclo();
+			
+			this.doRedirect("/listagem/consultaCiclo.xhtml");
+				
 	}
 	
 	//------------------------------------------------

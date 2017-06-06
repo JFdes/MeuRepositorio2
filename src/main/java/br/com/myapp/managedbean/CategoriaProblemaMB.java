@@ -42,6 +42,8 @@ public class CategoriaProblemaMB {
 
 	private boolean ativo;
 	
+	
+	
 	//-----------------------------------------------------
 
 	@EJB
@@ -66,6 +68,15 @@ public class CategoriaProblemaMB {
 	public void salvar() {
 
 		try {
+			
+			Date data = new Date();
+
+			if(categoriaProblema.id==null) {
+				this.categoriaProblema.setDataCriacao(data);
+				this.categoriaProblema.setAtivo(true);	
+			}
+			else
+				this.categoriaProblema.setDataAtualizacao(data);
 
 			this.categoriaProblemaService.criar(this.categoriaProblema);
 		} catch (final BusinessException e) {
@@ -94,6 +105,12 @@ public class CategoriaProblemaMB {
 	}
 	
 	//-----------------------------------------------------
+	
+	
+
+	
+	
+	
 
 	public void doRedirect(final String redirectPage) throws FacesException {
 
@@ -116,6 +133,12 @@ public class CategoriaProblemaMB {
 		return projectId;
 	}
 
+	//-----------------------------------------------
+	
+	
+	
+	
+	
 	//-----------------------------------------------
 	
 	
@@ -200,5 +223,7 @@ public class CategoriaProblemaMB {
 	public void setCategoriaProblemaService(CategoriaProblemaService categoriaProblemaService) {
 		this.categoriaProblemaService = categoriaProblemaService;
 	}
+	
+
 	
 }

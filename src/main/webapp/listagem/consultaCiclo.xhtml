@@ -25,7 +25,37 @@
 					<f:facet name="header">CICLO</f:facet>
 						#{item.descricao}		
 				</h:column>
-
+				
+				<h:column>
+					<f:facet name="header">CRIADO EM</f:facet>
+						#{item.dataCriacao}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">CRIADO POR</f:facet>
+						#{item.usuarioCriador}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">ATUALIZADO EM</f:facet>
+						#{item.dataAtualizacao}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">ATUALIZADO POR</f:facet>
+						#{item.usuarioAtualizador}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">ABERTO EM</f:facet>
+						#{item.dataCriacao}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">FECHADO EM</f:facet>
+						#{item.dataFim}		
+				</h:column>
+				
 				
 				<h:column>
 					<f:facet name="header">EDITAR</f:facet>
@@ -38,7 +68,7 @@
 				
 				<h:column>
 					<f:facet name="header">FINALIZAR</f:facet>
-					<h:commandLink action="#{cicloMB.editar()}">
+					<h:commandLink action="#{cicloMB.finalizarCiclo()}">
 						<img src="../resources/images/lapis.png" />
 						<f:setPropertyActionListener value="#{item}"
 							target="#{cicloMB.ciclo}" />
