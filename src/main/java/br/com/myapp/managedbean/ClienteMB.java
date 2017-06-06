@@ -2,6 +2,7 @@ package br.com.myapp.managedbean;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class ClienteMB {
 	
 	private String email;
 	
-	private String RegimeTributario;
+	private String regimeTributario;
 	
 	private CategoriaCliente idCategoriaCliente;
 	
@@ -230,11 +231,11 @@ public class ClienteMB {
 	}
 
 	public String getRegimeTributario() {
-		return RegimeTributario;
+		return regimeTributario;
 	}
 
 	public void setRegimeTributario(String regimeTributario) {
-		RegimeTributario = regimeTributario;
+		this.regimeTributario = regimeTributario;
 	}
 
 	public CategoriaCliente getIdCategoriaCliente() {
@@ -340,6 +341,8 @@ public class ClienteMB {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+	
+	
 
 	
 	//----------------------------------------------- carrega a lista para o redirecionamento da View.

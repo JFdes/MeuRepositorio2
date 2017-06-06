@@ -57,7 +57,7 @@ public class Cliente implements Serializable{
 	private String email;
 	
 	@Column(name = "REGIME_TRIBUTARIO")
-	private String RegimeTributario;
+	private String regimeTributario;
 	
 	@ManyToOne
 	@JoinColumn(name="ID_CATEGORIA_CLIENTE")
@@ -139,7 +139,7 @@ public class Cliente implements Serializable{
 				+ ", razaoSocial=" + this.razaoSocial 
 				+ ", inscest=" + this.inscest 
 				+ ", email=" + this.email
-				+ ", RegimeTributario=" + this.RegimeTributario 
+				+ ", RegimeTributario=" + this.regimeTributario 
 				+ ", idCategoriaCliente=" + this.idCategoriaCliente 
 				+ ", logradouro=" + this.logradouro 
 				+ ", numero=" + this.numero 
@@ -238,11 +238,11 @@ public class Cliente implements Serializable{
 	}
 
 	public String getRegimeTributario() {
-		return RegimeTributario;
+		return regimeTributario;
 	}
 
 	public void setRegimeTributario(String regimeTributario) {
-		RegimeTributario = regimeTributario;
+		this.regimeTributario = regimeTributario;
 	}
 
 	public CategoriaCliente getIdCategoriaCliente() {

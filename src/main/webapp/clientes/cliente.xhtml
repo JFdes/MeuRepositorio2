@@ -22,13 +22,93 @@
 			
 			
 			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
+			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
 				<p:outputLabel for="nomeFantasia" value="NomeFantasia:" />
-				<p:inputText id="nomeFantasia" value="#{clienteMB.cliente.nomeFantasia}" class="form-control" style="width: 500px" required="true"/>
+				<p:inputText id="nomeFantasia" value="#{clienteMB.cliente.nomeFantasia}" class="form-control" style="width: 360px" required="true"/>
+				
+				<p:outputLabel for="cnpj" value="CNPJ:" />
+				<p:inputText id="cnpj" value="#{clienteMB.cliente.cnpj}" class="form-control" style="width: 160px"/>
+				
+				<p:outputLabel for="ativo" value="Status:" />
+					<p:selectOneRadio required="true" id="ativo" value="#{clienteMB.cliente.ativo}" class="form-control" style="width: 190px">
+						<f:selectItem itemLabel="Ativado" itemValue="true" />
+						<f:selectItem itemLabel="Desativado" itemValue="false" />	
+					</p:selectOneRadio>
 			</h:panelGrid>	
 			
+			<h:panelGrid columns="4" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
 			
+				<p:outputLabel for="razaoSocial" value="Razão Social:" />
+				<p:inputText id="razaoSocial" value="#{clienteMB.cliente.razaoSocial}" class="form-control" style="width: 500px"/>
+				
+				<p:outputLabel for="inscest" value="Inscrição Estadual:" />
+				<p:inputText id="inscest" value="#{clienteMB.cliente.inscest}" class="form-control" style="width: 200px"/>
+				
+			</h:panelGrid>
 			
+			<h:panelGrid columns="4" columnClasses="column-padding, column-left" width="76%" styleClass="marginBottomForm">
+			
+				<p:outputLabel for="email" value="E-mail:" />
+				<p:inputText id="email" value="#{clienteMB.cliente.email}" class="form-control" style="width: 400px" required="true"/>
+				
+				<p:outputLabel for="regimeTributario" value="Regime Tributário:" />
+				<p:inputText id="regimeTributario" value="#{clienteMB.cliente.regimeTributario}" class="form-control" style="width: 150px" />
+				
+			</h:panelGrid>
+			
+			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
+				
+				<p:outputLabel for="sexo" value="Categoria:" />
+		        <p:selectOneMenu id="sexo" value="#{integranteMB.integrante.sexo}" style="width:125px">
+		            <f:selectItem itemLabel="Selecione..." itemValue="" />
+		            <f:selectItems value="#{integranteMB.sexos}" var="sexo" itemLabel="#{sexo.value}" itemValue="#{sexo}" />
+		        </p:selectOneMenu>
+		        
+		        <p:outputLabel for="logradouro" value="Logradouro:" />
+				<p:inputText id="logradouro" value="#{clienteMB.cliente.logradouro}" class="form-control" style="width: 460px" required="true"/>
+				
+				<p:outputLabel for="numero" value="Nº:" />
+				<p:inputText id="numero" value="#{clienteMB.cliente.numero}" class="form-control" style="width: 100px"/>
+		        
+			</h:panelGrid>
+			
+			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
+				
+				<p:outputLabel for="complemento" value="Complemento:" />
+				<p:inputText id="complemento" value="#{clienteMB.cliente.complemento}" class="form-control" style="width: 150px"/>
+				
+				<p:outputLabel for="bairro" value="Bairro:" />
+				<p:inputText id="bairro" value="#{clienteMB.cliente.bairro}" class="form-control" style="width: 255px" required="true"/>
+								
+				<p:outputLabel for="cidade" value="Cidade:" />
+				<p:inputText id="cidade" value="#{clienteMB.cliente.cidade}" class="form-control" style="width: 300px" required="true"/>
+		        
+			</h:panelGrid>
+			
+			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
+				
+				<p:outputLabel for="uf" value="UF:" />
+				<p:inputText id="uf" value="#{clienteMB.cliente.uf}" class="form-control" style="width: 45px" required="true"/>
+				
+				<p:outputLabel for="cep" value="CEP:" />
+				<p:inputText id="cep" value="#{clienteMB.cliente.cep}" class="form-control" style="width: 85px"/>
+								
+				<p:outputLabel for="pontoReferencia" value="Ponto de Referência:" />
+				<p:inputText id="pontoReferencia" value="#{clienteMB.cliente.pontoReferencia}" class="form-control" style="width: 530px"/>
+		        
+			</h:panelGrid>
+			
+			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
+				
+				<p:outputLabel for="proprietario" value="Nome do Proprietário:" />
+				<p:inputText id="proprietario" value="#{clienteMB.cliente.proprietario}" class="form-control" style="width: 250px" required="true"/>
+				
+				<p:outputLabel for="dataNascimento" value="Data Nascimento:" />
+        		<p:calendar id="dataNascimento" value="#{clienteMB.cliente.dataNascimento}" pattern="dd-MM-yyyy" mask="true" />
+        		      				
+		        
+			</h:panelGrid>
+						
 			
 			
 			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
