@@ -20,6 +20,15 @@
 					<f:facet name="header">ID</f:facet>
 						#{item.id}		
 				</h:column>
+				
+				<h:column>
+					<f:facet name="header">ATIVO</f:facet>
+					<h:commandLink action="#{setorMB.editar()}">
+						<img src="#{item.imagemStatus}" />
+						<f:setPropertyActionListener value="#{item}"
+							target="#{setorMB.setor}" />
+					</h:commandLink>
+				</h:column>
 
 				<h:column>
 					<f:facet name="header">SETOR</f:facet>

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity(name = "CATEGORIA_PROBLEMA")
 public class CategoriaProblema implements Serializable {
@@ -44,7 +45,13 @@ public class CategoriaProblema implements Serializable {
 
 	@Column(name = "ATIVO")
 	private boolean ativo;
+	
+	@Transient
+	private String imagemStatus="../resources/images/off.png"; //Variável para exibição da imagem do Status considerado "false".
 
+
+	
+	//-------------------------------------------
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -132,5 +139,18 @@ public class CategoriaProblema implements Serializable {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+	//-------------------------------------------------
+	public String getImagemStatus() {
+		if(this.ativo==true){
+			this.imagemStatus="../resources/images/on.png";
+		}
+		return imagemStatus;
+	}
+
+	public void setImagemStatus(String imagemStatus) {
+		this.imagemStatus = imagemStatus;
+	}
+	
+	//--------------------------------------------------
 
 }

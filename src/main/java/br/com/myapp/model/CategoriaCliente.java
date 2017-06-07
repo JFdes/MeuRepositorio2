@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 
 @Entity(name = "CATEGORIA_CLIENTE") //anotação
@@ -23,7 +24,11 @@ public class CategoriaCliente implements Serializable { //comunicação do O.O (or
 	@SequenceGenerator(name = "sq_categoriaCliente", sequenceName = "sq_categoriaCliente", allocationSize = 1)
 	@Column(name = "ROW_ID")
 	public Long id;
-
+	
+	@Transient
+	private String imagemStatus="../resources/images/off.png"; //Variável para exibição da imagem do Status considerado "false".
+	
+		
 	@Column(name = "CATEGORIA")
 	private String categoria;
 		
@@ -142,6 +147,22 @@ public class CategoriaCliente implements Serializable { //comunicação do O.O (or
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+
+	//----------------------------------------- Teste do Status para exibição da imagem.
+	public String getImagemStatus() {
+		if(this.ativo==true){
+			this.imagemStatus="../resources/images/on.png";
+		}
+		return imagemStatus;
+	}
+
+	public void setImagemStatus(String imagemStatus) {
+		this.imagemStatus = imagemStatus;
+	}
+	
+	//---------------------------------------
+
+
 	
 	
 }

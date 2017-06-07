@@ -24,6 +24,7 @@ import br.com.myapp.service.CategoriaClienteService;
 @ViewScoped
 public class CategoriaClienteMB {
 
+	
 	private String categoria;
 
 	private String usuarioCriador;
@@ -40,8 +41,8 @@ public class CategoriaClienteMB {
 
 	private List<CategoriaCliente> categoriaClientes = new ArrayList<CategoriaCliente>();
 	
-
-	// ----------------------------------------------
+	
+		// ----------------------------------------------
 	@EJB
 	private CategoriaClienteService categoriaClienteService;
 
@@ -170,6 +171,7 @@ public class CategoriaClienteMB {
 	}
 
 	public boolean isAtivo() {
+		
 		return ativo;
 	}
 
@@ -183,6 +185,14 @@ public class CategoriaClienteMB {
 
 	public void setCategoriaCliente(CategoriaCliente categoriaCliente) {
 		this.categoriaCliente = categoriaCliente;
+	}
+	
+	public CategoriaClienteService getCategoriaClienteService() {
+		return categoriaClienteService;
+	}
+
+	public void setCategoriaClienteService(CategoriaClienteService categoriaClienteService) {
+		this.categoriaClienteService = categoriaClienteService;
 	}
 
 	// ----------------------------------------------- carrega a lista para o
@@ -199,10 +209,10 @@ public class CategoriaClienteMB {
 		this.categoriaClientes = categoriaClientes;
 	}
 
-	
-	
+		
 	// --------------------------------------------------
 	
+
 	
 
 }

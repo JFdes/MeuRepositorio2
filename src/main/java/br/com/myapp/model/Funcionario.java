@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 
 @Entity(name = "FUNCIONARIO")
 public class Funcionario implements Serializable{
@@ -82,6 +84,11 @@ public class Funcionario implements Serializable{
 	
 	@Column(name = "ATIVO")
 	private boolean ativo;
+	
+	@Transient
+	private String imagemStatus="../resources/images/off.png"; //Variável para exibição da imagem do Status considerado "false".
+		
+
 	
 	//------------------------------------------------
 
@@ -285,9 +292,22 @@ public class Funcionario implements Serializable{
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
-
+	
 	
 	//-------------------------------------------------------
+	
+	public String getImagemStatus() {
+		if(this.ativo==true){
+			this.imagemStatus="../resources/images/on.png";
+		}
+		return imagemStatus;
+	}
+
+	public void setImagemStatus(String imagemStatus) {
+		this.imagemStatus = imagemStatus;
+	}
+	
+	//------------------------------------------------------
 	
 	
 	

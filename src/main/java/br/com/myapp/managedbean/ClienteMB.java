@@ -2,7 +2,6 @@ package br.com.myapp.managedbean;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -104,6 +103,14 @@ public class ClienteMB {
 	public void salvar() {
 
 		try {
+			Date data = new Date();
+
+			if(cliente.id==null) {
+				this.cliente.setDataCriacao(data);
+				this.cliente.setAtivo(true);	
+			}
+			else
+				this.cliente.setDataAtualizacao(data);
 
 			this.clienteService.criar(this.cliente);
 		} catch (final BusinessException e) {

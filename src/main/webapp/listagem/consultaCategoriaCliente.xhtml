@@ -26,10 +26,13 @@
 				</h:column>
 				
 				<h:column>
-					<f:facet name="header">ATIVO</f:facet>
-						#{item.ativo}		
+						<f:facet name="header">ATIVO</f:facet>
+						<h:commandLink action="#{categoriaClienteMB.editar()}"><img src="#{item.imagemStatus}" />
+						<f:setPropertyActionListener value="#{item}" target="#{categoriaClienteMB.categoriaCliente}"/>
+						</h:commandLink>
 				</h:column>
-
+				
+				
 				<h:column>
 					<f:facet name="header">CATEGORIA</f:facet>
 						#{item.categoria}		
@@ -61,6 +64,8 @@
 						<f:setPropertyActionListener value="#{item}" target="#{categoriaClienteMB.categoriaCliente}"/>
 						</h:commandLink>
 				</h:column>
+				
+				
 				
 				<h:column>
 						<f:facet name="header">REMOVER</f:facet>
