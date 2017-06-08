@@ -127,7 +127,7 @@ public class Setor implements Serializable{
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	public String getCriador() {
+	public String getUsuarioCriador() {
 		return usuarioCriador;
 	}
 

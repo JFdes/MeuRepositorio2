@@ -94,6 +94,10 @@ public class FuncionarioMB {
 
 		try {
 
+			if(funcionario.id==null) {
+				this.funcionario.setAtivo(true);	
+			}
+
 			this.funcionarioService.criar(this.funcionario);
 		} catch (final BusinessException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));

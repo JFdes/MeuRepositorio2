@@ -80,15 +80,21 @@
 			</h:panelGrid>	
 			
 			
-			<h:panelGrid columns="4" columnClasses="column-padding, column-left" width="45%" styleClass="marginBottomForm">
+			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="70%" styleClass="marginBottomForm">
 				<p:outputLabel for="dtNascimento" value="Data de Nascimento:" />
         		<p:calendar id="dtNascimento" value="#{funcionarioMB.funcionario.dtNascimento}" pattern="dd-MM-yyyy" mask="true" />
 			
 				<p:outputLabel for="setor" value="Setor: " />
-            	<p:selectOneMenu id="setor" value="#{setorMB.setor.nome}">
+            	<p:selectOneMenu id="setor" value="#{setorMB.setor}">
             		<f:selectItem itemLabel="Selecione" itemValue="" />
-            		<f:selectItems value="#{setorMB.setores}" />
+            		<f:selectItems value="#{setorMB.setores}" var="item" itemLabel="#{item.nome}" itemValue="#{setorMB}"/>
         		</p:selectOneMenu>
+        		
+        		
+				<p:outputLabel for="email" value="E-mail:" />
+				<p:inputText id="email" value="#{funcionarioMB.funcionario.email}" class="form-control" style="width: 150px"/>
+				
+        		
 			
 			</h:panelGrid>		
 			

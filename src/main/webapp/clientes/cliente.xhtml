@@ -58,30 +58,27 @@
 			
 			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
 				
-				<p:outputLabel for="sexo" value="Categoria:" />
-		        <p:selectOneMenu id="sexo" value="#{integranteMB.integrante.sexo}" style="width:125px">
-		            <f:selectItem itemLabel="Selecione..." itemValue="" />
-		            <f:selectItems value="#{integranteMB.sexos}" var="sexo" itemLabel="#{sexo.value}" itemValue="#{sexo}" />
-		        </p:selectOneMenu>
-		        
+				 
 		        <p:outputLabel for="logradouro" value="Logradouro:" />
-				<p:inputText id="logradouro" value="#{clienteMB.cliente.logradouro}" class="form-control" style="width: 460px" required="true"/>
+				<p:inputText id="logradouro" value="#{clienteMB.cliente.logradouro}" class="form-control" style="width: 450px" required="true"/>
 				
 				<p:outputLabel for="numero" value="Nº:" />
-				<p:inputText id="numero" value="#{clienteMB.cliente.numero}" class="form-control" style="width: 100px"/>
+				<p:inputText id="numero" value="#{clienteMB.cliente.numero}" class="form-control" style="width: 90px"/>
+				
+				<p:outputLabel for="complemento" value="Complemento:" />
+				<p:inputText id="complemento" value="#{clienteMB.cliente.complemento}" class="form-control" style="width: 160px"/>
 		        
 			</h:panelGrid>
 			
 			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
 				
-				<p:outputLabel for="complemento" value="Complemento:" />
-				<p:inputText id="complemento" value="#{clienteMB.cliente.complemento}" class="form-control" style="width: 150px"/>
+				
 				
 				<p:outputLabel for="bairro" value="Bairro:" />
-				<p:inputText id="bairro" value="#{clienteMB.cliente.bairro}" class="form-control" style="width: 255px" required="true"/>
+				<p:inputText id="bairro" value="#{clienteMB.cliente.bairro}" class="form-control" style="width: 300px" required="true"/>
 								
 				<p:outputLabel for="cidade" value="Cidade:" />
-				<p:inputText id="cidade" value="#{clienteMB.cliente.cidade}" class="form-control" style="width: 300px" required="true"/>
+				<p:inputText id="cidade" value="#{clienteMB.cliente.cidade}" class="form-control" style="width: 455px" required="true"/>
 		        
 			</h:panelGrid>
 			
@@ -105,6 +102,12 @@
 				
 				<p:outputLabel for="dataNascimento" value="Data Nascimento:" />
         		<p:calendar id="dataNascimento" value="#{clienteMB.cliente.dataNascimento}" pattern="dd-MM-yyyy" mask="true" />
+        		
+        		<p:outputLabel for="nomeCategoria" value="Categoria: " />
+            	<p:selectOneMenu id="nomeCategoria" value="#{categoriaClienteMB.categoriaCliente}">
+            		<f:selectItem itemLabel="Selecione" itemValue="" />
+            		<f:selectItems value="#{categoriaClienteMB.categoriaClientes}" var="item" itemLabel="#{item.categoria}" itemValue="#{categoriaClienteMB}" />
+        		</p:selectOneMenu>
         		
         		    				
 		        

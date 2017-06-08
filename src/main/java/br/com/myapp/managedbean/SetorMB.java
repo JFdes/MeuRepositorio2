@@ -32,6 +32,7 @@ public class SetorMB {
 
 	private List<Setor> setores = new ArrayList<Setor>();
 	
+	
 	//-------------------------------------------------
 	
 	private String nome;
@@ -70,6 +71,14 @@ public class SetorMB {
 	public void salvar() {
 
 		try {
+			Date data = new Date();
+
+			if(setor.id==null) {
+				this.setor.setDataCriacao(data);
+				this.setor.setAtivo(true);	
+			}
+			else
+				this.setor.setDataAtualizacao(data);
 
 			this.setorService.criar(this.setor);
 		} catch (final BusinessException e) {
@@ -206,5 +215,10 @@ public class SetorMB {
 
 		this.setores = setores;
 	}
+	
+	//--------------------------------------------------
+	
+
+	
 
 }

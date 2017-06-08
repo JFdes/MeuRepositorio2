@@ -34,13 +34,29 @@
 					<f:facet name="header">SETOR</f:facet>
 						#{item.nome}		
 				</h:column>
-
-
+				
 				<h:column>
-					<f:facet name="header">ATIVO</f:facet>
-						#{item.ativo}		
+					<f:facet name="header">CRIADO EM</f:facet>
+						#{item.dataCriacao}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">CRIADO POR</f:facet>
+						#{item.usuarioCriador}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">ATUALIZADO EM</f:facet>
+						#{item.dataAtualizacao}		
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">ATUALIZADO POR</f:facet>
+						#{item.usuarioAtualizador}		
 				</h:column>
 
+
+				
 				<h:column>
 					<f:facet name="header">EDITAR</f:facet>
 					<h:commandLink action="#{setorMB.editar()}">

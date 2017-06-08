@@ -22,10 +22,19 @@
 			
 			
 			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
+			<h:panelGrid columns="4" columnClasses="column-padding, column-left" width="80%" styleClass="marginBottomForm">
 				<p:outputLabel for="nome" value="Nome:" />
 				<p:inputText id="nome" value="#{setorMB.setor.nome}" class="form-control" style="width: 500px" required="true"/>
-			</h:panelGrid>	
+				
+				<p:outputLabel for="ativo" value="Status:" />
+				<p:selectOneRadio required="true" id="ativo" value="#{setorMB.setor.ativo}" class="form-control" style="width: 190px">
+						<f:selectItem itemLabel="Ativado" itemValue="true" />
+						<f:selectItem itemLabel="Desativado" itemValue="false" />	
+				</p:selectOneRadio>
+				
+			</h:panelGrid>
+			
+				
 			
 			
 				
