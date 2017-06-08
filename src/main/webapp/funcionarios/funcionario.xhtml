@@ -21,30 +21,86 @@
 			<p:spacer height="20px"></p:spacer>
 			
 			
+			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="91%" styleClass="marginBottomForm">
+				<p:outputLabel for="ativo" value="Status:" />
+					<p:selectOneRadio required="true" id="ativo" value="#{funcionarioMB.funcionario.ativo}" class="form-control" style="width: 190px">
+						<f:selectItem itemLabel="Ativado" itemValue="true" />
+						<f:selectItem itemLabel="Desativado" itemValue="false" />	
+					</p:selectOneRadio>
+					
+				<p:outputLabel for="rg" value="RG:" />
+				<p:inputText id="rg" value="#{funcionarioMB.funcionario.rg}" class="form-control" style="width: 200px" />
+				
+				
+				<p:outputLabel for="dtInclusao" value="Data Admissão:" />
+        		<p:calendar id="dtInclusao" value="#{funcionarioMB.funcionario.dtInclusao}" pattern="dd-MM-yyyy" mask="true" />
+			</h:panelGrid>
 			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
+			
+			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
 				<p:outputLabel for="nome" value="Nome:" />
-				<p:inputText id="nome" value="#{funcionarioMB.funcionario.nome}" class="form-control" style="width: 500px" required="true"/>
+				<p:inputText id="nome" value="#{funcionarioMB.funcionario.nome}" class="form-control" style="width: 320px" required="true"/>
+				
+				<p:outputLabel for="usuario" value="Usuário:" />
+				<p:inputText id="usuario" value="#{funcionarioMB.funcionario.usuario}" class="form-control" style="width: 200px" required="true"/>
+				
+				<p:outputLabel for="senha" value="Senha:" />
+				<p:inputText id="senha" value="#{funcionarioMB.funcionario.senha}" class="form-control" style="width: 200px" required="true"/>
 			</h:panelGrid>	
 			
+			
+			<h:panelGrid columns="6" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
 				
+				<p:outputLabel for="logradouro" value="Logradouro:" />
+				<p:inputText id="logradouro" value="#{funcionarioMB.funcionario.logradouro}" class="form-control" style="width: 450px" />
+				
+				<p:outputLabel for="numero" value="Nº:" />
+				<p:inputText id="numero" value="#{funcionarioMB.funcionario.numero}" class="form-control" style="width: 80px" />
+				
+				<p:outputLabel for="complemento" value="Complemento:" />
+				<p:inputText id="complemento" value="#{funcionarioMB.funcionario.complemento}" class="form-control" style="width: 200px" />
+											
+			</h:panelGrid>	
 			
 			
+			<h:panelGrid columns="8" columnClasses="column-padding, column-left" width="86%" styleClass="marginBottomForm">
+				
+				<p:outputLabel for="bairro" value="Bairro:" />
+				<p:inputText id="bairro" value="#{funcionarioMB.funcionario.bairro}" class="form-control" style="width: 200px"/>
+				
+				<p:outputLabel for="cidade" value="Cidade:" />
+				<p:inputText id="cidade" value="#{funcionarioMB.funcionario.cidade}" class="form-control" style="width: 350px"/>
+				
+				<p:outputLabel for="uf" value="Uf:" />
+				<p:inputText id="uf" value="#{funcionarioMB.funcionario.uf}" class="form-control" style="width: 40px"/>
+				
+				<p:outputLabel for="fone" value="Fone:" />
+				<p:inputText id="fone" value="#{funcionarioMB.funcionario.fone}" class="form-control" style="width: 150px"/>
+											
+			</h:panelGrid>	
 			
 			
+			<h:panelGrid columns="4" columnClasses="column-padding, column-left" width="45%" styleClass="marginBottomForm">
+				<p:outputLabel for="dtNascimento" value="Data de Nascimento:" />
+        		<p:calendar id="dtNascimento" value="#{funcionarioMB.funcionario.dtNascimento}" pattern="dd-MM-yyyy" mask="true" />
 			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<h:panelGroup />
+				<p:outputLabel for="setor" value="Setor: " />
+            	<p:selectOneMenu id="setor" value="#{setorMB.setor.nome}">
+            		<f:selectItem itemLabel="Selecione" itemValue="" />
+            		<f:selectItems value="#{setorMB.setores}" />
+        		</p:selectOneMenu>
+			
+			</h:panelGrid>		
+			
+						
+			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm"><h:panelGroup />
 				
 				<h:panelGroup>
 					<b:commandButton value="Salvar" class="btn btn-primary" actionListener="#{funcionarioMB.salvar()}"></b:commandButton>
-					<a href="/myapp/funcionarios/funcionario.xhtml" class="btn btn-warn" >
-						
-					</a>
-					
-							
+					<a href="/myapp/funcionarios/funcionario.xhtml" class="btn btn-warn" ></a>
 				</h:panelGroup>
 			</h:panelGrid>
+
 				
 		</h:form>
 	</div>
