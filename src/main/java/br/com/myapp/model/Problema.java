@@ -1,16 +1,21 @@
 package br.com.myapp.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
@@ -25,47 +30,48 @@ public class Problema implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_problema")
 	@SequenceGenerator(name = "sq_problema", sequenceName = "sq_problema", allocationSize = 1)
 	@Column(name = "ROW_ID")
-	public Long id;
-	
-	
-	@ManyToOne
-	@JoinColumn(name="ID_CLIENTE")
+	private Long id;
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ID_CLIENTE")
 	private Cliente idCliente;
-	
 
 	@Column(name = "TITULO")
 	private String titulo;
 
 	@Column(name = "DESCRICAO")
 	private String descricao;
-	
-	@ManyToOne
-	@JoinColumn(name="ID_CICLO")
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ID_CICLO")
 	private Ciclo idCiclo; // Relacionamento N:1
 
 	@Column(name = "STATUS")
 	@Enumerated(EnumType.STRING)
 	private StatusProblema status;
 
+	@Column(name = "USUARIO_CRIADOR")
+	private String usuarioCriador;
+
 	@Column(name = "DATA_CRIACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
 
-	@Column(name = "USUARIO_CRIADOR")
-	private String usuarioCriador;
+	@Column(name = "USUARIO_ATUALIZADOR")
+	private String usuarioAtualizador;
 
 	@Column(name = "DATA_ATUALIZACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizaco;
 
-	@Column(name = "USUARIO_ATUALIZADOR")
-	private String usuarioAtualizador;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "RL_PROBLEMA_CATEGORIA_PROBLEMA", joinColumns = {
+			@JoinColumn(name = "PROBLEMA_ID", nullable = false, updatable = false)
+	}, inverseJoinColumns = {
+			@JoinColumn(name = "CATEGORIA_PROBLEMA_ID", nullable = false, updatable = false)
+	})
+	private Collection<CategoriaProblema> categorias;
 
-
-	
-	//------------------------------------------------
-	
-	
 	@Override
 	public int hashCode() {
 
@@ -97,26 +103,22 @@ public class Problema implements Serializable {
 		}
 		return true;
 	}
-	
-	//--------------------------------------------
 
 	@Override
 	public String toString() {
 
 		return "Problema [id=" + this.id
+				+ ", idCliente=" + this.idCliente
 				+ ", titulo=" + this.titulo
 				+ ", descricao=" + this.descricao
 				+ ", idCiclo=" + this.idCiclo
 				+ ", status=" + this.status
-				+ ", dataCriacao=" + this.dataCriacao
 				+ ", usuarioCriador=" + this.usuarioCriador
-				+ ", dataAtualizaco=" + this.dataAtualizaco
+				+ ", dataCriacao=" + this.dataCriacao
 				+ ", usuarioAtualizador=" + this.usuarioAtualizador
+				+ ", dataAtualizaco=" + this.dataAtualizaco
 				+ "]";
 	}
-	
-	
-	//-------------------------------------------------
 
 	public Long getId() {
 
@@ -126,6 +128,16 @@ public class Problema implements Serializable {
 	public void setId(final Long id) {
 
 		this.id = id;
+	}
+
+	public Cliente getIdCliente() {
+
+		return this.idCliente;
+	}
+
+	public void setIdCliente(final Cliente idCliente) {
+
+		this.idCliente = idCliente;
 	}
 
 	public String getTitulo() {
@@ -148,13 +160,12 @@ public class Problema implements Serializable {
 		this.descricao = descricao;
 	}
 
-
 	public Ciclo getIdCiclo() {
 
 		return this.idCiclo;
 	}
 
-	public void setCiclo(final Ciclo idCiclo) {
+	public void setIdCiclo(final Ciclo idCiclo) {
 
 		this.idCiclo = idCiclo;
 	}
@@ -169,6 +180,16 @@ public class Problema implements Serializable {
 		this.status = status;
 	}
 
+	public String getUsuarioCriador() {
+
+		return this.usuarioCriador;
+	}
+
+	public void setUsuarioCriador(final String usuarioCriador) {
+
+		this.usuarioCriador = usuarioCriador;
+	}
+
 	public Date getDataCriacao() {
 
 		return this.dataCriacao;
@@ -179,14 +200,14 @@ public class Problema implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public String getUsuarioCriador() {
+	public String getUsuarioAtualizador() {
 
-		return this.usuarioCriador;
+		return this.usuarioAtualizador;
 	}
 
-	public void setUsuarioCriador(final String usuarioCriador) {
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
 
-		this.usuarioCriador = usuarioCriador;
+		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public Date getDataAtualizaco() {
@@ -199,14 +220,14 @@ public class Problema implements Serializable {
 		this.dataAtualizaco = dataAtualizaco;
 	}
 
-	public String getUsuarioAtualizador() {
+	public Collection<CategoriaProblema> getCategorias() {
 
-		return this.usuarioAtualizador;
+		return this.categorias;
 	}
 
-	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+	public void setCategorias(final Collection<CategoriaProblema> categorias) {
 
-		this.usuarioAtualizador = usuarioAtualizador;
+		this.categorias = categorias;
 	}
 
 }

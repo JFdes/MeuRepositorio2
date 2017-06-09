@@ -22,12 +22,12 @@ public class ProblemaServiceImpl implements ProblemaService {
 
 		try {
 
-			if(problema.id==null){
+			if (problema.getId() == null) {
 				this.dao.criar(problema);
+			} else {
+				this.atualizar(problema);
 			}
-			else
-				atualizar(problema);
-			
+
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}

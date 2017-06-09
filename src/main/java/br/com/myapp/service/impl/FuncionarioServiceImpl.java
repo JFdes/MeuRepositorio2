@@ -22,11 +22,11 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
 		try {
 
-			if(funcionario.id==null){
+			if(funcionario.getId()==null){
 				this.dao.criar(funcionario);
+			} else {
+				this.atualizar(funcionario);
 			}
-			else
-				atualizar(funcionario);
 			
 		} catch (final DAOException e) {
 			throw new BusinessException(e);

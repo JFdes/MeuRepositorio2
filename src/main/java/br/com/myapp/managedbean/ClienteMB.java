@@ -1,89 +1,82 @@
 package br.com.myapp.managedbean;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
+
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
 import br.com.myapp.model.CategoriaCliente;
 import br.com.myapp.model.Cliente;
+import br.com.myapp.model.Telefone;
+import br.com.myapp.service.CategoriaClienteService;
 import br.com.myapp.service.ClienteService;
 
 @ManagedBean
 @ViewScoped
-public class ClienteMB {
+public class ClienteMB extends AbstractManagedBean<Cliente> {
 
-	
-
-	private String usuarioCriador;
-	
-	private String usuarioAtualizador;
-	
-	private Date dataCriacao;
-	
-	private Date dataAtualizacao;
-	
 	private String nomeFantasia;
-	
+
 	private String cnpj;
-	
+
 	private String razaoSocial;
-	
+
 	private String inscest;
-	
+
 	private String email;
-	
+
 	private String regimeTributario;
-	
-	private CategoriaCliente idCategoriaCliente;
-	
+
+	private CategoriaCliente categoria;
+
 	private String logradouro;
-	
+
 	private String numero;
-	
+
 	private String bairro;
-	
+
 	private String complemento;
-	
+
 	private String cidade;
-	
+
 	private String uf;
-	
+
 	private String cep;
-	
+
 	private String pontoReferencia;
-	
-	private String proprietario;
-		
+
+	private String nomeProprietario;
+
 	private Date dataNascimento;
-	
-	private boolean ativo;
 
+	private boolean status;
 
-	//----------------------------------------------------------
-	
-	private Cliente cliente = new Cliente();
+	private String dddComercial;
 
-	private List<Cliente> clientes = new ArrayList<Cliente>();
-	
-	//-----------------------------------------------------------
+	private String numeroComercial;
+
+	private String dddCelular;
+
+	private String numeroCelular;
+
+	private Collection<CategoriaCliente> categorias;
 
 	@EJB
 	private ClienteService clienteService;
 
+	@EJB
+	private CategoriaClienteService categoriaClienteService;
+
 	@PostConstruct
+	@Override
 	public void init() {
 
 		final String id = this.getParam("id");
@@ -91,289 +84,388 @@ public class ClienteMB {
 		if (StringUtils.isNotBlank(id)) {
 
 			try {
-				this.cliente = this.clienteService.buscar(Long.valueOf(id));
+				this.setObjeto(this.clienteService.buscar(Long.valueOf(id)));
 			} catch (final BusinessException e) {
-				e.printStackTrace();
+				this.exibirMensagemErro(e);
 			}
 		}
+
+		super.init();
 	}
 
-	//-----------------------------------------------------
-	
-	public void salvar() {
+	@Override
+	public void limpar() {
 
-		try {
-			Date data = new Date();
+		this.nomeFantasia = StringUtils.EMPTY; // StringUtils.EMPTY; -> cria instancia vazia
+		this.cnpj = StringUtils.EMPTY;
+		this.razaoSocial = StringUtils.EMPTY;
+		this.inscest = StringUtils.EMPTY;
+		this.email = StringUtils.EMPTY;
+		this.regimeTributario = StringUtils.EMPTY;
+		this.categoria = null;
+		this.logradouro = StringUtils.EMPTY;
+		this.numero = StringUtils.EMPTY;
+		this.bairro = StringUtils.EMPTY;
+		this.complemento = StringUtils.EMPTY;
+		this.cidade = StringUtils.EMPTY;
+		this.uf = StringUtils.EMPTY;
+		this.pontoReferencia = StringUtils.EMPTY;
+		this.status = Boolean.TRUE;
 
-			if(cliente.id==null) {
-				this.cliente.setDataCriacao(data);
-				this.cliente.setAtivo(true);	
+	}
+
+	@Override
+	public void popularInterface() throws BusinessException {
+
+		this.categorias = this.categoriaClienteService.buscarTodos();
+
+	}
+
+	@Override
+	public void popularCampos(final Cliente cliente) throws BusinessException {
+
+		this.nomeFantasia = cliente.getNomeFantasia();
+		this.cnpj = cliente.getCnpj();
+		this.razaoSocial = cliente.getRazaoSocial();
+		this.inscest = cliente.getInscest();
+		this.email = cliente.getEmail();
+		this.regimeTributario = cliente.getRegimeTributario();
+		this.categoria = cliente.getIdCategoriaCliente();
+		this.logradouro = cliente.getLogradouro();
+		this.numero = cliente.getNumero();
+		this.bairro = cliente.getBairro();
+		this.complemento = cliente.getComplemento();
+		this.cidade = cliente.getCidade();
+		this.uf = cliente.getUf();
+		this.pontoReferencia = cliente.getPontoReferencia();
+		this.nomeProprietario = cliente.getProprietario();
+		this.dataNascimento = cliente.getDataNascimento();
+		this.status = cliente.isAtivo();
+
+		if (cliente.getTelefones() != null) {
+
+			for (final Telefone telefone : cliente.getTelefones()) {
+
+				if ("CELULAR".equalsIgnoreCase(telefone.getTipo())) {
+					this.dddCelular = telefone.getDdd();
+					this.numeroCelular = telefone.getNumero();
+				} else if ("COMERCIAL".equalsIgnoreCase(telefone.getTipo())) {
+					this.dddComercial = telefone.getDdd();
+					this.numeroComercial = telefone.getNumero();
+				}
 			}
-			else
-				this.cliente.setDataAtualizacao(data);
-
-			this.clienteService.criar(this.cliente);
-		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 
-		this.doRedirect("/listagem/consultaCliente.xhtml");
 	}
 
+	@Override
+	public void popularObjeto(final Cliente cliente) {
 
-//-----------------------------------------------------
-	
-	public void editar() {
+		cliente.setNomeFantasia(this.nomeFantasia);
+		cliente.setCnpj(this.cnpj);
+		cliente.setRazaoSocial(this.razaoSocial);
+		cliente.setInscest(this.inscest);
+		cliente.setEmail(this.email);
+		cliente.setRegimeTributario(this.regimeTributario);
+		cliente.setIdCategoriaCliente(this.categoria);
+		cliente.setLogradouro(this.logradouro);
+		cliente.setNumero(this.numero);
+		cliente.setBairro(this.bairro);
+		cliente.setComplemento(this.complemento);
+		cliente.setCidade(this.cidade);
+		cliente.setUf(this.uf);
+		cliente.setPontoReferencia(this.pontoReferencia);
+		cliente.setProprietario(this.nomeProprietario);
+		cliente.setDataNascimento(this.dataNascimento);
+		cliente.setAtivo(this.status);
 
-		this.doRedirect("/clientes/cliente.xhtml?id=" + this.cliente.getId());
+		// final Telefone telefoneCelular = new Telefone();
+		// telefoneCelular.setDdd(this.dddCelular);
+		// telefoneCelular.setNumero(this.numeroCelular);
+		// telefoneCelular.setTipo("CELULAR");
+		//
+		// final Telefone telefoneComercial = new Telefone();
+		// telefoneComercial.setDdd(this.dddComercial);
+		// telefoneComercial.setNumero(this.numeroComercial);
+		// telefoneComercial.setTipo("COMERCIAL");
+
+		final Telefone telefoneCelular = new Telefone();
+		telefoneCelular.setDdd("81");
+		telefoneCelular.setNumero("9999-9999");
+		telefoneCelular.setTipo("CELULAR");
+		telefoneCelular.setIdCliente(cliente);
+
+		final Telefone telefoneComercial = new Telefone();
+		telefoneComercial.setDdd("81");
+		telefoneComercial.setNumero("3030-3030");
+		telefoneComercial.setTipo("COMERCIAL");
+		telefoneComercial.setIdCliente(cliente);
+
+		final Collection<Telefone> telefones = new ArrayList<Telefone>();
+		telefones.add(telefoneCelular);
+		telefones.add(telefoneComercial);
+
+		cliente.setTelefones(telefones);
+
+		if (cliente.getId() == null) {
+			cliente.setUsuarioCriador("ADMIN");
+			cliente.setDataCriacao(Calendar.getInstance().getTime());
+		} else {
+			cliente.setUsuarioAtualizador("ADMIN");
+			cliente.setDataAtualizacao(Calendar.getInstance().getTime());
+		}
+
 	}
 
-//-----------------------------------------------------
-	
-	public void remover() {
+	@Override
+	public void validarCampos() throws BusinessException {
 
-		try {
+		if (StringUtils.isBlank(this.nomeFantasia)) {
 
-			this.clienteService.deletar(this.cliente);
-		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+			throw new BusinessException("O campo Nome Fantasia não pode ser vazio!");
 		}
 	}
 
-//-----------------------------------------------------
-	public void doRedirect(final String redirectPage) throws FacesException {
+	@Override
+	public void salvar(final Cliente cliente) throws BusinessException {
 
-		final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-
-		try {
-			externalContext.redirect(externalContext.getRequestContextPath().concat(redirectPage));
-		} catch (final IOException e) {
-			throw new FacesException(e);
-		}
+		this.clienteService.criar(cliente);
 	}
 
-	
-//-----------------------------------------------------
-	
-	public String getParam(final String param) {
+	@Override
+	public Class<Cliente> getObjectClass() {
 
-		final FacesContext context = FacesContext.getCurrentInstance();
-		final Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
-		final String projectId = paramMap.get(param);
-		return projectId;
-	}
-
-	
-	//-----------------------------------------------------
-	public String getUsuarioCriador() {
-		return usuarioCriador;
-	}
-
-	public void setUsuarioCriador(String usuarioCriador) {
-		this.usuarioCriador = usuarioCriador;
-	}
-
-	public String getUsuarioAtualizador() {
-		return usuarioAtualizador;
-	}
-
-	public void setUsuarioAtualizador(String usuarioAtualizador) {
-		this.usuarioAtualizador = usuarioAtualizador;
-	}
-
-	public Date getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
-	public Date getDataAtualizacao() {
-		return dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(Date dataAtualizacao) {
-		this.dataAtualizacao = dataAtualizacao;
+		return Cliente.class;
 	}
 
 	public String getNomeFantasia() {
-		return nomeFantasia;
+
+		return this.nomeFantasia;
 	}
 
-	public void setNomeFantasia(String nomeFantasia) {
+	public void setNomeFantasia(final String nomeFantasia) {
+
 		this.nomeFantasia = nomeFantasia;
 	}
 
 	public String getCnpj() {
-		return cnpj;
+
+		return this.cnpj;
 	}
 
-	public void setCnpj(String cnpj) {
+	public void setCnpj(final String cnpj) {
+
 		this.cnpj = cnpj;
 	}
 
 	public String getRazaoSocial() {
-		return razaoSocial;
+
+		return this.razaoSocial;
 	}
 
-	public void setRazaoSocial(String razaoSocial) {
+	public void setRazaoSocial(final String razaoSocial) {
+
 		this.razaoSocial = razaoSocial;
 	}
 
 	public String getInscest() {
-		return inscest;
+
+		return this.inscest;
 	}
 
-	public void setInscest(String inscest) {
+	public void setInscest(final String inscest) {
+
 		this.inscest = inscest;
 	}
 
 	public String getEmail() {
-		return email;
+
+		return this.email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
+
 		this.email = email;
 	}
 
 	public String getRegimeTributario() {
-		return regimeTributario;
+
+		return this.regimeTributario;
 	}
 
-	public void setRegimeTributario(String regimeTributario) {
+	public void setRegimeTributario(final String regimeTributario) {
+
 		this.regimeTributario = regimeTributario;
 	}
 
-	public CategoriaCliente getIdCategoriaCliente() {
-		return idCategoriaCliente;
+	public CategoriaCliente getCategoria() {
+
+		return this.categoria;
 	}
 
-	public void setIdCategoriaCliente(CategoriaCliente idCategoriaCliente) {
-		this.idCategoriaCliente = idCategoriaCliente;
+	public void setCategoria(final CategoriaCliente categoria) {
+
+		this.categoria = categoria;
 	}
 
 	public String getLogradouro() {
-		return logradouro;
+
+		return this.logradouro;
 	}
 
-	public void setLogradouro(String logradouro) {
+	public void setLogradouro(final String logradouro) {
+
 		this.logradouro = logradouro;
 	}
 
 	public String getNumero() {
-		return numero;
+
+		return this.numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(final String numero) {
+
 		this.numero = numero;
 	}
 
 	public String getBairro() {
-		return bairro;
+
+		return this.bairro;
 	}
 
-	public void setBairro(String bairro) {
+	public void setBairro(final String bairro) {
+
 		this.bairro = bairro;
 	}
 
 	public String getComplemento() {
-		return complemento;
+
+		return this.complemento;
 	}
 
-	public void setComplemento(String complemento) {
+	public void setComplemento(final String complemento) {
+
 		this.complemento = complemento;
 	}
 
 	public String getCidade() {
-		return cidade;
+
+		return this.cidade;
 	}
 
-	public void setCidade(String cidade) {
+	public void setCidade(final String cidade) {
+
 		this.cidade = cidade;
 	}
 
 	public String getUf() {
-		return uf;
+
+		return this.uf;
 	}
 
-	public void setUf(String uf) {
+	public void setUf(final String uf) {
+
 		this.uf = uf;
 	}
 
 	public String getCep() {
-		return cep;
+
+		return this.cep;
 	}
 
-	public void setCep(String cep) {
+	public void setCep(final String cep) {
+
 		this.cep = cep;
 	}
 
 	public String getPontoReferencia() {
-		return pontoReferencia;
+
+		return this.pontoReferencia;
 	}
 
-	public void setPontoReferencia(String pontoReferencia) {
+	public void setPontoReferencia(final String pontoReferencia) {
+
 		this.pontoReferencia = pontoReferencia;
 	}
 
-	public String getProprietario() {
-		return proprietario;
+	public String getNomeProprietario() {
+
+		return this.nomeProprietario;
 	}
 
-	public void setProprietario(String proprietario) {
-		this.proprietario = proprietario;
+	public void setNomeProprietario(final String nomeProprietario) {
+
+		this.nomeProprietario = nomeProprietario;
 	}
 
 	public Date getDataNascimento() {
-		return dataNascimento;
+
+		return this.dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
+	public void setDataNascimento(final Date dataNascimento) {
+
 		this.dataNascimento = dataNascimento;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
+	public boolean getStatus() {
+
+		return this.status;
 	}
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
+	public void setStatus(final boolean status) {
+
+		this.status = status;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public String getDddComercial() {
+
+		return this.dddComercial;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	
-	
+	public void setDddComercial(final String dddComercial) {
 
-	
-	//----------------------------------------------- carrega a lista para o redirecionamento da View.
-	
-		public List<Cliente> getClientes() throws BusinessException { 
-
-			this.clientes = (List<Cliente>) this.clienteService.buscarTodos();
-			return this.clientes;
-		}
-
-		public void setClientes(final List<Cliente> clientes) {
-
-			this.clientes = clientes;
-		}
-	
-	
-
-	public ClienteService getClienteService() {
-		return clienteService;
+		this.dddComercial = dddComercial;
 	}
 
-	public void setClienteService(ClienteService clienteService) {
-		this.clienteService = clienteService;
+	public String getNumeroComercial() {
+
+		return this.numeroComercial;
 	}
 
-	
+	public void setNumeroComercial(final String numeroComercial) {
+
+		this.numeroComercial = numeroComercial;
+	}
+
+	public String getDddCelular() {
+
+		return this.dddCelular;
+	}
+
+	public void setDddCelular(final String dddCelular) {
+
+		this.dddCelular = dddCelular;
+	}
+
+	public String getNumeroCelular() {
+
+		return this.numeroCelular;
+	}
+
+	public void setNumeroCelular(final String numeroCelular) {
+
+		this.numeroCelular = numeroCelular;
+	}
+
+	public Collection<CategoriaCliente> getCategorias() {
+
+		return this.categorias;
+	}
+
+	public void setCategorias(final Collection<CategoriaCliente> categorias) {
+
+		this.categorias = categorias;
+	}
+
 }

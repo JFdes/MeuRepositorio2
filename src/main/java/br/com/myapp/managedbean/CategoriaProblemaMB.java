@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
@@ -24,12 +25,11 @@ import br.com.myapp.service.CategoriaProblemaService;
 @ViewScoped
 public class CategoriaProblemaMB {
 
-	
-	//---------------------------------------------------- Atributos da classe.
+	// ---------------------------------------------------- Atributos da classe.
 	private CategoriaProblema categoriaProblema = new CategoriaProblema();
 
 	private List<CategoriaProblema> categoriaProblemas = new ArrayList<CategoriaProblema>();
-	
+
 	private String nomeCategoria;
 
 	private String usuarioCriador;
@@ -41,10 +41,8 @@ public class CategoriaProblemaMB {
 	private Date dataAtualizacao;
 
 	private boolean ativo;
-	
-	
-	
-	//-----------------------------------------------------
+
+	// -----------------------------------------------------
 
 	@EJB
 	private CategoriaProblemaService categoriaProblemaService;
@@ -64,19 +62,19 @@ public class CategoriaProblemaMB {
 		}
 	}
 
-	//----------------------------------------------------- Método salvar.
+	// ----------------------------------------------------- Método salvar.
 	public void salvar() {
 
 		try {
-			
-			Date data = new Date();
 
-			if(categoriaProblema.id==null) {
+			final Date data = new Date();
+
+			if (this.categoriaProblema.getId() == null) {
 				this.categoriaProblema.setDataCriacao(data);
-				this.categoriaProblema.setAtivo(true);	
-			}
-			else
+				this.categoriaProblema.setAtivo(true);
+			} else {
 				this.categoriaProblema.setDataAtualizacao(data);
+			}
 
 			this.categoriaProblemaService.criar(this.categoriaProblema);
 		} catch (final BusinessException e) {
@@ -86,13 +84,13 @@ public class CategoriaProblemaMB {
 		this.doRedirect("/listagem/consultaCategoriaProblema.xhtml"); // Redireciona para a wiew de listagem.
 	}
 
-	//----------------------------------------------------- Método editar (redireciona para a wiew de cadastro)
+	// ----------------------------------------------------- Método editar (redireciona para a wiew de cadastro)
 	public void editar() {
 
 		this.doRedirect("/problemas/categoriaProblema.xhtml?id=" + this.categoriaProblema.getId());
 	}
-	
-	//----------------------------------------------------- Método remover.
+
+	// ----------------------------------------------------- Método remover.
 
 	public void remover() {
 
@@ -103,14 +101,8 @@ public class CategoriaProblemaMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 	}
-	
-	//-----------------------------------------------------
-	
-	
 
-	
-	
-	
+	// -----------------------------------------------------
 
 	public void doRedirect(final String redirectPage) throws FacesException {
 
@@ -122,8 +114,8 @@ public class CategoriaProblemaMB {
 			throw new FacesException(e);
 		}
 	}
-	
-	//-----------------------------------------------------
+
+	// -----------------------------------------------------
 
 	public String getParam(final String param) {
 
@@ -133,15 +125,10 @@ public class CategoriaProblemaMB {
 		return projectId;
 	}
 
-	//-----------------------------------------------
-	
-	
-	
-	
-	
-	//-----------------------------------------------
-	
-	
+	// -----------------------------------------------
+
+	// -----------------------------------------------
+
 	public CategoriaProblema getCategoriaProblema() {
 
 		return this.categoriaProblema;
@@ -152,10 +139,9 @@ public class CategoriaProblemaMB {
 		this.categoriaProblema = categoriaProblema;
 	}
 
-	
-	//----------------------------------------------- (get e set da lista) carrega a lista para o redirecionamento da View.
-	
-	public List<CategoriaProblema> getCategoriaProblemas() throws BusinessException { 
+	// ----------------------------------------------- (get e set da lista) carrega a lista para o redirecionamento da View.
+
+	public List<CategoriaProblema> getCategoriaProblemas() throws BusinessException {
 
 		this.categoriaProblemas = (List<CategoriaProblema>) this.categoriaProblemaService.buscarTodos();
 		return this.categoriaProblemas;
@@ -165,65 +151,77 @@ public class CategoriaProblemaMB {
 
 		this.categoriaProblemas = categoriaProblemas;
 	}
-	
-	//-----------------------------------------------------
+
+	// -----------------------------------------------------
 
 	public String getNomeCategoria() {
-		return nomeCategoria;
+
+		return this.nomeCategoria;
 	}
 
-	public void setNomeCategoria(String nomeCategoria) {
+	public void setNomeCategoria(final String nomeCategoria) {
+
 		this.nomeCategoria = nomeCategoria;
 	}
 
 	public String getUsuarioCriador() {
-		return usuarioCriador;
+
+		return this.usuarioCriador;
 	}
 
-	public void setUsuarioCriador(String usuarioCriador) {
+	public void setUsuarioCriador(final String usuarioCriador) {
+
 		this.usuarioCriador = usuarioCriador;
 	}
 
 	public String getUsuarioAtualizador() {
-		return usuarioAtualizador;
+
+		return this.usuarioAtualizador;
 	}
 
-	public void setUsuarioAtualizador(String usuarioAtualizador) {
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
 		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public Date getDataCriacao() {
-		return dataCriacao;
+
+		return this.dataCriacao;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
+	public void setDataCriacao(final Date dataCriacao) {
+
 		this.dataCriacao = dataCriacao;
 	}
 
 	public Date getDataAtualizacao() {
-		return dataAtualizacao;
+
+		return this.dataAtualizacao;
 	}
 
-	public void setDataAtualizacao(Date dataAtualizacao) {
+	public void setDataAtualizacao(final Date dataAtualizacao) {
+
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
 	public boolean isAtivo() {
-		return ativo;
+
+		return this.ativo;
 	}
 
-	public void setAtivo(boolean ativo) {
+	public void setAtivo(final boolean ativo) {
+
 		this.ativo = ativo;
 	}
 
 	public CategoriaProblemaService getCategoriaProblemaService() {
-		return categoriaProblemaService;
+
+		return this.categoriaProblemaService;
 	}
 
-	public void setCategoriaProblemaService(CategoriaProblemaService categoriaProblemaService) {
+	public void setCategoriaProblemaService(final CategoriaProblemaService categoriaProblemaService) {
+
 		this.categoriaProblemaService = categoriaProblemaService;
 	}
-	
 
-	
 }

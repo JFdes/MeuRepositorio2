@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
@@ -24,7 +25,6 @@ import br.com.myapp.service.CategoriaClienteService;
 @ViewScoped
 public class CategoriaClienteMB {
 
-	
 	private String categoria;
 
 	private String usuarioCriador;
@@ -40,9 +40,8 @@ public class CategoriaClienteMB {
 	private CategoriaCliente categoriaCliente = new CategoriaCliente();
 
 	private List<CategoriaCliente> categoriaClientes = new ArrayList<CategoriaCliente>();
-	
-	
-		// ----------------------------------------------
+
+	// ----------------------------------------------
 	@EJB
 	private CategoriaClienteService categoriaClienteService;
 
@@ -64,24 +63,23 @@ public class CategoriaClienteMB {
 	// ---------------------------------------------Método para salvar a
 	// Categoria:
 
-		public void salvar() {
-		
+	public void salvar() {
+
 		try {
-			Date data = new Date();
+			final Date data = new Date();
 
-			if(categoriaCliente.id==null) {
+			if (this.categoriaCliente.getId() == null) {
 				this.categoriaCliente.setDataCriacao(data);
-				this.categoriaCliente.setAtivo(true);	
-			}
-			else
+				this.categoriaCliente.setAtivo(true);
+			} else {
 				this.categoriaCliente.setDataAtualizacao(data);
+			}
 
-			
 			this.categoriaClienteService.criar(this.categoriaCliente);
 		} catch (final BusinessException e) {
-					FacesContext.getCurrentInstance().addMessage(null,
+			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
-			}
+		}
 
 		this.doRedirect("/listagem/consultaCategoriaCliente.xhtml");
 	}
@@ -115,8 +113,6 @@ public class CategoriaClienteMB {
 			throw new FacesException(e);
 		}
 	}
-	
-	
 
 	// ----------------------------------------------
 
@@ -131,67 +127,82 @@ public class CategoriaClienteMB {
 	// ----------------------------------------------
 
 	public String getCategoria() {
-		return categoria;
+
+		return this.categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(final String categoria) {
+
 		this.categoria = categoria;
 	}
 
 	public String getUsuarioCriador() {
-		return usuarioCriador;
+
+		return this.usuarioCriador;
 	}
 
-	public void setUsuarioCriador(String usuarioCriador) {
+	public void setUsuarioCriador(final String usuarioCriador) {
+
 		this.usuarioCriador = usuarioCriador;
 	}
 
 	public String getUsuarioAtualizador() {
-		return usuarioAtualizador;
+
+		return this.usuarioAtualizador;
 	}
 
-	public void setUsuarioAtualizador(String usuarioAtualizador) {
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
 		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public Date getDataCriacao() {
-		return dataCriacao;
+
+		return this.dataCriacao;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
+	public void setDataCriacao(final Date dataCriacao) {
+
 		this.dataCriacao = dataCriacao;
 	}
 
 	public Date getDataAtualizacao() {
-		return dataAtualizacao;
+
+		return this.dataAtualizacao;
 	}
 
-	public void setDataAtualizacao(Date dataAtualizacao) {
+	public void setDataAtualizacao(final Date dataAtualizacao) {
+
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
 	public boolean isAtivo() {
-		
-		return ativo;
+
+		return this.ativo;
 	}
 
-	public void setAtivo(boolean ativo) {
+	public void setAtivo(final boolean ativo) {
+
 		this.ativo = ativo;
 	}
 
 	public CategoriaCliente getCategoriaCliente() {
-		return categoriaCliente;
+
+		return this.categoriaCliente;
 	}
 
-	public void setCategoriaCliente(CategoriaCliente categoriaCliente) {
+	public void setCategoriaCliente(final CategoriaCliente categoriaCliente) {
+
 		this.categoriaCliente = categoriaCliente;
 	}
-	
+
 	public CategoriaClienteService getCategoriaClienteService() {
-		return categoriaClienteService;
+
+		return this.categoriaClienteService;
 	}
 
-	public void setCategoriaClienteService(CategoriaClienteService categoriaClienteService) {
+	public void setCategoriaClienteService(final CategoriaClienteService categoriaClienteService) {
+
 		this.categoriaClienteService = categoriaClienteService;
 	}
 
@@ -209,10 +220,6 @@ public class CategoriaClienteMB {
 		this.categoriaClientes = categoriaClientes;
 	}
 
-		
 	// --------------------------------------------------
-	
-
-	
 
 }

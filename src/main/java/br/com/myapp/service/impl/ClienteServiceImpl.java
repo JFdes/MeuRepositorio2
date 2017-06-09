@@ -22,11 +22,11 @@ public class ClienteServiceImpl implements ClienteService {
 
 		try {
 
-			if(cliente.id==null){
+			if(cliente.getId()==null){
 				this.dao.criar(cliente);
+			} else {
+				this.atualizar(cliente);
 			}
-			else
-				atualizar(cliente);
 			
 		} catch (final DAOException e) {
 			throw new BusinessException(e);

@@ -16,7 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.persistence.Column;
+
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
@@ -31,18 +31,16 @@ import br.com.myapp.service.ProblemaService;
 @ViewScoped
 public class ProblemaMB {
 
-private Cliente idCliente;
-	
+	private Cliente idCliente;
 
-	@Column(name = "TITULO")
 	private String titulo;
 
-	@Column(name = "DESCRICAO")
 	private String descricao;
-	
+
 	private Ciclo idCiclo; // Relacionamento N:1
 
 	private StatusProblema status;
+
 	private Date dataCriacao;
 
 	private String usuarioCriador;
@@ -51,7 +49,6 @@ private Cliente idCliente;
 
 	private String usuarioAtualizador;
 
-	
 	private Problema problema = new Problema();
 
 	private List<Problema> problemas = new ArrayList<Problema>();
@@ -77,14 +74,14 @@ private Cliente idCliente;
 	public void salvar() {
 
 		try {
-			Date data = new Date();
+			final Date data = new Date();
 
-			if(problema.id==null) {
+			if (this.problema.getId() == null) {
 				this.problema.setDataCriacao(data);
-					
-			}
-			else
+
+			} else {
 				this.problema.setDataAtualizaco(data);
+			}
 
 			this.problemaService.criar(this.problema);
 		} catch (final BusinessException e) {
@@ -133,7 +130,6 @@ private Cliente idCliente;
 		return Arrays.asList(Sexo.values());
 	}
 
-	
 	public Problema getProblema() {
 
 		return this.problema;
@@ -144,10 +140,9 @@ private Cliente idCliente;
 		this.problema = problema;
 	}
 
-	
-	//----------------------------------------------- carrega a lista para o redirecionamento da View.
-	
-	public List<Problema> getProblemas() throws BusinessException { 
+	// ----------------------------------------------- carrega a lista para o redirecionamento da View.
+
+	public List<Problema> getProblemas() throws BusinessException {
 
 		this.problemas = (List<Problema>) this.problemaService.buscarTodos();
 		return this.problemas;
@@ -159,89 +154,108 @@ private Cliente idCliente;
 	}
 
 	public Cliente getIdCliente() {
-		return idCliente;
+
+		return this.idCliente;
 	}
 
-	public void setIdCliente(Cliente idCliente) {
+	public void setIdCliente(final Cliente idCliente) {
+
 		this.idCliente = idCliente;
 	}
 
 	public String getTitulo() {
-		return titulo;
+
+		return this.titulo;
 	}
 
-	public void setTitulo(String titulo) {
+	public void setTitulo(final String titulo) {
+
 		this.titulo = titulo;
 	}
 
 	public String getDescricao() {
-		return descricao;
+
+		return this.descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	public void setDescricao(final String descricao) {
+
 		this.descricao = descricao;
 	}
 
 	public Ciclo getIdCiclo() {
-		return idCiclo;
+
+		return this.idCiclo;
 	}
 
-	public void setIdCiclo(Ciclo idCiclo) {
+	public void setIdCiclo(final Ciclo idCiclo) {
+
 		this.idCiclo = idCiclo;
 	}
 
 	public StatusProblema getStatus() {
-		return status;
+
+		return this.status;
 	}
 
-	public void setStatus(StatusProblema status) {
+	public void setStatus(final StatusProblema status) {
+
 		this.status = status;
 	}
 
 	public Date getDataCriacao() {
-		return dataCriacao;
+
+		return this.dataCriacao;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
+	public void setDataCriacao(final Date dataCriacao) {
+
 		this.dataCriacao = dataCriacao;
 	}
 
 	public String getUsuarioCriador() {
-		return usuarioCriador;
+
+		return this.usuarioCriador;
 	}
 
-	public void setUsuarioCriador(String usuarioCriador) {
+	public void setUsuarioCriador(final String usuarioCriador) {
+
 		this.usuarioCriador = usuarioCriador;
 	}
 
 	public Date getDataAtualizaco() {
-		return dataAtualizaco;
+
+		return this.dataAtualizaco;
 	}
 
-	public void setDataAtualizaco(Date dataAtualizaco) {
+	public void setDataAtualizaco(final Date dataAtualizaco) {
+
 		this.dataAtualizaco = dataAtualizaco;
 	}
 
 	public String getUsuarioAtualizador() {
-		return usuarioAtualizador;
+
+		return this.usuarioAtualizador;
 	}
 
-	public void setUsuarioAtualizador(String usuarioAtualizador) {
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
 		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public ProblemaService getProblemaService() {
-		return problemaService;
+
+		return this.problemaService;
 	}
 
-	public void setProblemaService(ProblemaService problemaService) {
+	public void setProblemaService(final ProblemaService problemaService) {
+
 		this.problemaService = problemaService;
 	}
 
-	public void setProblemas(List<Problema> problemas) {
+	public void setProblemas(final List<Problema> problemas) {
+
 		this.problemas = problemas;
 	}
-	
-	
 
 }

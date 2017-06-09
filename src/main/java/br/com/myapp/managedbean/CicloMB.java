@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.FacesException;
@@ -13,7 +14,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import org.apache.commons.lang3.StringUtils;
+
 import br.com.myapp.exception.BusinessException;
 import br.com.myapp.model.Ciclo;
 import br.com.myapp.service.CicloService;
@@ -21,24 +24,22 @@ import br.com.myapp.service.CicloService;
 @ManagedBean
 @ViewScoped
 public class CicloMB {
-	
+
 	private String descricao;
-	
+
 	private Date dataInicio;
-	
+
 	private Date dataFim;
-	
+
 	private String usuarioCriador;
-	
+
 	private String usuarioAtualizador;
-	
+
 	private Date dataCriacao;
-	
+
 	private Date dataAtualizacao;
 
-		
-	
-	//-----------------------------------------------------
+	// -----------------------------------------------------
 
 	private Ciclo ciclo = new Ciclo();
 
@@ -47,8 +48,7 @@ public class CicloMB {
 	@EJB
 	private CicloService cicloService;
 
-	
-	//------------------------------------------------
+	// ------------------------------------------------
 	@PostConstruct
 	public void init() {
 
@@ -63,19 +63,19 @@ public class CicloMB {
 			}
 		}
 	}
-	
-	//------------------------------------------------
+
+	// ------------------------------------------------
 
 	public void salvar() {
 
 		try {
-			Date data = new Date();
+			final Date data = new Date();
 
-			if(ciclo.id==null) {
+			if (this.ciclo.getId() == null) {
 				this.ciclo.setDataCriacao(data);
-			}
-			else
+			} else {
 				this.ciclo.setDataAtualizacao(data);
+			}
 
 			this.cicloService.criar(this.ciclo);
 		} catch (final BusinessException e) {
@@ -84,15 +84,15 @@ public class CicloMB {
 
 		this.doRedirect("/listagem/consultaCiclo.xhtml");
 	}
-	
-	//------------------------------------------------
+
+	// ------------------------------------------------
 
 	public void editar() {
 
 		this.doRedirect("/ciclos/ciclo.xhtml?id=" + this.ciclo.getId());
 	}
-	
-	//------------------------------------------------
+
+	// ------------------------------------------------
 
 	public void remover() {
 
@@ -103,50 +103,48 @@ public class CicloMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 	}
-	
-	//------------------------------------------------- Método para abertura do Ciclo.
-	
-	public void abrirCiclo(){ //abre o cliclo criado.
-				
+
+	// ------------------------------------------------- Método para abertura do Ciclo.
+
+	public void abrirCiclo() { // abre o cliclo criado.
+
 		try {
-			Date data = new Date();
+			final Date data = new Date();
 
 			this.ciclo.setDataInicio(data);
 
 			this.cicloService.criar(this.ciclo);
-		}catch (final BusinessException e) {
+		} catch (final BusinessException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 
-		this.doRedirect("/listagem/consultaCiclo.xhtml"); //chama o método de redirecionamento de página.
-			
-	}
-	
-	//------------------------------------------------- Método para fechamento do Ciclo.
-	
-	public void finalizarCiclo(){ //finaliza o clico aberto.
-		
-				
-		try {
-			Date data = new Date();
+		this.doRedirect("/listagem/consultaCiclo.xhtml"); // chama o método de redirecionamento de página.
 
-			if(ciclo.getDataInicio()!=null) {
+	}
+
+	// ------------------------------------------------- Método para fechamento do Ciclo.
+
+	public void finalizarCiclo() { // finaliza o clico aberto.
+
+		try {
+			final Date data = new Date();
+
+			if (this.ciclo.getDataInicio() != null) {
 				this.ciclo.setDataFim(data);
+			} else {
+				this.abrirCiclo();
 			}
-			else
-				abrirCiclo();
 
 			this.cicloService.criar(this.ciclo);
-		}catch (final BusinessException e) {
+		} catch (final BusinessException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 
-		this.doRedirect("/listagem/consultaCiclo.xhtml");		
-			
-				
+		this.doRedirect("/listagem/consultaCiclo.xhtml");
+
 	}
-	
-	//------------------------------------------------
+
+	// ------------------------------------------------
 
 	public void doRedirect(final String redirectPage) throws FacesException {
 
@@ -158,8 +156,8 @@ public class CicloMB {
 			throw new FacesException(e);
 		}
 	}
-	
-	//------------------------------------------------
+
+	// ------------------------------------------------
 
 	public String getParam(final String param) {
 
@@ -169,9 +167,8 @@ public class CicloMB {
 		return projectId;
 	}
 
+	// -------------------------------------------------
 
-	//-------------------------------------------------
-	
 	public Ciclo getCiclo() {
 
 		return this.ciclo;
@@ -182,10 +179,9 @@ public class CicloMB {
 		this.ciclo = ciclo;
 	}
 
-	
-	//----------------------------------------------- carrega a lista para o redirecionamento da View.
-	
-	public List<Ciclo> getCiclos() throws BusinessException { 
+	// ----------------------------------------------- carrega a lista para o redirecionamento da View.
+
+	public List<Ciclo> getCiclos() throws BusinessException {
 
 		this.ciclos = (List<Ciclo>) this.cicloService.buscarTodos();
 		return this.ciclos;
@@ -195,74 +191,87 @@ public class CicloMB {
 
 		this.ciclos = ciclos;
 	}
-	
-	//-------------------------------------------------
+
+	// -------------------------------------------------
 
 	public String getDescricao() {
-		return descricao;
+
+		return this.descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	public void setDescricao(final String descricao) {
+
 		this.descricao = descricao;
 	}
 
 	public Date getDataInicio() {
-		return dataInicio;
+
+		return this.dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(final Date dataInicio) {
+
 		this.dataInicio = dataInicio;
 	}
 
 	public Date getDataFim() {
-		return dataFim;
+
+		return this.dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(final Date dataFim) {
+
 		this.dataFim = dataFim;
 	}
 
 	public String getUsuarioCriador() {
-		return usuarioCriador;
+
+		return this.usuarioCriador;
 	}
 
-	public void setUsuarioCriador(String usuarioCriador) {
+	public void setUsuarioCriador(final String usuarioCriador) {
+
 		this.usuarioCriador = usuarioCriador;
 	}
 
 	public String getUsuarioAtualizador() {
-		return usuarioAtualizador;
+
+		return this.usuarioAtualizador;
 	}
 
-	public void setUsuarioAtualizador(String usuarioAtualizador) {
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
 		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public Date getDataCriacao() {
-		return dataCriacao;
+
+		return this.dataCriacao;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
+	public void setDataCriacao(final Date dataCriacao) {
+
 		this.dataCriacao = dataCriacao;
 	}
 
 	public Date getDataAtualizacao() {
-		return dataAtualizacao;
+
+		return this.dataAtualizacao;
 	}
 
-	public void setDataAtualizacao(Date dataAtualizacao) {
+	public void setDataAtualizacao(final Date dataAtualizacao) {
+
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-	
 	public CicloService getCicloService() {
-		return cicloService;
+
+		return this.cicloService;
 	}
 
-	public void setCicloService(CicloService cicloService) {
+	public void setCicloService(final CicloService cicloService) {
+
 		this.cicloService = cicloService;
 	}
-	
-		
 
 }

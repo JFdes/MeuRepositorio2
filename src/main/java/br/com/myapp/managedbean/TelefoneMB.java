@@ -15,25 +15,29 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
-import br.com.myapp.model.Telefone;
 import br.com.myapp.model.Cliente;
 import br.com.myapp.model.Sexo;
+import br.com.myapp.model.Telefone;
 import br.com.myapp.service.TelefoneService;
 
 @ManagedBean
 @ViewScoped
 public class TelefoneMB {
-	
-private Cliente idCliente;
-	
-	
+
+	private Cliente idCliente;
+
 	private String ddd;
+
 	private String numero;
+
 	private String tipo;
+
 	private Telefone telefone = new Telefone();
+
 	private List<Telefone> telefones = new ArrayList<Telefone>();
 
 	@EJB
@@ -63,7 +67,6 @@ private Cliente idCliente;
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 
-		
 	}
 
 	public void editar() {
@@ -105,8 +108,6 @@ private Cliente idCliente;
 		return Arrays.asList(Sexo.values());
 	}
 
-	
-
 	public Telefone getTelefone() {
 
 		return this.telefone;
@@ -116,63 +117,68 @@ private Cliente idCliente;
 
 		this.telefone = telefone;
 	}
-	
+
 	public void setTelefones(final List<Telefone> telefones) {
 
 		this.telefones = telefones;
 	}
 
 	public Cliente getIdCliente() {
-		return idCliente;
+
+		return this.idCliente;
 	}
 
-	public void setIdCliente(Cliente idCliente) {
+	public void setIdCliente(final Cliente idCliente) {
+
 		this.idCliente = idCliente;
 	}
 
 	public String getDdd() {
-		return ddd;
+
+		return this.ddd;
 	}
 
-	public void setDdd(String ddd) {
+	public void setDdd(final String ddd) {
+
 		this.ddd = ddd;
 	}
 
 	public String getNumero() {
-		return numero;
+
+		return this.numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(final String numero) {
+
 		this.numero = numero;
 	}
 
 	public String getTipo() {
-		return tipo;
+
+		return this.tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(final String tipo) {
+
 		this.tipo = tipo;
 	}
 
 	public TelefoneService getTelefoneService() {
-		return telefoneService;
+
+		return this.telefoneService;
 	}
 
-	public void setTelefoneService(TelefoneService telefoneService) {
+	public void setTelefoneService(final TelefoneService telefoneService) {
+
 		this.telefoneService = telefoneService;
 	}
-	
-	
 
-	
-	//----------------------------------------------- carrega a lista para o redirecionamento da View.
-	
-	public List<Telefone> getTelefones() throws BusinessException { 
+	// ----------------------------------------------- carrega a lista para o redirecionamento da View.
+
+	public List<Telefone> getTelefones() throws BusinessException {
 
 		this.telefones = (List<Telefone>) this.telefoneService.buscarTodos();
 		return this.telefones;
 	}
-
-	
 
 }

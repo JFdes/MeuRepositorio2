@@ -22,12 +22,12 @@ public class TelefoneServiceImpl implements TelefoneService {
 
 		try {
 
-			if(telefone.id==null){
+			if (telefone.getId() == null) {
 				this.dao.criar(telefone);
+			} else {
+				this.atualizar(telefone);
 			}
-			else
-				atualizar(telefone);
-			
+
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}

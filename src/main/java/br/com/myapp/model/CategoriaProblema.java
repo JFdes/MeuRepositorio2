@@ -19,10 +19,10 @@ public class CategoriaProblema implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_categoriaProblema")
-	@SequenceGenerator(name = "sq_categoriaProblema", sequenceName = "sq_categoriaProblema", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_categoria_problema")
+	@SequenceGenerator(name = "sq_categoria_problema", sequenceName = "sq_categoria_problema", allocationSize = 1)
 	@Column(name = "ROW_ID")
-	public Long id;
+	private Long id;
 
 	// --------------------------------------------------------
 
@@ -32,12 +32,12 @@ public class CategoriaProblema implements Serializable {
 	@Column(name = "USUARIO_CRIADOR")
 	private String usuarioCriador;
 
-	@Column(name = "USUARIO_ATUALIZADOR")
-	private String usuarioAtualizador;
-
 	@Column(name = "DATA_CRIACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
+
+	@Column(name = "USUARIO_ATUALIZADOR")
+	private String usuarioAtualizador;
 
 	@Column(name = "DATA_ATUALIZACAO")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -45,112 +45,136 @@ public class CategoriaProblema implements Serializable {
 
 	@Column(name = "ATIVO")
 	private boolean ativo;
-	
+
 	@Transient
-	private String imagemStatus="../resources/images/off.png"; //Variável para exibição da imagem do Status considerado "false".
+	private String imagemStatus = "../resources/images/off.png"; // Variável para exibição da imagem do Status considerado
+																	// "false".
 
-
-	
-	//-------------------------------------------
+	// -------------------------------------------
 	@Override
 	public int hashCode() {
+
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		CategoriaProblema other = (CategoriaProblema) obj;
-		if (id == null) {
-			if (other.id != null)
+		}
+		final CategoriaProblema other = (CategoriaProblema) obj;
+		if (this.id == null) {
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
+
 		return "CategoriaProblema [id=" + this.id + ", nomeCategoria=" + this.nomeCategoria + ", usuarioCriador="
 				+ this.usuarioCriador + ", usuarioAtualizador=" + this.usuarioAtualizador + ", dataCriacao="
 				+ this.dataCriacao + ", dataAtualizacao=" + this.dataAtualizacao + ", ativo=" + this.ativo + "]";
 	}
 
 	public Long getId() {
-		return id;
+
+		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
+
 		this.id = id;
 	}
 
 	public String getNomeCategoria() {
-		return nomeCategoria;
+
+		return this.nomeCategoria;
 	}
 
-	public void setNomeCategoria(String nomeCategoria) {
+	public void setNomeCategoria(final String nomeCategoria) {
+
 		this.nomeCategoria = nomeCategoria;
 	}
 
 	public String getUsuarioCriador() {
-		return usuarioCriador;
+
+		return this.usuarioCriador;
 	}
 
-	public void setUsuarioCriador(String usuarioCriador) {
+	public void setUsuarioCriador(final String usuarioCriador) {
+
 		this.usuarioCriador = usuarioCriador;
 	}
 
 	public String getUsuarioAtualizador() {
-		return usuarioAtualizador;
+
+		return this.usuarioAtualizador;
 	}
 
-	public void setUsuarioAtualizador(String usuarioAtualizador) {
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
 		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public Date getDataCriacao() {
-		return dataCriacao;
+
+		return this.dataCriacao;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
+	public void setDataCriacao(final Date dataCriacao) {
+
 		this.dataCriacao = dataCriacao;
 	}
 
 	public Date getDataAtualizacao() {
-		return dataAtualizacao;
+
+		return this.dataAtualizacao;
 	}
 
-	public void setDataAtualizacao(Date dataAtualizacao) {
+	public void setDataAtualizacao(final Date dataAtualizacao) {
+
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
 	public boolean isAtivo() {
-		return ativo;
+
+		return this.ativo;
 	}
 
-	public void setAtivo(boolean ativo) {
+	public void setAtivo(final boolean ativo) {
+
 		this.ativo = ativo;
 	}
-	//-------------------------------------------------
+
+	// -------------------------------------------------
 	public String getImagemStatus() {
-		if(this.ativo==true){
-			this.imagemStatus="../resources/images/on.png";
+
+		if (this.ativo == true) {
+			this.imagemStatus = "../resources/images/on.png";
 		}
-		return imagemStatus;
+		return this.imagemStatus;
 	}
 
-	public void setImagemStatus(String imagemStatus) {
+	public void setImagemStatus(final String imagemStatus) {
+
 		this.imagemStatus = imagemStatus;
 	}
-	
-	//--------------------------------------------------
+
+	// --------------------------------------------------
 
 }

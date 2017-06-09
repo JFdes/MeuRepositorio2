@@ -12,147 +12,166 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 @Entity(name = "CICLO")
-public class Ciclo implements Serializable{
+public class Ciclo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_ciclo")
 	@SequenceGenerator(name = "sq_ciclo", sequenceName = "sq_ciclo", allocationSize = 1)
 	@Column(name = "ROW_ID")
-	public Long id;
-	
+	private Long id;
+
 	@Column(name = "DESCRICAO")
 	private String descricao;
-	
+
 	@Column(name = "DATA_INICIO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicio;
-	
+
 	@Column(name = "DATA_FIM")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataFim;
-	
-	
+
 	@Column(name = "USUARIO_CRIADOR")
 	private String usuarioCriador;
-	
-	
-	@Column(name = "USUARIO_ATUALIZADOR")
-	private String usuarioAtualizador;
-	
+
 	@Column(name = "DATA_CRIACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao;
-	
+
+	@Column(name = "USUARIO_ATUALIZADOR")
+	private String usuarioAtualizador;
+
 	@Column(name = "DATA_ATUALIZACAO")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizacao;
 
 	@Override
 	public int hashCode() {
+
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		Ciclo other = (Ciclo) obj;
-		if (id == null) {
-			if (other.id != null)
+		}
+		final Ciclo other = (Ciclo) obj;
+		if (this.id == null) {
+			if (other.id != null) {
 				return false;
-		} else if (!id.equals(other.id))
+			}
+		} else if (!this.id.equals(other.id)) {
 			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Ciclo [id=" + id 
-				+ ", descricao=" + this.descricao 
-				+ ", dataInicio=" + this.dataInicio 
+
+		return "Ciclo [id=" + this.id
+				+ ", descricao=" + this.descricao
+				+ ", dataInicio=" + this.dataInicio
 				+ ", dataFim=" + this.dataFim
-				+ ", usuarioCriador=" + usuarioCriador 
-				+ ", usuarioAtualizador=" + usuarioAtualizador 
-				+ ", dataCriacao=" + dataCriacao 
-				+ ", dataAtualizacao=" + dataAtualizacao 
+				+ ", usuarioCriador=" + this.usuarioCriador
+				+ ", usuarioAtualizador=" + this.usuarioAtualizador
+				+ ", dataCriacao=" + this.dataCriacao
+				+ ", dataAtualizacao=" + this.dataAtualizacao
 				+ "]";
 	}
 
 	public Long getId() {
-		return id;
+
+		return this.id;
 	}
 
-	public void setId(Long id) {
+	public void setId(final Long id) {
+
 		this.id = id;
 	}
 
 	public String getDescricao() {
-		return descricao;
+
+		return this.descricao;
 	}
 
-	public void setDescricao(String descricao) {
+	public void setDescricao(final String descricao) {
+
 		this.descricao = descricao;
 	}
 
 	public Date getDataInicio() {
-		return dataInicio;
+
+		return this.dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
+	public void setDataInicio(final Date dataInicio) {
+
 		this.dataInicio = dataInicio;
 	}
 
 	public Date getDataFim() {
-		return dataFim;
+
+		return this.dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
+	public void setDataFim(final Date dataFim) {
+
 		this.dataFim = dataFim;
 	}
 
 	public String getUsuarioCriador() {
-		return usuarioCriador;
+
+		return this.usuarioCriador;
 	}
 
-	public void setUsuarioCriador(String usuarioCriador) {
+	public void setUsuarioCriador(final String usuarioCriador) {
+
 		this.usuarioCriador = usuarioCriador;
 	}
 
 	public String getUsuarioAtualizador() {
-		return usuarioAtualizador;
+
+		return this.usuarioAtualizador;
 	}
 
-	public void setUsuarioAtualizador(String usuarioAtualizador) {
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
 		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public Date getDataCriacao() {
-		return dataCriacao;
+
+		return this.dataCriacao;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
+	public void setDataCriacao(final Date dataCriacao) {
+
 		this.dataCriacao = dataCriacao;
 	}
 
 	public Date getDataAtualizacao() {
-		return dataAtualizacao;
+
+		return this.dataAtualizacao;
 	}
 
-	public void setDataAtualizacao(Date dataAtualizacao) {
+	public void setDataAtualizacao(final Date dataAtualizacao) {
+
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
-		
-	
 }

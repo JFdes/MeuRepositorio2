@@ -14,6 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
@@ -24,30 +25,27 @@ import br.com.myapp.service.SetorService;
 @ViewScoped
 public class SetorMB {
 
-	
-	
-	//-------------------------------------------------
+	// -------------------------------------------------
 
 	private Setor setor = new Setor();
 
 	private List<Setor> setores = new ArrayList<Setor>();
-	
-	
-	//-------------------------------------------------
-	
+
+	// -------------------------------------------------
+
 	private String nome;
-	
+
 	private Date dataCriacao;
-	
+
 	private Date dataAtualizacao;
-	
+
 	private String usuarioCriador;
-	
+
 	private String usuarioAtualizador;
-	
+
 	private boolean ativo;
 
-	//---------------------------------------------------
+	// ---------------------------------------------------
 	@EJB
 	private SetorService setorService;
 
@@ -66,19 +64,19 @@ public class SetorMB {
 		}
 	}
 
-	//-----------------------------------------------------
-	
+	// -----------------------------------------------------
+
 	public void salvar() {
 
 		try {
-			Date data = new Date();
+			final Date data = new Date();
 
-			if(setor.id==null) {
+			if (this.setor.getId() == null) {
 				this.setor.setDataCriacao(data);
-				this.setor.setAtivo(true);	
-			}
-			else
+				this.setor.setAtivo(true);
+			} else {
 				this.setor.setDataAtualizacao(data);
+			}
 
 			this.setorService.criar(this.setor);
 		} catch (final BusinessException e) {
@@ -87,15 +85,15 @@ public class SetorMB {
 
 		this.doRedirect("/listagem/consultaSetor.xhtml");
 	}
-	
-	//-------------------------------------------------
+
+	// -------------------------------------------------
 
 	public void editar() {
 
 		this.doRedirect("/funcionarios/setor.xhtml?id=" + this.setor.getId());
 	}
-	
-	//-------------------------------------------------
+
+	// -------------------------------------------------
 
 	public void remover() {
 
@@ -106,8 +104,8 @@ public class SetorMB {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 	}
-	
-	//-------------------------------------------------
+
+	// -------------------------------------------------
 
 	public void doRedirect(final String redirectPage) throws FacesException {
 
@@ -119,8 +117,8 @@ public class SetorMB {
 			throw new FacesException(e);
 		}
 	}
-	
-	//-------------------------------------------------
+
+	// -------------------------------------------------
 
 	public String getParam(final String param) {
 
@@ -130,82 +128,93 @@ public class SetorMB {
 		return projectId;
 	}
 
-	//-------------------------------------------------
-	
+	// -------------------------------------------------
+
 	public Setor getSetor() {
-		return setor;
+
+		return this.setor;
 	}
 
-	public void setSetor(Setor setor) {
+	public void setSetor(final Setor setor) {
+
 		this.setor = setor;
 	}
 
 	public String getNome() {
-		return nome;
+
+		return this.nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(final String nome) {
+
 		this.nome = nome;
 	}
 
 	public Date getDataCriacao() {
-		return dataCriacao;
+
+		return this.dataCriacao;
 	}
 
-	public void setDataCriacao(Date dataCriacao) {
+	public void setDataCriacao(final Date dataCriacao) {
+
 		this.dataCriacao = dataCriacao;
 	}
 
 	public Date getDataAtualizacao() {
-		return dataAtualizacao;
+
+		return this.dataAtualizacao;
 	}
 
-	public void setDataAtualizacao(Date dataAtualizacao) {
+	public void setDataAtualizacao(final Date dataAtualizacao) {
+
 		this.dataAtualizacao = dataAtualizacao;
 	}
 
 	public String getUsuarioCriador() {
-		return usuarioCriador;
+
+		return this.usuarioCriador;
 	}
 
-	public void setUsuarioCriador(String usuarioCriador) {
+	public void setUsuarioCriador(final String usuarioCriador) {
+
 		this.usuarioCriador = usuarioCriador;
 	}
 
 	public String getUsuarioAtualizador() {
-		return usuarioAtualizador;
+
+		return this.usuarioAtualizador;
 	}
 
-	public void setUsuarioAtualizador(String usuarioAtualizador) {
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
 		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public boolean isAtivo() {
-		return ativo;
+
+		return this.ativo;
 	}
 
-	public void setAtivo(boolean ativo) {
+	public void setAtivo(final boolean ativo) {
+
 		this.ativo = ativo;
 	}
 
-	
-	//-------------------------------------------------
-	
+	// -------------------------------------------------
+
 	public SetorService getSetorService() {
-		return setorService;
+
+		return this.setorService;
 	}
 
-	public void setSetorService(SetorService setorService) {
+	public void setSetorService(final SetorService setorService) {
+
 		this.setorService = setorService;
 	}
-	
-	
-	
-	//----------------------------------------------- carrega a lista para o redirecionamento da View.
-	
-	
 
-	public List<Setor> getSetores() throws BusinessException { 
+	// ----------------------------------------------- carrega a lista para o redirecionamento da View.
+
+	public List<Setor> getSetores() throws BusinessException {
 
 		this.setores = (List<Setor>) this.setorService.buscarTodos();
 		return this.setores;
@@ -215,10 +224,7 @@ public class SetorMB {
 
 		this.setores = setores;
 	}
-	
-	//--------------------------------------------------
-	
 
-	
+	// --------------------------------------------------
 
 }

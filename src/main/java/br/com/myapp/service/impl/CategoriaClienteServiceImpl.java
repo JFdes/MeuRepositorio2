@@ -22,12 +22,12 @@ public class CategoriaClienteServiceImpl implements CategoriaClienteService {
 
 		try {
 
-			if(categoriaCliente.id==null){
+			if (categoriaCliente.getId() == null) {
 				this.dao.criar(categoriaCliente);
+			} else {
+				this.atualizar(categoriaCliente);
 			}
-			else
-				atualizar(categoriaCliente);
-			
+
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}

@@ -22,11 +22,11 @@ public class CicloServiceImpl implements CicloService {
 
 		try {
 
-			if(ciclo.id==null){
+			if(ciclo.getId()==null){
 				this.dao.criar(ciclo);
+			} else {
+				this.atualizar(ciclo);
 			}
-			else
-				atualizar(ciclo);
 			
 		} catch (final DAOException e) {
 			throw new BusinessException(e);

@@ -22,12 +22,12 @@ public class SetorServiceImpl implements SetorService {
 
 		try {
 
-			if(setor.id==null){
+			if (setor.getId() == null) {
 				this.dao.criar(setor);
+			} else {
+				this.atualizar(setor);
 			}
-			else
-				atualizar(setor);
-			
+
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
