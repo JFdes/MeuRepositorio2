@@ -22,12 +22,12 @@ public class CicloServiceImpl implements CicloService {
 
 		try {
 
-			if(ciclo.getId()==null){
+			if (ciclo.getId() == null) {
 				this.dao.criar(ciclo);
 			} else {
-				this.atualizar(ciclo);
+				this.dao.atualizar(ciclo);
 			}
-			
+
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -60,7 +60,7 @@ public class CicloServiceImpl implements CicloService {
 
 		try {
 
-			this.dao.deletar(ciclo);
+			this.dao.deletar(ciclo.getId());
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -69,7 +69,7 @@ public class CicloServiceImpl implements CicloService {
 	@Override
 	public Ciclo buscar(final Long id) throws BusinessException {
 
-		return this.dao.buscar(id);
+		return this.dao.buscarById(id);
 	}
 
 }

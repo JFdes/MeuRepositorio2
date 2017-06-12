@@ -13,72 +13,67 @@
 
 		<div style="padding-top: 20px" class="panel-body col-xs-12">
 
-			<h1><img src="../resources/images/registrar.png" />Editar/Registar Categoria de Clientes</h1>
+			<h1>
+				<img src="../resources/images/registrar.png" />Editar/Registar Categoria de Clientes
+			</h1>
 			<hr></hr>
-			
-		<h:form>	
-			<h:dataTable value="#{categoriaClienteMB.categoriaClientes}" var="item" width="70%" border="1">
 
-								
-				<h:column>
-					<f:facet name="header">ID</f:facet>
+			<h:form>
+				<h:dataTable value="#{categoriaClienteMB.categorias}" var="item" width="70%" border="1">
+
+					<h:column>
+						<f:facet name="header">ID</f:facet>
 						#{item.id}		
-				</h:column>
-				
-				<h:column>
+					</h:column>
+
+					<h:column>
 						<f:facet name="header">ATIVO</f:facet>
-						<h:commandLink action="#{categoriaClienteMB.editar()}"><img src="#{item.imagemStatus}" />
-						<f:setPropertyActionListener value="#{item}" target="#{categoriaClienteMB.categoriaCliente}"/>
-						</h:commandLink>
-				</h:column>
-				
-				
-				<h:column>
-					<f:facet name="header">CATEGORIA</f:facet>
+						#{item.ativo}
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">CATEGORIA</f:facet>
 						#{item.categoria}		
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">CRIADA EM</f:facet>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">CRIADA EM</f:facet>
 						#{item.dataCriacao}		
 				</h:column>
-				
-				<h:column>
-					<f:facet name="header">CRIADA POR</f:facet>
+
+					<h:column>
+						<f:facet name="header">CRIADA POR</f:facet>
 						#{item.usuarioCriador}		
 				</h:column>
-				
-				<h:column>
-					<f:facet name="header">MODIFICADA EM</f:facet>
+
+					<h:column>
+						<f:facet name="header">MODIFICADA EM</f:facet>
 						#{item.dataAtualizacao}		
 				</h:column>
-				
-				<h:column>
-					<f:facet name="header">MODIFICADA POR</f:facet>
+
+					<h:column>
+						<f:facet name="header">MODIFICADA POR</f:facet>
 						#{item.usuarioAtualizador}		
 				</h:column>
-				
-				<h:column>
-						<f:facet name="header">EIDTAR</f:facet>
-						<h:commandLink action="#{categoriaClienteMB.editar()}"><img src="../resources/images/lapis.png" />
-						<f:setPropertyActionListener value="#{item}" target="#{categoriaClienteMB.categoriaCliente}"/>
-						</h:commandLink>
-				</h:column>
-				
-				
-				
-				<h:column>
-						<f:facet name="header">REMOVER</f:facet>
-						<h:commandLink action="#{categoriaClienteMB.remover()}"><img src="../resources/images/lixeira.png" />
-						<f:setPropertyActionListener value="#{item}" target="#{categoriaClienteMB.categoriaCliente}"/>
-						</h:commandLink>
-				</h:column>
-				
-			
-				
 
-			</h:dataTable>
-		</h:form>
+					<h:column>
+						<f:facet name="header">EIDTAR</f:facet>
+						<h:commandLink action="#{categoriaClienteMB.editar}">
+							<img src="../resources/images/lapis.png" />
+							<f:setPropertyActionListener value="#{item}" target="#{categoriaClienteMB.itemSelecionado}" />
+						</h:commandLink>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">REMOVER</f:facet>
+						<h:commandLink action="#{categoriaClienteMB.excluir}">
+							<img src="../resources/images/lixeira.png" />
+							<f:setPropertyActionListener value="#{item}" target="#{categoriaClienteMB.itemSelecionado}" />
+						</h:commandLink>
+					</h:column>
+
+				</h:dataTable>
+			</h:form>
 
 		</div>
 

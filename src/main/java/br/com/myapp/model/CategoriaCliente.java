@@ -9,11 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-@Entity(name = "CATEGORIA_CLIENTE") // anotação
+@Entity
+@Table(name = "CATEGORIA_CLIENTE")
 public class CategoriaCliente implements Serializable { // comunicação do O.O (orientação a objetos) com o relacional (banco).
 
 	private static final long serialVersionUID = 1L; // identificador único do objeto (hibernate).
@@ -44,13 +46,8 @@ public class CategoriaCliente implements Serializable { // comunicação do O.O (o
 	@Column(name = "ATIVO")
 	private boolean ativo;
 
-	@Transient
-	private String imagemStatus = "../resources/images/off.png"; // Variável para exibir imagem do Status considerado "false".
-
-	// ------------------------------------
-
 	@Override
-	public int hashCode() { // método para auxiliar a performance do java. Dá mais velocidade.
+	public int hashCode() {
 
 		final int prime = 31;
 		int result = 1;
@@ -87,8 +84,8 @@ public class CategoriaCliente implements Serializable { // comunicação do O.O (o
 		return "CategoriaCliente [id=" + this.id
 				+ ", categoria=" + this.categoria
 				+ ", usuarioCriador=" + this.usuarioCriador
-				+ ", usuarioAtualizador=" + this.usuarioAtualizador
 				+ ", dataCriacao=" + this.dataCriacao
+				+ ", usuarioAtualizador=" + this.usuarioAtualizador
 				+ ", dataAtualizacao=" + this.dataAtualizacao
 				+ ", ativo=" + this.ativo
 				+ "]";
@@ -124,16 +121,6 @@ public class CategoriaCliente implements Serializable { // comunicação do O.O (o
 		this.usuarioCriador = usuarioCriador;
 	}
 
-	public String getUsuarioAtualizador() {
-
-		return this.usuarioAtualizador;
-	}
-
-	public void setUsuarioAtualizador(final String usuarioAtualizador) {
-
-		this.usuarioAtualizador = usuarioAtualizador;
-	}
-
 	public Date getDataCriacao() {
 
 		return this.dataCriacao;
@@ -142,6 +129,16 @@ public class CategoriaCliente implements Serializable { // comunicação do O.O (o
 	public void setDataCriacao(final Date dataCriacao) {
 
 		this.dataCriacao = dataCriacao;
+	}
+
+	public String getUsuarioAtualizador() {
+
+		return this.usuarioAtualizador;
+	}
+
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
+		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public Date getDataAtualizacao() {
@@ -163,21 +160,18 @@ public class CategoriaCliente implements Serializable { // comunicação do O.O (o
 
 		this.ativo = ativo;
 	}
+	
+	//-------------------------------------
+	@Transient
+	private String imagemStatus = "../resources/images/off.png";
 
-	// ----------------------------------------- Teste do Status para exibição da imagem.
-	public String getImagemStatus() {
 
-		if (this.ativo == true) {
-			this.imagemStatus = "../resources/images/on.png";
+public String getImagemStatus() {
+		if (this.ativo==true){
+			this.imagemStatus="../resources/images/on.png";
+			
 		}
-		return this.imagemStatus;
+return this.imagemStatus;
 	}
-
-	public void setImagemStatus(final String imagemStatus) {
-
-		this.imagemStatus = imagemStatus;
-	}
-
-	// ---------------------------------------
 
 }

@@ -22,12 +22,12 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
 		try {
 
-			if(funcionario.getId()==null){
+			if (funcionario.getId() == null) {
 				this.dao.criar(funcionario);
 			} else {
-				this.atualizar(funcionario);
+				this.dao.atualizar(funcionario);
 			}
-			
+
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -60,7 +60,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
 		try {
 
-			this.dao.deletar(funcionario);
+			this.dao.deletar(funcionario.getId());
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -69,7 +69,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 	@Override
 	public Funcionario buscar(final Long id) throws BusinessException {
 
-		return this.dao.buscar(id);
+		return this.dao.buscarById(id);
 	}
 
 }

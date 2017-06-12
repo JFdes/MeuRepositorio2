@@ -2,18 +2,18 @@ package br.com.myapp.model;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-@Entity(name = "TELEFONE")
+@Entity
+@Table(name = "TELEFONE")
 public class Telefone implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,9 +24,9 @@ public class Telefone implements Serializable {
 	@Column(name = "ROW_ID")
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "ID_CLIENTE")
-	private Cliente idCliente;
+	@ManyToOne
+	@JoinColumn(name = "ID_CLIENTE", nullable = false)
+	private Cliente cliente;
 
 	@Column(name = "DDD")
 	private String ddd;
@@ -36,8 +36,6 @@ public class Telefone implements Serializable {
 
 	@Column(name = "TIPO")
 	private String tipo;
-
-	// ---------------------------------------------------
 
 	@Override
 	public int hashCode() {
@@ -71,20 +69,16 @@ public class Telefone implements Serializable {
 		return true;
 	}
 
-	// --------------------------------------------------------
-
 	@Override
 	public String toString() {
 
 		return "Telefone [id=" + this.id
-				+ ", idCliente=" + this.idCliente
+				+ ", cliente=" + this.cliente
 				+ ", ddd=" + this.ddd
 				+ ", numero=" + this.numero
 				+ ", tipo=" + this.tipo
 				+ "]";
 	}
-
-	// --------------------------------------------------------
 
 	public Long getId() {
 
@@ -96,14 +90,14 @@ public class Telefone implements Serializable {
 		this.id = id;
 	}
 
-	public Cliente getIdCliente() {
+	public Cliente getCliente() {
 
-		return this.idCliente;
+		return this.cliente;
 	}
 
-	public void setIdCliente(final Cliente idCliente) {
+	public void setCliente(final Cliente cliente) {
 
-		this.idCliente = idCliente;
+		this.cliente = cliente;
 	}
 
 	public String getDdd() {
@@ -135,7 +129,5 @@ public class Telefone implements Serializable {
 
 		this.tipo = tipo;
 	}
-
-	// --------------------------------------------------------
 
 }

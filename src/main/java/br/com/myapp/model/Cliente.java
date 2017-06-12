@@ -15,10 +15,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity(name = "CLIENTE")
+@Entity
+@Table(name = "CLIENTE")
 public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -99,10 +101,10 @@ public class Cliente implements Serializable {
 	@Column(name = "ATIVO")
 	private boolean ativo;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "cliente")
 	private Collection<Telefone> telefones;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cliente")
 	private Collection<Problema> problemas;
 
 	@Override

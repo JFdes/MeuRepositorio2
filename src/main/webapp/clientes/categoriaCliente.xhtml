@@ -14,9 +14,7 @@
 		<div style="padding-top: 20px" class="panel-body col-xs-12">
 			<h:form id="alunoForm">
 				<h1>
-					<img src="../resources/images/cadastrar.png" />#{categoriaClienteMB.categoriaCliente.id
-					== null ? 'Cadastro Categoria de Clientes': 'Editando Categoria de Cliente:
-					'.concat(categoriaClienteMB.categoriaCliente.categoria)}
+					<img src="../resources/images/cadastrar.png" />Cadastro / Edição de Categoria de Cliente
 				</h1>
 				<hr></hr>
 
@@ -27,27 +25,21 @@
 
 				<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
 					<p:outputLabel for="categoria" value="Categoria:" />
-					<p:inputText id="categoria" value="#{categoriaClienteMB.categoriaCliente.categoria}" class="form-control" style="width: 500px" required="true" />
+					<p:inputText id="categoria" value="#{categoriaClienteMB.nome}" class="form-control" style="width: 500px" />
 				</h:panelGrid>
 				
 				<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
 					<p:outputLabel for="ativo" value="Status:" />
-					<p:selectOneRadio required="true" id="ativo" value="#{categoriaClienteMB.categoriaCliente.ativo}" class="form-control" style="width: 250px">
+					<p:selectOneRadio id="ativo" value="#{categoriaClienteMB.ativo}" style="width: 250px">
 						<f:selectItem itemLabel="Ativado" itemValue="true" />
 						<f:selectItem itemLabel="Desativado" itemValue="false" />	
 					</p:selectOneRadio>
 				</h:panelGrid>
 				
-				
-				
-				<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-					<h:panelGroup />
-
+				<h:panelGrid columnClasses="column-padding, column-left" styleClass="marginBottomForm">
 					<h:panelGroup>
-						<b:commandButton value="Salvar" class="btn btn-primary" actionListener="#{categoriaClienteMB.salvar()}"/>
-						<a href="/myapp/clientes/cliente.xhtml" class="btn btn-warn"/>
+						<b:commandButton value="Salvar" class="btn btn-primary" action="#{categoriaClienteMB.salvar}"/>
 					</h:panelGroup>
-					
 				</h:panelGrid>
 
 			</h:form>

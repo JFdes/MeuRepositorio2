@@ -25,7 +25,7 @@ public class CategoriaProblemaServiceImpl implements CategoriaProblemaService {
 			if (categoriaProblema.getId() == null) {
 				this.dao.criar(categoriaProblema);
 			} else {
-				this.atualizar(categoriaProblema);
+				this.dao.atualizar(categoriaProblema);
 			}
 
 		} catch (final DAOException e) {
@@ -60,7 +60,7 @@ public class CategoriaProblemaServiceImpl implements CategoriaProblemaService {
 
 		try {
 
-			this.dao.deletar(categoriaProblema);
+			this.dao.deletar(categoriaProblema.getId());
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -69,7 +69,7 @@ public class CategoriaProblemaServiceImpl implements CategoriaProblemaService {
 	@Override
 	public CategoriaProblema buscar(final Long id) throws BusinessException {
 
-		return this.dao.buscar(id);
+		return this.dao.buscarById(id);
 	}
 
 }

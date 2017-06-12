@@ -9,11 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-@Entity(name = "CATEGORIA_PROBLEMA")
+@Entity
+@Table(name = "CATEGORIA_PROBLEMA")
 public class CategoriaProblema implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -26,8 +27,8 @@ public class CategoriaProblema implements Serializable {
 
 	// --------------------------------------------------------
 
-	@Column(name = "NOME_CATEGORIA")
-	private String nomeCategoria;
+	@Column(name = "NOME")
+	private String nome;
 
 	@Column(name = "USUARIO_CRIADOR")
 	private String usuarioCriador;
@@ -46,11 +47,6 @@ public class CategoriaProblema implements Serializable {
 	@Column(name = "ATIVO")
 	private boolean ativo;
 
-	@Transient
-	private String imagemStatus = "../resources/images/off.png"; // Variável para exibição da imagem do Status considerado
-																	// "false".
-
-	// -------------------------------------------
 	@Override
 	public int hashCode() {
 
@@ -86,9 +82,14 @@ public class CategoriaProblema implements Serializable {
 	@Override
 	public String toString() {
 
-		return "CategoriaProblema [id=" + this.id + ", nomeCategoria=" + this.nomeCategoria + ", usuarioCriador="
-				+ this.usuarioCriador + ", usuarioAtualizador=" + this.usuarioAtualizador + ", dataCriacao="
-				+ this.dataCriacao + ", dataAtualizacao=" + this.dataAtualizacao + ", ativo=" + this.ativo + "]";
+		return "CategoriaProblema [id=" + this.id
+				+ ", nome=" + this.nome
+				+ ", usuarioCriador=" + this.usuarioCriador
+				+ ", dataCriacao=" + this.dataCriacao
+				+ ", usuarioAtualizador=" + this.usuarioAtualizador
+				+ ", dataAtualizacao=" + this.dataAtualizacao
+				+ ", ativo=" + this.ativo
+				+ "]";
 	}
 
 	public Long getId() {
@@ -101,14 +102,14 @@ public class CategoriaProblema implements Serializable {
 		this.id = id;
 	}
 
-	public String getNomeCategoria() {
+	public String getNome() {
 
-		return this.nomeCategoria;
+		return this.nome;
 	}
 
-	public void setNomeCategoria(final String nomeCategoria) {
+	public void setNome(final String nome) {
 
-		this.nomeCategoria = nomeCategoria;
+		this.nome = nome;
 	}
 
 	public String getUsuarioCriador() {
@@ -121,16 +122,6 @@ public class CategoriaProblema implements Serializable {
 		this.usuarioCriador = usuarioCriador;
 	}
 
-	public String getUsuarioAtualizador() {
-
-		return this.usuarioAtualizador;
-	}
-
-	public void setUsuarioAtualizador(final String usuarioAtualizador) {
-
-		this.usuarioAtualizador = usuarioAtualizador;
-	}
-
 	public Date getDataCriacao() {
 
 		return this.dataCriacao;
@@ -139,6 +130,16 @@ public class CategoriaProblema implements Serializable {
 	public void setDataCriacao(final Date dataCriacao) {
 
 		this.dataCriacao = dataCriacao;
+	}
+
+	public String getUsuarioAtualizador() {
+
+		return this.usuarioAtualizador;
+	}
+
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
+		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public Date getDataAtualizacao() {
@@ -160,21 +161,5 @@ public class CategoriaProblema implements Serializable {
 
 		this.ativo = ativo;
 	}
-
-	// -------------------------------------------------
-	public String getImagemStatus() {
-
-		if (this.ativo == true) {
-			this.imagemStatus = "../resources/images/on.png";
-		}
-		return this.imagemStatus;
-	}
-
-	public void setImagemStatus(final String imagemStatus) {
-
-		this.imagemStatus = imagemStatus;
-	}
-
-	// --------------------------------------------------
 
 }

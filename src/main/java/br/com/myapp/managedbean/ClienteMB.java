@@ -84,7 +84,8 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 		if (StringUtils.isNotBlank(id)) {
 
 			try {
-				this.setObjeto(this.clienteService.buscar(Long.valueOf(id)));
+				final Cliente cliente = this.clienteService.buscar(Long.valueOf(id));
+				this.setObjeto(cliente);
 			} catch (final BusinessException e) {
 				this.exibirMensagemErro(e);
 			}
@@ -193,13 +194,13 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 		telefoneCelular.setDdd("81");
 		telefoneCelular.setNumero("9999-9999");
 		telefoneCelular.setTipo("CELULAR");
-		telefoneCelular.setIdCliente(cliente);
+		telefoneCelular.setCliente(cliente);
 
 		final Telefone telefoneComercial = new Telefone();
 		telefoneComercial.setDdd("81");
 		telefoneComercial.setNumero("3030-3030");
 		telefoneComercial.setTipo("COMERCIAL");
-		telefoneComercial.setIdCliente(cliente);
+		telefoneComercial.setCliente(cliente);
 
 		final Collection<Telefone> telefones = new ArrayList<Telefone>();
 		telefones.add(telefoneCelular);
@@ -230,6 +231,16 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 	public void salvar(final Cliente cliente) throws BusinessException {
 
 		this.clienteService.criar(cliente);
+	}
+
+	@Override
+	public void editar() {
+
+	}
+
+	@Override
+	public void excluir(final Cliente itemSelecionado) throws BusinessException {
+
 	}
 
 	@Override

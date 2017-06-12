@@ -1,9 +1,12 @@
 package br.com.myapp.managedbean;
 
+import java.io.IOException;
 import java.util.Map;
 
+import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import br.com.myapp.exception.BusinessException;
@@ -17,6 +20,8 @@ public abstract class AbstractManagedBean<T> { // <T> -> Generics
 
 	private T objeto;
 
+	private T itemSelecionado;
+
 	public abstract void limpar();
 
 	public abstract void popularInterface() throws BusinessException;
@@ -28,6 +33,10 @@ public abstract class AbstractManagedBean<T> { // <T> -> Generics
 	public abstract void validarCampos() throws BusinessException;;
 
 	public abstract void salvar(T object) throws BusinessException;
+
+	public abstract void editar();
+
+	public abstract void excluir(T itemSelecionado) throws BusinessException;
 
 	public abstract Class<T> getObjectClass();
 
@@ -68,6 +77,16 @@ public abstract class AbstractManagedBean<T> { // <T> -> Generics
 			this.exibirMensagemErro(e);
 		}
 
+	}
+
+	public void excluir() {
+
+		try {
+			this.excluir(this.getItemSelecionado());
+			this.exibirMensagemSucesso();
+		} catch (final BusinessException e) {
+			this.exibirMensagemErro(e);
+		}
 	}
 
 	/**
@@ -149,6 +168,17 @@ public abstract class AbstractManagedBean<T> { // <T> -> Generics
 		return value;
 	}
 
+	public void doRedirect(final String redirectPage) throws FacesException {
+
+		try {
+
+			final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+			externalContext.redirect(externalContext.getRequestContextPath().concat(redirectPage));
+		} catch (final IOException e) {
+			throw new FacesException(e);
+		}
+	}
+
 	public T getObjeto() {
 
 		return this.objeto;
@@ -157,6 +187,16 @@ public abstract class AbstractManagedBean<T> { // <T> -> Generics
 	public void setObjeto(final T objeto) {
 
 		this.objeto = objeto;
+	}
+
+	public T getItemSelecionado() {
+
+		return this.itemSelecionado;
+	}
+
+	public void setItemSelecionado(final T itemSelecionado) {
+
+		this.itemSelecionado = itemSelecionado;
 	}
 
 }

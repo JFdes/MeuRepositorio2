@@ -3,7 +3,6 @@ package br.com.myapp.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,11 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-@Entity(name = "FUNCIONARIO")
+@Entity
+@Table(name = "FUNCIONARIO")
 public class Funcionario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -78,18 +78,12 @@ public class Funcionario implements Serializable {
 	@Column(name = "CEP")
 	private String cep;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_SETOR")
-	private Setor idSetor;
+	private Setor setor;
 
 	@Column(name = "ATIVO")
 	private boolean ativo;
-
-	@Transient
-	private String imagemStatus = "../resources/images/off.png"; // Variável para exibição da imagem do Status considerado
-																	// "false".
-
-	// ------------------------------------------------
 
 	@Override
 	public int hashCode() {
@@ -143,7 +137,7 @@ public class Funcionario implements Serializable {
 				+ ", cidade=" + this.cidade
 				+ ", uf=" + this.uf
 				+ ", cep=" + this.cep
-				+ ", idSetor=" + this.idSetor
+				+ ", setor=" + this.setor
 				+ ", ativo=" + this.ativo
 				+ "]";
 	}
@@ -238,12 +232,12 @@ public class Funcionario implements Serializable {
 		this.dtNascimento = dtNascimento;
 	}
 
-	public Date getDtInclusao() {
+	public Date getDataAdmissao() {
 
 		return this.dataAdmissao;
 	}
 
-	public void setDtInclusao(final Date dataAdmissao) {
+	public void setDataAdmissao(final Date dataAdmissao) {
 
 		this.dataAdmissao = dataAdmissao;
 	}
@@ -318,14 +312,14 @@ public class Funcionario implements Serializable {
 		this.cep = cep;
 	}
 
-	public Setor getIdSetor() {
+	public Setor getSetor() {
 
-		return this.idSetor;
+		return this.setor;
 	}
 
-	public void setIdSetor(final Setor idSetor) {
+	public void setSetor(final Setor setor) {
 
-		this.idSetor = idSetor;
+		this.setor = setor;
 	}
 
 	public boolean isAtivo() {
@@ -337,22 +331,5 @@ public class Funcionario implements Serializable {
 
 		this.ativo = ativo;
 	}
-
-	// -------------------------------------------------------
-
-	public String getImagemStatus() {
-
-		if (this.ativo == true) {
-			this.imagemStatus = "../resources/images/on.png";
-		}
-		return this.imagemStatus;
-	}
-
-	public void setImagemStatus(final String imagemStatus) {
-
-		this.imagemStatus = imagemStatus;
-	}
-
-	// ------------------------------------------------------
 
 }

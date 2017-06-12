@@ -22,12 +22,12 @@ public class ClienteServiceImpl implements ClienteService {
 
 		try {
 
-			if(cliente.getId()==null){
+			if (cliente.getId() == null) {
 				this.dao.criar(cliente);
 			} else {
-				this.atualizar(cliente);
+				this.dao.atualizar(cliente);
 			}
-			
+
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -60,7 +60,7 @@ public class ClienteServiceImpl implements ClienteService {
 
 		try {
 
-			this.dao.deletar(cliente);
+			this.dao.deletar(cliente.getId());
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -69,7 +69,7 @@ public class ClienteServiceImpl implements ClienteService {
 	@Override
 	public Cliente buscar(final Long id) throws BusinessException {
 
-		return this.dao.buscar(id);
+		return this.dao.buscarById(id);
 	}
 
 }

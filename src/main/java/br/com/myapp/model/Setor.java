@@ -15,11 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-@Entity(name = "SETOR")
+@Entity
+@Table(name = "SETOR")
 public class Setor implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -83,7 +85,7 @@ public class Setor implements Serializable {
 	}
 
 	@Transient
-	private final String imagemStatus = "../resources/images/off.png"; // Variável para exibição da imagem do Status considerado
+	private String imagemStatus = "../resources/images/off.png"; // Variável para exibição da imagem do Status considerado
 																		// "false".
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -190,6 +192,10 @@ public class Setor implements Serializable {
 	}
 
 	public String getImagemStatus() {
+		if (this.ativo==true){
+			this.imagemStatus="../resources/images/on.png";
+			
+		}
 
 		return this.imagemStatus;
 	}

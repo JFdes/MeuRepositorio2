@@ -18,10 +18,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity(name = "PROBLEMA")
+@Entity
+@Table(name = "PROBLEMA")
 public class Problema implements Serializable {
 
 	private static final long serialVersionUID = 6650624143219863781L;
@@ -32,9 +34,9 @@ public class Problema implements Serializable {
 	@Column(name = "ROW_ID")
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "ID_CLIENTE")
-	private Cliente idCliente;
+	@ManyToOne
+	@JoinColumn(name = "ID_CLIENTE", nullable = false)
+	private Cliente cliente;
 
 	@Column(name = "TITULO")
 	private String titulo;
@@ -42,9 +44,9 @@ public class Problema implements Serializable {
 	@Column(name = "DESCRICAO")
 	private String descricao;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ID_CICLO")
-	private Ciclo idCiclo; // Relacionamento N:1
+	private Ciclo ciclo; // Relacionamento N:1
 
 	@Column(name = "STATUS")
 	@Enumerated(EnumType.STRING)
@@ -108,10 +110,10 @@ public class Problema implements Serializable {
 	public String toString() {
 
 		return "Problema [id=" + this.id
-				+ ", idCliente=" + this.idCliente
+				+ ", cliente=" + this.cliente
 				+ ", titulo=" + this.titulo
 				+ ", descricao=" + this.descricao
-				+ ", idCiclo=" + this.idCiclo
+				+ ", ciclo=" + this.ciclo
 				+ ", status=" + this.status
 				+ ", usuarioCriador=" + this.usuarioCriador
 				+ ", dataCriacao=" + this.dataCriacao
@@ -130,14 +132,14 @@ public class Problema implements Serializable {
 		this.id = id;
 	}
 
-	public Cliente getIdCliente() {
+	public Cliente getCliente() {
 
-		return this.idCliente;
+		return this.cliente;
 	}
 
-	public void setIdCliente(final Cliente idCliente) {
+	public void setCliente(final Cliente cliente) {
 
-		this.idCliente = idCliente;
+		this.cliente = cliente;
 	}
 
 	public String getTitulo() {
@@ -160,14 +162,14 @@ public class Problema implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Ciclo getIdCiclo() {
+	public Ciclo getCiclo() {
 
-		return this.idCiclo;
+		return this.ciclo;
 	}
 
-	public void setIdCiclo(final Ciclo idCiclo) {
+	public void setCiclo(final Ciclo ciclo) {
 
-		this.idCiclo = idCiclo;
+		this.ciclo = ciclo;
 	}
 
 	public StatusProblema getStatus() {

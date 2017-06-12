@@ -25,7 +25,7 @@ public class SetorServiceImpl implements SetorService {
 			if (setor.getId() == null) {
 				this.dao.criar(setor);
 			} else {
-				this.atualizar(setor);
+				this.dao.atualizar(setor);
 			}
 
 		} catch (final DAOException e) {
@@ -60,7 +60,7 @@ public class SetorServiceImpl implements SetorService {
 
 		try {
 
-			this.dao.deletar(setor);
+			this.dao.deletar(setor.getId());
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -69,7 +69,7 @@ public class SetorServiceImpl implements SetorService {
 	@Override
 	public Setor buscar(final Long id) throws BusinessException {
 
-		return this.dao.buscar(id);
+		return this.dao.buscarById(id);
 	}
 
 }

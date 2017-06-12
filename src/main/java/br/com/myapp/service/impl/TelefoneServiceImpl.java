@@ -25,7 +25,7 @@ public class TelefoneServiceImpl implements TelefoneService {
 			if (telefone.getId() == null) {
 				this.dao.criar(telefone);
 			} else {
-				this.atualizar(telefone);
+				this.dao.atualizar(telefone);
 			}
 
 		} catch (final DAOException e) {
@@ -60,7 +60,7 @@ public class TelefoneServiceImpl implements TelefoneService {
 
 		try {
 
-			this.dao.deletar(telefone);
+			this.dao.deletar(telefone.getId());
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -69,7 +69,7 @@ public class TelefoneServiceImpl implements TelefoneService {
 	@Override
 	public Telefone buscar(final Long id) throws BusinessException {
 
-		return this.dao.buscar(id);
+		return this.dao.buscarById(id);
 	}
 
 }

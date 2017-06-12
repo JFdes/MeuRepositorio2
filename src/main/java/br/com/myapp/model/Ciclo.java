@@ -9,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity(name = "CICLO")
+@Entity
+@Table(name = "CICLO")
 public class Ciclo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -88,8 +90,8 @@ public class Ciclo implements Serializable {
 				+ ", dataInicio=" + this.dataInicio
 				+ ", dataFim=" + this.dataFim
 				+ ", usuarioCriador=" + this.usuarioCriador
-				+ ", usuarioAtualizador=" + this.usuarioAtualizador
 				+ ", dataCriacao=" + this.dataCriacao
+				+ ", usuarioAtualizador=" + this.usuarioAtualizador
 				+ ", dataAtualizacao=" + this.dataAtualizacao
 				+ "]";
 	}
@@ -144,16 +146,6 @@ public class Ciclo implements Serializable {
 		this.usuarioCriador = usuarioCriador;
 	}
 
-	public String getUsuarioAtualizador() {
-
-		return this.usuarioAtualizador;
-	}
-
-	public void setUsuarioAtualizador(final String usuarioAtualizador) {
-
-		this.usuarioAtualizador = usuarioAtualizador;
-	}
-
 	public Date getDataCriacao() {
 
 		return this.dataCriacao;
@@ -162,6 +154,16 @@ public class Ciclo implements Serializable {
 	public void setDataCriacao(final Date dataCriacao) {
 
 		this.dataCriacao = dataCriacao;
+	}
+
+	public String getUsuarioAtualizador() {
+
+		return this.usuarioAtualizador;
+	}
+
+	public void setUsuarioAtualizador(final String usuarioAtualizador) {
+
+		this.usuarioAtualizador = usuarioAtualizador;
 	}
 
 	public Date getDataAtualizacao() {

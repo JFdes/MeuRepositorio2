@@ -25,7 +25,7 @@ public class ProblemaServiceImpl implements ProblemaService {
 			if (problema.getId() == null) {
 				this.dao.criar(problema);
 			} else {
-				this.atualizar(problema);
+				this.dao.atualizar(problema);
 			}
 
 		} catch (final DAOException e) {
@@ -60,7 +60,7 @@ public class ProblemaServiceImpl implements ProblemaService {
 
 		try {
 
-			this.dao.deletar(problema);
+			this.dao.deletar(problema.getId());
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -69,7 +69,7 @@ public class ProblemaServiceImpl implements ProblemaService {
 	@Override
 	public Problema buscar(final Long id) throws BusinessException {
 
-		return this.dao.buscar(id);
+		return this.dao.buscarById(id);
 	}
 
 }

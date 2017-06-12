@@ -1,51 +1,33 @@
 package br.com.myapp.managedbean;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
+import br.com.myapp.exception.CampoInvalidoException;
 import br.com.myapp.model.CategoriaCliente;
 import br.com.myapp.service.CategoriaClienteService;
+import br.com.myapp.util.DateUtil;
 
 @ManagedBean
 @ViewScoped
-public class CategoriaClienteMB {
+public class CategoriaClienteMB extends AbstractManagedBean<CategoriaCliente> {
 
-	private String categoria;
-
-	private String usuarioCriador;
-
-	private String usuarioAtualizador;
-
-	private Date dataCriacao;
-
-	private Date dataAtualizacao;
+	private String nome;
 
 	private boolean ativo;
 
-	private CategoriaCliente categoriaCliente = new CategoriaCliente();
-
-	private List<CategoriaCliente> categoriaClientes = new ArrayList<CategoriaCliente>();
-
-	// ----------------------------------------------
 	@EJB
 	private CategoriaClienteService categoriaClienteService;
 
 	@PostConstruct
+	@Override
 	public void init() {
 
 		final String id = this.getParam("id");
@@ -53,127 +35,113 @@ public class CategoriaClienteMB {
 		if (StringUtils.isNotBlank(id)) {
 
 			try {
-				this.categoriaCliente = this.categoriaClienteService.buscar(Long.valueOf(id));
+
+				final CategoriaCliente categoriaCliente = this.categoriaClienteService.buscar(Long.valueOf(id));
+				this.setObjeto(categoriaCliente);
 			} catch (final BusinessException e) {
-				e.printStackTrace();
+				this.exibirMensagemErro(e);
 			}
+		}
+
+		super.init();
+	}
+
+	@Override
+	public void limpar() {
+
+		this.nome = StringUtils.EMPTY;
+		this.ativo = Boolean.TRUE;
+	}
+
+	@Override
+	public void popularInterface() throws BusinessException {
+
+	}
+
+	@Override
+	public void popularCampos(final CategoriaCliente categoriaCliente) throws BusinessException {
+
+		this.nome = categoriaCliente.getCategoria();
+		this.ativo = categoriaCliente.isAtivo();
+	}
+
+	@Override
+	public void popularObjeto(final CategoriaCliente categoriaCliente) {
+
+		categoriaCliente.setCategoria(this.nome);
+		categoriaCliente.setAtivo(this.ativo);
+
+		if (categoriaCliente.getId() == null) {
+
+			categoriaCliente.setUsuarioCriador("ADMIN");
+			categoriaCliente.setDataCriacao(DateUtil.getCurrent());
+		} else {
+
+			categoriaCliente.setUsuarioAtualizador("ADMIN");
+			categoriaCliente.setDataAtualizacao(DateUtil.getCurrent());
 		}
 	}
 
-	// ---------------------------------------------Método para salvar a
-	// Categoria:
+	@Override
+	public void validarCampos() throws BusinessException {
 
-	public void salvar() {
-
-		try {
-			final Date data = new Date();
-
-			if (this.categoriaCliente.getId() == null) {
-				this.categoriaCliente.setDataCriacao(data);
-				this.categoriaCliente.setAtivo(true);
-			} else {
-				this.categoriaCliente.setDataAtualizacao(data);
-			}
-
-			this.categoriaClienteService.criar(this.categoriaCliente);
-		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+		if(StringUtils.isBlank(this.nome)) {
+			throw new CampoInvalidoException("Nome");
 		}
+	}
+
+	@Override
+	public void salvar(final CategoriaCliente categoriaCliente) throws BusinessException {
+
+		this.categoriaClienteService.criar(categoriaCliente);
 
 		this.doRedirect("/listagem/consultaCategoriaCliente.xhtml");
 	}
 
-	// ---------------------------------------------Método para editar a
-	// Categoria:
-
+	@Override
 	public void editar() {
 
-		this.doRedirect("/clientes/categoriaCliente.xhtml?id=" + this.categoriaCliente.getId());
+		try {
+			this.doRedirect("/clientes/categoriaCliente.xhtml?id=" + this.getItemSelecionado().getId());
+		} catch (final Exception e) {
+			this.exibirMensagemErro(e);
+		}
 	}
 
-	public void remover() {
+	@Override
+	public void excluir(final CategoriaCliente categoriaCliente) throws BusinessException {
 
 		try {
-
-			this.categoriaClienteService.deletar(this.categoriaCliente);
+			this.categoriaClienteService.deletar(categoriaCliente);
 		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+			this.exibirMensagemErro(e);
 		}
 	}
 
-	public void doRedirect(final String redirectPage) throws FacesException {
+	@Override
+	public Class<CategoriaCliente> getObjectClass() {
 
-		final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		return CategoriaCliente.class;
+	}
+
+	public Collection<CategoriaCliente> getCategorias() {
 
 		try {
-			externalContext.redirect(externalContext.getRequestContextPath().concat(redirectPage));
-		} catch (final IOException e) {
-			throw new FacesException(e);
+			return this.categoriaClienteService.buscarTodos();
+		} catch (final BusinessException e) {
+			this.exibirMensagemErro(e);
+			return null;
 		}
 	}
 
-	// ----------------------------------------------
+	public String getNome() {
 
-	public String getParam(final String param) {
-
-		final FacesContext context = FacesContext.getCurrentInstance();
-		final Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
-		final String projectId = paramMap.get(param);
-		return projectId;
+		return this.nome;
 	}
 
-	// ----------------------------------------------
+	public void setNome(final String nome) {
 
-	public String getCategoria() {
-
-		return this.categoria;
-	}
-
-	public void setCategoria(final String categoria) {
-
-		this.categoria = categoria;
-	}
-
-	public String getUsuarioCriador() {
-
-		return this.usuarioCriador;
-	}
-
-	public void setUsuarioCriador(final String usuarioCriador) {
-
-		this.usuarioCriador = usuarioCriador;
-	}
-
-	public String getUsuarioAtualizador() {
-
-		return this.usuarioAtualizador;
-	}
-
-	public void setUsuarioAtualizador(final String usuarioAtualizador) {
-
-		this.usuarioAtualizador = usuarioAtualizador;
-	}
-
-	public Date getDataCriacao() {
-
-		return this.dataCriacao;
-	}
-
-	public void setDataCriacao(final Date dataCriacao) {
-
-		this.dataCriacao = dataCriacao;
-	}
-
-	public Date getDataAtualizacao() {
-
-		return this.dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(final Date dataAtualizacao) {
-
-		this.dataAtualizacao = dataAtualizacao;
+		this.nome = nome;
 	}
 
 	public boolean isAtivo() {
@@ -185,41 +153,5 @@ public class CategoriaClienteMB {
 
 		this.ativo = ativo;
 	}
-
-	public CategoriaCliente getCategoriaCliente() {
-
-		return this.categoriaCliente;
-	}
-
-	public void setCategoriaCliente(final CategoriaCliente categoriaCliente) {
-
-		this.categoriaCliente = categoriaCliente;
-	}
-
-	public CategoriaClienteService getCategoriaClienteService() {
-
-		return this.categoriaClienteService;
-	}
-
-	public void setCategoriaClienteService(final CategoriaClienteService categoriaClienteService) {
-
-		this.categoriaClienteService = categoriaClienteService;
-	}
-
-	// ----------------------------------------------- carrega a lista para o
-	// redirecionamento da View.
-
-	public List<CategoriaCliente> getCategoriaClientes() throws BusinessException {
-
-		this.categoriaClientes = (List<CategoriaCliente>) this.categoriaClienteService.buscarTodos();
-		return this.categoriaClientes;
-	}
-
-	public void setCategoriaClientes(final List<CategoriaCliente> categoriaClientes) {
-
-		this.categoriaClientes = categoriaClientes;
-	}
-
-	// --------------------------------------------------
 
 }
