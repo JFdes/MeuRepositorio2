@@ -18,6 +18,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "CLIENTE")
@@ -416,5 +417,22 @@ public class Cliente implements Serializable {
 
 		this.problemas = problemas;
 	}
+	
+	@Transient
+	private String imagemStatus = "../resources/images/off.png";
+
+
+	public String getImagemStatus() {
+		if (this.ativo==true){
+			this.imagemStatus="../resources/images/on.png";
+			
+		}
+		return this.imagemStatus;
+	}
+	//------------------------------------------
+	
+	
+	
+	
 
 }

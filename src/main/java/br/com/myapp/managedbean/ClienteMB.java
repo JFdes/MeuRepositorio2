@@ -1,14 +1,20 @@
 package br.com.myapp.managedbean;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -22,6 +28,12 @@ import br.com.myapp.service.ClienteService;
 @ManagedBean
 @ViewScoped
 public class ClienteMB extends AbstractManagedBean<Cliente> {
+	
+	private Cliente cliente = new Cliente();
+
+	private List<Cliente> clientes = new ArrayList<Cliente>();
+	
+	//--------------------------------------------
 
 	private String nomeFantasia;
 
@@ -233,11 +245,7 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 		this.clienteService.criar(cliente);
 	}
 
-	@Override
-	public void editar() {
-
-	}
-
+	
 	@Override
 	public void excluir(final Cliente itemSelecionado) throws BusinessException {
 
@@ -477,6 +485,61 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 	public void setCategorias(final Collection<CategoriaCliente> categorias) {
 
 		this.categorias = categorias;
+	}
+
+	//---------------------------------------------
+	public List<Cliente> getClientes() throws BusinessException {
+
+		this.clientes = (List<Cliente>) this.clienteService.buscarTodos();
+		return this.clientes;
+	}
+
+	public void setClientes(final List<Cliente> clientes) {
+
+		this.clientes = clientes;
+	}
+
+	
+	//--------------------------------------------
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	//--------------------------------------------
+	
+	public void doRedirect(final String redirectPage) throws FacesException {
+
+		final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+
+		try {
+			externalContext.redirect(externalContext.getRequestContextPath().concat(redirectPage));
+		} catch (final IOException e) {
+			throw new FacesException(e);
+		}
+	}
+	
+	//----------------------------------
+	
+	
+	public void editar() {
+
+		this.doRedirect("/clientes/cliente.xhtml?id=" + this.cliente.getId());
+	}
+	
+	//----------------------------------
+
+	public void remover() {
+		try {
+
+			this.clienteService.deletar(this.cliente);
+		} catch (final BusinessException e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+		}
 	}
 
 }

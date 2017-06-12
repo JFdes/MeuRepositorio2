@@ -166,12 +166,13 @@ public class CategoriaCliente implements Serializable { // comunicação do O.O (o
 	private String imagemStatus = "../resources/images/off.png";
 
 
-public String getImagemStatus() {
+	public String getImagemStatus() {
 		if (this.ativo==true){
 			this.imagemStatus="../resources/images/on.png";
 			
 		}
-return this.imagemStatus;
+		return this.imagemStatus;
 	}
+	//------------------------------------------
 
 }
