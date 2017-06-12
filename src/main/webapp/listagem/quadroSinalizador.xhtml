@@ -13,7 +13,7 @@
 		<div style="padding-top: 20px" class="panel-body col-xs-12"> <h1>
 		<img src="../resources/images/registrar.png" />Quadro Sinalizador</h1>
 		<hr></hr> <h:form>
-			<h:dataTable value="#{problemaMB.problemas}"
+			<h:dataTable value="#{clienteMB.clientes}"
 				var="item" width="80%" border="1">
 
 				
@@ -28,7 +28,7 @@
 				
 				<h:column>
 					<f:facet name="header">NOME FANTASIA</f:facet>
-						#{item.cliente}		
+						#{item.nomeFantasia}		
 				</h:column>
 				
 				<h:column>

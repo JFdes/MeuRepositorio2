@@ -32,7 +32,7 @@
 					<p:outputLabel for="titulo" value="Título:" />
 					<p:inputText id="titulo"
 						value="#{problemaMB.problema.titulo}"
-						class="form-control" style="width: 500px" required="true" />
+						class="form-control" style="width: 500px" />
 				</h:panelGrid>
 				
 				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
@@ -40,7 +40,16 @@
 					<p:outputLabel for="descricao" value="Descrição:" />
 					<p:inputText id="descricao"
 						value="#{problemaMB.problema.descricao}"
-						class="form-control" style="width: 500px" required="true" />
+						class="form-control" style="width: 500px" />
+				</h:panelGrid>
+				
+				
+				<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+					<p:outputLabel for="cliente" value="Cliente: " />
+					<p:selectOneMenu id="cliente" value="#{problemaMB.cliente}">
+						<f:selectItem itemLabel="Selecione" itemValue="" />
+						<f:selectItems value="#{clienteMB.clientes}" var="item" itemLabel="#{item.nomeFantasia}" itemValue="#{item}" />
+					</p:selectOneMenu>
 				</h:panelGrid>
 				
 

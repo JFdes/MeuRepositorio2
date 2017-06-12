@@ -31,7 +31,7 @@ import br.com.myapp.service.ProblemaService;
 @ViewScoped
 public class ProblemaMB {
 
-	private Cliente idCliente;
+	private Cliente cliente;
 
 	private String titulo;
 
@@ -153,14 +153,14 @@ public class ProblemaMB {
 		this.problemas = problemas;
 	}
 
-	public Cliente getIdCliente() {
+	public Cliente getCliente() {
 
-		return this.idCliente;
+		return this.cliente;
 	}
 
-	public void setIdCliente(final Cliente idCliente) {
+	public void setCliente(final Cliente idCliente) {
 
-		this.idCliente = idCliente;
+		this.cliente = idCliente;
 	}
 
 	public String getTitulo() {
