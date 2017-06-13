@@ -5,6 +5,7 @@ import java.util.Collection;
 import javax.ejb.Local;
 
 import br.com.myapp.exception.BusinessException;
+import br.com.myapp.model.CategoriaCliente;
 import br.com.myapp.model.Cliente;
 
 @Local
@@ -19,5 +20,7 @@ public interface ClienteService {
 	public void deletar(final Cliente cliente) throws BusinessException;
 
 	public Cliente buscar(final Long id) throws BusinessException;
+
+	public Collection<Cliente> buscarByCategoriaCliente(final CategoriaCliente categoriaCliente) throws BusinessException;
 
 }

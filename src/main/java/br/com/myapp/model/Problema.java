@@ -21,7 +21,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "PROBLEMA")
@@ -45,7 +44,7 @@ public class Problema implements Serializable {
 	@Column(name = "DESCRICAO")
 	private String descricao;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "ID_CICLO")
 	private Ciclo ciclo; // Relacionamento N:1
 
@@ -232,45 +231,5 @@ public class Problema implements Serializable {
 
 		this.categorias = categorias;
 	}
-	
-	//----------------------------------------
-	
-	@Transient
-	private String imagemQuandroStatus = "../resources/images/branco.png";
-
-
-	public String getImagemQuadroStatus() {
-		if (this.status.equals("PENDENTE")){
-			this.imagemQuandroStatus="../resources/images/vermelho.png";
-			
-			}
-			else if (this.status.equals("RESOLVIDO")){
-				this.imagemQuandroStatus="../resources/images/verde.png";
-			
-				}
-		
-		return this.imagemQuandroStatus;
-	}
-	
-	//-----------------------------------------
-	
-	@Transient
-	private String imagemQuadroRetorno = "../resources/images/branco.png";
-
-
-	public String getImagemQuadroRetorno() {
-		if (this.descricao.equals("")){
-			this.imagemQuandroStatus="../resources/images/branco.png";
-			
-			}
-		else 
-			this.imagemQuandroStatus="../resources/images/amarelo.png";
-			
-				
-		
-		return this.imagemQuandroStatus;
-	}
-	
-	//-------------------------------------------
 
 }

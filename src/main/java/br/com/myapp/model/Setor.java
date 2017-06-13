@@ -85,7 +85,7 @@ public class Setor implements Serializable {
 	}
 
 	@Transient
-	private String imagemStatus = "../resources/images/off.png"; // Variável para exibição da imagem do Status considerado
+	private final String imagemStatus = "../resources/images/off.png"; // Variável para exibição da imagem do Status considerado
 																		// "false".
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -192,10 +192,6 @@ public class Setor implements Serializable {
 	}
 
 	public String getImagemStatus() {
-		if (this.ativo==true){
-			this.imagemStatus="../resources/images/on.png";
-			
-		}
 
 		return this.imagemStatus;
 	}

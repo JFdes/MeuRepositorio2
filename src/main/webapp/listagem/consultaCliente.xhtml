@@ -22,13 +22,6 @@
 				</h:column>
 				
 				<h:column>
-					<f:facet name="header">ATIVO</f:facet>
-						<h:commandLink action="#{clienteMB.editar()}"><img src="#{item.imagemStatus}" />
-						<f:setPropertyActionListener value="#{item}" target="#{clienteMB.cliente}" />
-						</h:commandLink>
-				</h:column>
-
-				<h:column>
 					<f:facet name="header">NOME FANTASIA</f:facet>
 						#{item.nomeFantasia}		
 				</h:column>
@@ -60,19 +53,19 @@
 
 				<h:column>
 					<f:facet name="header">EDITAR</f:facet>
-					<h:commandLink action="#{clienteMB.editar()}">
+					<h:commandLink action="#{clienteMB.editar}">
 						<img src="../resources/images/lapis.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{clienteMB.cliente}" />
+							target="#{clienteMB.itemSelecionado}" />
 					</h:commandLink>
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">REMOVER</f:facet>
-					<h:commandLink action="#{clienteMB.remover()}">
+					<h:commandLink action="#{clienteMB.excluir}">
 						<img src="../resources/images/lixeira.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{clienteMB.cliente}" />
+							target="#{clienteMB.itemSelecionado}" />
 					</h:commandLink>
 				</h:column>
 

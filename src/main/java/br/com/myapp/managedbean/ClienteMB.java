@@ -1,39 +1,30 @@
 package br.com.myapp.managedbean;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
 import br.com.myapp.model.CategoriaCliente;
 import br.com.myapp.model.Cliente;
 import br.com.myapp.model.Telefone;
+import br.com.myapp.model.TipoTelefone;
 import br.com.myapp.service.CategoriaClienteService;
 import br.com.myapp.service.ClienteService;
+import br.com.myapp.service.TelefoneService;
 
 @ManagedBean
 @ViewScoped
 public class ClienteMB extends AbstractManagedBean<Cliente> {
-	
-	private Cliente cliente = new Cliente();
-
-	private List<Cliente> clientes = new ArrayList<Cliente>();
-	
-	//--------------------------------------------
 
 	private String nomeFantasia;
 
@@ -87,6 +78,9 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 	@EJB
 	private CategoriaClienteService categoriaClienteService;
 
+	@EJB
+	private TelefoneService telefoneService;
+
 	@PostConstruct
 	@Override
 	public void init() {
@@ -123,6 +117,8 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 		this.cidade = StringUtils.EMPTY;
 		this.uf = StringUtils.EMPTY;
 		this.pontoReferencia = StringUtils.EMPTY;
+		this.dataNascimento = null;
+		this.nomeProprietario = StringUtils.EMPTY;
 		this.status = Boolean.TRUE;
 
 	}
@@ -131,19 +127,19 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 	public void popularInterface() throws BusinessException {
 
 		this.categorias = this.categoriaClienteService.buscarTodos();
-
 	}
 
 	@Override
 	public void popularCampos(final Cliente cliente) throws BusinessException {
 
+		this.cep = cliente.getCep();
 		this.nomeFantasia = cliente.getNomeFantasia();
 		this.cnpj = cliente.getCnpj();
 		this.razaoSocial = cliente.getRazaoSocial();
 		this.inscest = cliente.getInscest();
 		this.email = cliente.getEmail();
 		this.regimeTributario = cliente.getRegimeTributario();
-		this.categoria = cliente.getIdCategoriaCliente();
+		this.categoria = cliente.getCategoria();
 		this.logradouro = cliente.getLogradouro();
 		this.numero = cliente.getNumero();
 		this.bairro = cliente.getBairro();
@@ -155,32 +151,39 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 		this.dataNascimento = cliente.getDataNascimento();
 		this.status = cliente.isAtivo();
 
-		if (cliente.getTelefones() != null) {
+		final Collection<Telefone> telefones = this.telefoneService.buscarByCliente(cliente);
 
-			for (final Telefone telefone : cliente.getTelefones()) {
+		if (CollectionUtils.isNotEmpty(telefones)) {
 
-				if ("CELULAR".equalsIgnoreCase(telefone.getTipo())) {
+			for (final Telefone telefone : telefones) {
+
+				switch (telefone.getTipo()) {
+
+				case CELULAR:
 					this.dddCelular = telefone.getDdd();
 					this.numeroCelular = telefone.getNumero();
-				} else if ("COMERCIAL".equalsIgnoreCase(telefone.getTipo())) {
+					break;
+
+				case COMERCIAL:
 					this.dddComercial = telefone.getDdd();
 					this.numeroComercial = telefone.getNumero();
+					break;
 				}
 			}
 		}
-
 	}
 
 	@Override
 	public void popularObjeto(final Cliente cliente) {
 
+		cliente.setCep(this.cep);
 		cliente.setNomeFantasia(this.nomeFantasia);
 		cliente.setCnpj(this.cnpj);
 		cliente.setRazaoSocial(this.razaoSocial);
 		cliente.setInscest(this.inscest);
 		cliente.setEmail(this.email);
 		cliente.setRegimeTributario(this.regimeTributario);
-		cliente.setIdCategoriaCliente(this.categoria);
+		cliente.setCategoria(this.categoria);
 		cliente.setLogradouro(this.logradouro);
 		cliente.setNumero(this.numero);
 		cliente.setBairro(this.bairro);
@@ -192,34 +195,6 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 		cliente.setDataNascimento(this.dataNascimento);
 		cliente.setAtivo(this.status);
 
-		// final Telefone telefoneCelular = new Telefone();
-		// telefoneCelular.setDdd(this.dddCelular);
-		// telefoneCelular.setNumero(this.numeroCelular);
-		// telefoneCelular.setTipo("CELULAR");
-		//
-		// final Telefone telefoneComercial = new Telefone();
-		// telefoneComercial.setDdd(this.dddComercial);
-		// telefoneComercial.setNumero(this.numeroComercial);
-		// telefoneComercial.setTipo("COMERCIAL");
-
-		final Telefone telefoneCelular = new Telefone();
-		telefoneCelular.setDdd("81");
-		telefoneCelular.setNumero("9999-9999");
-		telefoneCelular.setTipo("CELULAR");
-		telefoneCelular.setCliente(cliente);
-
-		final Telefone telefoneComercial = new Telefone();
-		telefoneComercial.setDdd("81");
-		telefoneComercial.setNumero("3030-3030");
-		telefoneComercial.setTipo("COMERCIAL");
-		telefoneComercial.setCliente(cliente);
-
-		final Collection<Telefone> telefones = new ArrayList<Telefone>();
-		telefones.add(telefoneCelular);
-		telefones.add(telefoneComercial);
-
-		cliente.setTelefones(telefones);
-
 		if (cliente.getId() == null) {
 			cliente.setUsuarioCriador("ADMIN");
 			cliente.setDataCriacao(Calendar.getInstance().getTime());
@@ -227,7 +202,6 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 			cliente.setUsuarioAtualizador("ADMIN");
 			cliente.setDataAtualizacao(Calendar.getInstance().getTime());
 		}
-
 	}
 
 	@Override
@@ -242,19 +216,60 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 	@Override
 	public void salvar(final Cliente cliente) throws BusinessException {
 
+		final Telefone telefoneCelular = new Telefone();
+		telefoneCelular.setDdd(this.dddCelular);
+		telefoneCelular.setNumero(this.numeroCelular);
+		telefoneCelular.setTipo(TipoTelefone.CELULAR);
+
+		final Telefone telefoneComercial = new Telefone();
+		telefoneComercial.setDdd(this.dddComercial);
+		telefoneComercial.setNumero(this.numeroComercial);
+		telefoneComercial.setTipo(TipoTelefone.COMERCIAL);
+
+		final Collection<Telefone> telefones = new ArrayList<Telefone>();
+		telefones.add(telefoneCelular);
+		telefones.add(telefoneComercial);
+
 		this.clienteService.criar(cliente);
+		this.telefoneService.criar(telefones, cliente);
+
+		this.doRedirect("/listagem/consultaCliente.xhtml");
 	}
 
-	
 	@Override
-	public void excluir(final Cliente itemSelecionado) throws BusinessException {
+	public void editar() {
 
+		try {
+			this.doRedirect("/clientes/cliente.xhtml?id=" + this.getItemSelecionado().getId());
+		} catch (final Exception e) {
+			this.exibirMensagemErro(e);
+		}
+	}
+
+	@Override
+	public void excluir(final Cliente cliente) throws BusinessException {
+
+		try {
+			this.clienteService.deletar(cliente);
+		} catch (final BusinessException e) {
+			this.exibirMensagemErro(e);
+		}
 	}
 
 	@Override
 	public Class<Cliente> getObjectClass() {
 
 		return Cliente.class;
+	}
+
+	public Collection<Cliente> getClientes() {
+
+		try {
+			return this.clienteService.buscarTodos();
+		} catch (final BusinessException e) {
+			this.exibirMensagemErro(e);
+			return null;
+		}
 	}
 
 	public String getNomeFantasia() {
@@ -485,61 +500,6 @@ public class ClienteMB extends AbstractManagedBean<Cliente> {
 	public void setCategorias(final Collection<CategoriaCliente> categorias) {
 
 		this.categorias = categorias;
-	}
-
-	//---------------------------------------------
-	public List<Cliente> getClientes() throws BusinessException {
-
-		this.clientes = (List<Cliente>) this.clienteService.buscarTodos();
-		return this.clientes;
-	}
-
-	public void setClientes(final List<Cliente> clientes) {
-
-		this.clientes = clientes;
-	}
-
-	
-	//--------------------------------------------
-
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	
-	//--------------------------------------------
-	
-	public void doRedirect(final String redirectPage) throws FacesException {
-
-		final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-
-		try {
-			externalContext.redirect(externalContext.getRequestContextPath().concat(redirectPage));
-		} catch (final IOException e) {
-			throw new FacesException(e);
-		}
-	}
-	
-	//----------------------------------
-	
-	
-	public void editar() {
-
-		this.doRedirect("/clientes/cliente.xhtml?id=" + this.cliente.getId());
-	}
-	
-	//----------------------------------
-
-	public void remover() {
-		try {
-
-			this.clienteService.deletar(this.cliente);
-		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
-		}
 	}
 
 }

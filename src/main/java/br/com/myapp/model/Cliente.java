@@ -4,10 +4,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +16,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "CLIENTE")
@@ -64,9 +61,9 @@ public class Cliente implements Serializable {
 	@Column(name = "REGIME_TRIBUTARIO")
 	private String regimeTributario;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "ID_CATEGORIA_CLIENTE")
-	private CategoriaCliente idCategoriaCliente;
+	private CategoriaCliente categoria;
 
 	@Column(name = "LOGRADOURO")
 	private String logradouro;
@@ -102,10 +99,10 @@ public class Cliente implements Serializable {
 	@Column(name = "ATIVO")
 	private boolean ativo;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "cliente")
+	@OneToMany(orphanRemoval = true, mappedBy = "cliente")
 	private Collection<Telefone> telefones;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "cliente")
+	@OneToMany(orphanRemoval = true, mappedBy = "cliente")
 	private Collection<Problema> problemas;
 
 	@Override
@@ -154,7 +151,7 @@ public class Cliente implements Serializable {
 				+ ", inscest=" + this.inscest
 				+ ", email=" + this.email
 				+ ", regimeTributario=" + this.regimeTributario
-				+ ", idCategoriaCliente=" + this.idCategoriaCliente
+				+ ", categoria=" + this.categoria
 				+ ", logradouro=" + this.logradouro
 				+ ", numero=" + this.numero
 				+ ", bairro=" + this.bairro
@@ -278,14 +275,14 @@ public class Cliente implements Serializable {
 		this.regimeTributario = regimeTributario;
 	}
 
-	public CategoriaCliente getIdCategoriaCliente() {
+	public CategoriaCliente getCategoria() {
 
-		return this.idCategoriaCliente;
+		return this.categoria;
 	}
 
-	public void setIdCategoriaCliente(final CategoriaCliente idCategoriaCliente) {
+	public void setCategoria(final CategoriaCliente categoria) {
 
-		this.idCategoriaCliente = idCategoriaCliente;
+		this.categoria = categoria;
 	}
 
 	public String getLogradouro() {
@@ -417,22 +414,5 @@ public class Cliente implements Serializable {
 
 		this.problemas = problemas;
 	}
-	
-	@Transient
-	private String imagemStatus = "../resources/images/off.png";
-
-
-	public String getImagemStatus() {
-		if (this.ativo==true){
-			this.imagemStatus="../resources/images/on.png";
-			
-		}
-		return this.imagemStatus;
-	}
-	//------------------------------------------
-	
-	
-	
-	
 
 }

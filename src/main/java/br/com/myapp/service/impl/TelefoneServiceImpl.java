@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import br.com.myapp.dao.TelefoneDAO;
 import br.com.myapp.exception.BusinessException;
 import br.com.myapp.exception.DAOException;
+import br.com.myapp.model.Cliente;
 import br.com.myapp.model.Telefone;
 import br.com.myapp.service.TelefoneService;
 
@@ -18,16 +19,21 @@ public class TelefoneServiceImpl implements TelefoneService {
 	private TelefoneDAO dao;
 
 	@Override
-	public void criar(final Telefone telefone) throws BusinessException {
+	public void criar(final Collection<Telefone> telefones, final Cliente cliente) throws BusinessException {
 
 		try {
 
-			if (telefone.getId() == null) {
-				this.dao.criar(telefone);
-			} else {
-				this.dao.atualizar(telefone);
-			}
+			this.removerTelefonesVinculados(cliente);
 
+			if (telefones != null) {
+
+				for (final Telefone telefone : telefones) {
+
+					telefone.setCliente(cliente);
+
+					this.dao.criar(telefone);
+				}
+			}
 		} catch (final DAOException e) {
 			throw new BusinessException(e);
 		}
@@ -70,6 +76,17 @@ public class TelefoneServiceImpl implements TelefoneService {
 	public Telefone buscar(final Long id) throws BusinessException {
 
 		return this.dao.buscarById(id);
+	}
+
+	@Override
+	public Collection<Telefone> buscarByCliente(final Cliente cliente) throws BusinessException {
+
+		return this.dao.buscarByCliente(cliente);
+	}
+
+	public void removerTelefonesVinculados(final Cliente cliente) throws BusinessException {
+
+		this.dao.deletarByCliente(cliente);
 	}
 
 }

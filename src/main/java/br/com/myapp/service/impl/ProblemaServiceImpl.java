@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import br.com.myapp.dao.ProblemaDAO;
 import br.com.myapp.exception.BusinessException;
 import br.com.myapp.exception.DAOException;
+import br.com.myapp.model.Cliente;
 import br.com.myapp.model.Problema;
 import br.com.myapp.service.ProblemaService;
 
@@ -16,22 +17,6 @@ public class ProblemaServiceImpl implements ProblemaService {
 
 	@EJB
 	private ProblemaDAO dao;
-
-	@Override
-	public void criar(final Problema problema) throws BusinessException {
-
-		try {
-
-			if (problema.getId() == null) {
-				this.dao.criar(problema);
-			} else {
-				this.dao.atualizar(problema);
-			}
-
-		} catch (final DAOException e) {
-			throw new BusinessException(e);
-		}
-	}
 
 	@Override
 	public Collection<Problema> buscarTodos() throws BusinessException {
@@ -70,6 +55,38 @@ public class ProblemaServiceImpl implements ProblemaService {
 	public Problema buscar(final Long id) throws BusinessException {
 
 		return this.dao.buscarById(id);
+	}
+
+	@Override
+	public Collection<Problema> buscarByCliente(final Cliente cliente) throws BusinessException {
+
+		return this.dao.buscarByCliente(cliente);
+	}
+
+	public void removerProblemasVinculados(final Cliente cliente) throws BusinessException {
+
+		this.dao.deletarByCliente(cliente);
+	}
+
+	@Override
+	public void criar(final Collection<Problema> problemas, final Cliente cliente) throws BusinessException {
+
+		try {
+
+			this.removerProblemasVinculados(cliente);
+
+			if (problemas != null) {
+
+				for (final Problema problema : problemas) {
+
+					problema.setCliente(cliente);
+
+					this.dao.criar(problema);
+				}
+			}
+		} catch (final DAOException e) {
+			throw new BusinessException(e);
+		}
 	}
 
 }

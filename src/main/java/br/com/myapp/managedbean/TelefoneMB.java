@@ -62,7 +62,7 @@ public class TelefoneMB {
 
 		try {
 
-			this.telefoneService.criar(this.telefone);
+			this.telefoneService.criar(this.telefones,this.idCliente);
 		} catch (final BusinessException e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}

@@ -31,7 +31,7 @@ import br.com.myapp.service.ProblemaService;
 @ViewScoped
 public class ProblemaMB {
 
-	private Cliente cliente;
+	private Cliente idCliente;
 
 	private String titulo;
 
@@ -83,8 +83,8 @@ public class ProblemaMB {
 				this.problema.setDataAtualizaco(data);
 			}
 
-			this.problemaService.criar(this.problema);
-		} catch (final BusinessException e) {
+			// this.problemaService.criar(this.problema);
+		} catch (final Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
 		}
 
@@ -153,14 +153,14 @@ public class ProblemaMB {
 		this.problemas = problemas;
 	}
 
-	public Cliente getCliente() {
+	public Cliente getIdCliente() {
 
-		return this.cliente;
+		return this.idCliente;
 	}
 
-	public void setCliente(final Cliente idCliente) {
+	public void setIdCliente(final Cliente idCliente) {
 
-		this.cliente = idCliente;
+		this.idCliente = idCliente;
 	}
 
 	public String getTitulo() {
