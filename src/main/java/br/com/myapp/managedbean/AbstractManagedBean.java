@@ -8,8 +8,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
+import br.com.myapp.model.Funcionario;
+import br.com.myapp.util.Constants;
 import br.com.myapp.util.ExceptionUtils;
 
 public abstract class AbstractManagedBean<T> { // <T> -> Generics
@@ -166,6 +171,21 @@ public abstract class AbstractManagedBean<T> { // <T> -> Generics
 		final Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
 		final String value = paramMap.get(param);
 		return value;
+	}
+
+	public Funcionario getFuncionarioLogado() {
+
+		final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		final HttpSession session = (HttpSession) externalContext.getSession(false);
+		final Funcionario funcionario = (Funcionario) session.getAttribute(Constants.Login.FUNCIONARIO_LOGADO);
+
+		return funcionario != null ? funcionario : null;
+	}
+
+	public String getUsuarioLogado() {
+
+		final Funcionario funcionario = this.getFuncionarioLogado();
+		return funcionario != null ? funcionario.getUsuario() : StringUtils.EMPTY;
 	}
 
 	public void doRedirect(final String redirectPage) throws FacesException {

@@ -13,23 +13,13 @@
 		<div style="padding-top: 20px" class="panel-body col-xs-12"> <h1>
 		<img src="../resources/images/registrar.png" />Setores</h1>
 		<hr></hr> <h:form>
-			<h:dataTable value="#{setorMB.setores}"
-				var="item" width="80%" border="1">
+			<h:dataTable value="#{setorMB.setores}" var="item" width="80%" border="1">
 
 				<h:column>
 					<f:facet name="header">ID</f:facet>
 						#{item.id}		
 				</h:column>
 				
-				<h:column>
-					<f:facet name="header">ATIVO</f:facet>
-					<h:commandLink action="#{setorMB.editar()}">
-						<img src="#{item.imagemStatus}" />
-						<f:setPropertyActionListener value="#{item}"
-							target="#{setorMB.setor}" />
-					</h:commandLink>
-				</h:column>
-
 				<h:column>
 					<f:facet name="header">SETOR</f:facet>
 						#{item.nome}		
@@ -54,24 +44,22 @@
 					<f:facet name="header">ATUALIZADO POR</f:facet>
 						#{item.usuarioAtualizador}		
 				</h:column>
-
-
 				
 				<h:column>
 					<f:facet name="header">EDITAR</f:facet>
-					<h:commandLink action="#{setorMB.editar()}">
+					<h:commandLink action="#{setorMB.editar}">
 						<img src="../resources/images/lapis.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{setorMB.setor}" />
+							target="#{setorMB.itemSelecionado}" />
 					</h:commandLink>
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">REMOVER</f:facet>
-					<h:commandLink action="#{setorMB.remover()}">
+					<h:commandLink action="#{setorMB.excluir}">
 						<img src="../resources/images/lixeira.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{setorMB.setor}" />
+							target="#{setorMB.itemSelecionado}" />
 					</h:commandLink>
 				</h:column>
 

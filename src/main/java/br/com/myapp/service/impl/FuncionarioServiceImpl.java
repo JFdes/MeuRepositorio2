@@ -72,4 +72,10 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 		return this.dao.buscarById(id);
 	}
 
+	@Override
+	public Funcionario buscar(final String usuario, final String senha) throws BusinessException {
+
+		return this.dao.buscar(usuario, senha);
+	}
+
 }

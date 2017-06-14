@@ -59,19 +59,19 @@
 				
 				<h:column>
 					<f:facet name="header">EDITAR</f:facet>
-					<h:commandLink action="#{cicloMB.editar()}">
+					<h:commandLink action="#{cicloMB.editar}">
 						<img src="../resources/images/lapis.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{cicloMB.ciclo}" />
+							target="#{cicloMB.itemSelecionado}" />
 					</h:commandLink>
 				</h:column>
 				
 				<h:column>
 					<f:facet name="header">FINALIZAR</f:facet>
-					<h:commandLink action="#{cicloMB.finalizarCiclo()}">
+					<h:commandLink action="#{cicloMB.excluir}">
 						<img src="../resources/images/lapis.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{cicloMB.ciclo}" />
+							target="#{cicloMB.itemSelecionado}" />
 					</h:commandLink>
 				</h:column>
 

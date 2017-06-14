@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -66,7 +65,7 @@ public class Problema implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataAtualizaco;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "RL_PROBLEMA_CATEGORIA_PROBLEMA", joinColumns = {
 			@JoinColumn(name = "PROBLEMA_ID", nullable = false, updatable = false)
 	}, inverseJoinColumns = {

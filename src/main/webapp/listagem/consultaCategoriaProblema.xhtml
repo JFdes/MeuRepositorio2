@@ -13,7 +13,7 @@
 		<div style="padding-top: 20px" class="panel-body col-xs-12"> <h1>
 		<img src="../resources/images/registrar.png" />Categoria de Problema</h1>
 		<hr></hr> <h:form>
-			<h:dataTable value="#{categoriaProblemaMB.categoriaProblemas}"
+			<h:dataTable value="#{categoriaProblemaMB.categorias}"
 				var="item" width="80%" border="1">
 
 				<h:column>
@@ -21,19 +21,9 @@
 						#{item.id}		
 				</h:column>
 				
-					
-				<h:column>
-					<f:facet name="header">ATIVO</f:facet>
-					<h:commandLink action="#{categoriaProblemaMB.editar()}">
-						<img src="#{item.imagemStatus}" />
-						<f:setPropertyActionListener value="#{item}"
-							target="#{categoriaProblemaMB.categoriaProblema}" />
-					</h:commandLink>
-				</h:column>
-				
 				<h:column>
 					<f:facet name="header">CATEGORIA</f:facet>
-						#{item.nomeCategoria}		
+						#{item.nome}		
 				</h:column>				
 				
 				<h:column>
@@ -59,19 +49,19 @@
 				
 				<h:column>
 					<f:facet name="header">EDITAR</f:facet>
-					<h:commandLink action="#{categoriaProblemaMB.editar()}">
+					<h:commandLink action="#{categoriaProblemaMB.editar}">
 						<img src="../resources/images/lapis.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{categoriaProblemaMB.categoriaProblema}" />
+							target="#{categoriaProblemaMB.itemSelecionado}" />
 					</h:commandLink>
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">REMOVER</f:facet>
-					<h:commandLink action="#{categoriaProblemaMB.remover()}">
+					<h:commandLink action="#{categoriaProblemaMB.excluir}">
 						<img src="../resources/images/lixeira.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{categoriaProblemaMB.categoriaProblema}" />
+							target="#{categoriaProblemaMB.itemSelecionado}" />
 					</h:commandLink>
 				</h:column>
 

@@ -22,15 +22,6 @@
 				</h:column>
 				
 				<h:column>
-					<f:facet name="header">ATIVO</f:facet>
-					<h:commandLink action="#{funcionarioMB.editar()}">
-						<img src="#{item.imagemStatus}" />
-						<f:setPropertyActionListener value="#{item}"
-							target="#{funcionarioMB.funcionario}" />
-					</h:commandLink>
-				</h:column>
-
-				<h:column>
 					<f:facet name="header">FUNCIONÁRIO</f:facet>
 						#{item.nome}		
 				</h:column>
@@ -42,7 +33,7 @@
 				
 				<h:column>
 					<f:facet name="header">ADMITIDO EM</f:facet>
-						#{item.dtInclusao}		
+						#{item.dataAdmissao}		
 				</h:column>
 				
 				<h:column>
@@ -58,19 +49,19 @@
 				
 				<h:column>
 					<f:facet name="header">EDITAR</f:facet>
-					<h:commandLink action="#{funcionarioMB.editar()}">
+					<h:commandLink action="#{funcionarioMB.editar}">
 						<img src="../resources/images/lapis.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{funcionarioMB.funcionario}" />
+							target="#{funcionarioMB.itemSelecionado}" />
 					</h:commandLink>
 				</h:column>
 
 				<h:column>
 					<f:facet name="header">REMOVER</f:facet>
-					<h:commandLink action="#{funcionarioMB.remover()}">
+					<h:commandLink action="#{funcionarioMB.excluir}">
 						<img src="../resources/images/lixeira.png" />
 						<f:setPropertyActionListener value="#{item}"
-							target="#{funcionarioMB.funcionario}" />
+							target="#{funcionarioMB.itemSelecionado}" />
 					</h:commandLink>
 				</h:column>
 

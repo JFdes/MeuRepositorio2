@@ -1,19 +1,12 @@
 package br.com.myapp.managedbean;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -21,38 +14,29 @@ import br.com.myapp.exception.BusinessException;
 import br.com.myapp.model.Funcionario;
 import br.com.myapp.model.Setor;
 import br.com.myapp.service.FuncionarioService;
+import br.com.myapp.service.SetorService;
 
 @ManagedBean
 @ViewScoped
-public class FuncionarioMB {
-
-	private Funcionario funcionario = new Funcionario();
-
-	private List<Funcionario> funcionarios = new ArrayList<Funcionario>();
-
-	// --------------------------------------------
+public class FuncionarioMB extends AbstractManagedBean<Funcionario> {
 
 	private String nome;
 
-	private String usuario;
+	private String rg;
 
-	private String senha;
+	private String cpf;
 
-	private int rg;
-
-	private int cpf;
-
-	private String fone;
+	private String telefone;
 
 	private String email;
 
-	private Date dtNascimento;
+	private Date dataNascimento;
 
 	private Date dataAdmissao;
 
 	private String logradouro;
 
-	private int numero;
+	private String numero;
 
 	private String bairro;
 
@@ -64,16 +48,24 @@ public class FuncionarioMB {
 
 	private String cep;
 
-	private Setor idSetor;
+	private String usuario;
+
+	private String senha;
+
+	private Setor setor;
 
 	private boolean ativo;
 
-	// -------------------------------------------
+	private Collection<Setor> setores;
+
+	@EJB
+	private SetorService setorService;
 
 	@EJB
 	private FuncionarioService funcionarioService;
 
 	@PostConstruct
+	@Override
 	public void init() {
 
 		final String id = this.getParam("id");
@@ -81,93 +73,140 @@ public class FuncionarioMB {
 		if (StringUtils.isNotBlank(id)) {
 
 			try {
-				this.funcionario = this.funcionarioService.buscar(Long.valueOf(id));
+				final Funcionario funcionario = this.funcionarioService.buscar(Long.valueOf(id));
+				this.setObjeto(funcionario);
 			} catch (final BusinessException e) {
-				e.printStackTrace();
+				this.exibirMensagemErro(e);
 			}
 		}
+
+		super.init();
 	}
 
-	public void logar() {
+	@Override
+	public void limpar() {
+
+		this.nome = StringUtils.EMPTY;
+		this.rg = StringUtils.EMPTY;
+		this.cpf = StringUtils.EMPTY;
+		this.telefone = StringUtils.EMPTY;
+		this.email = StringUtils.EMPTY;
+		this.dataNascimento = null;
+		this.dataAdmissao = null;
+		this.logradouro = StringUtils.EMPTY;
+		this.numero = StringUtils.EMPTY;
+		this.bairro = StringUtils.EMPTY;
+		this.complemento = StringUtils.EMPTY;
+		this.cidade = StringUtils.EMPTY;
+		this.uf = StringUtils.EMPTY;
+		this.cep = StringUtils.EMPTY;
+		this.usuario = StringUtils.EMPTY;
+		this.senha = StringUtils.EMPTY;
+		this.setor = null;
+		this.ativo = Boolean.TRUE;
+	}
+
+	@Override
+	public void popularInterface() throws BusinessException {
+
+		this.setores = this.setorService.buscarTodos();
+	}
+
+	@Override
+	public void popularCampos(final Funcionario funcionario) throws BusinessException {
+
+		this.nome = funcionario.getNome();
+		this.rg = funcionario.getRg();
+		this.cpf = funcionario.getCpf();
+		this.telefone = funcionario.getTelefone();
+		this.email = funcionario.getEmail();
+		this.dataNascimento = funcionario.getDataNascimento();
+		this.dataAdmissao = funcionario.getDataAdmissao();
+		this.logradouro = funcionario.getLogradouro();
+		this.numero = funcionario.getNumero();
+		this.bairro = funcionario.getBairro();
+		this.complemento = funcionario.getComplemento();
+		this.cidade = funcionario.getCidade();
+		this.uf = funcionario.getUf();
+		this.cep = funcionario.getCep();
+		this.usuario = funcionario.getUsuario();
+		this.senha = funcionario.getSenha();
+		this.setor = funcionario.getSetor();
+		this.ativo = funcionario.isAtivo();
+	}
+
+	@Override
+	public void popularObjeto(final Funcionario funcionario) {
+
+		funcionario.setNome(this.nome);
+		funcionario.setRg(this.rg);
+		funcionario.setCpf(this.cpf);
+		funcionario.setTelefone(this.telefone);
+		funcionario.setEmail(this.email);
+		funcionario.setDataNascimento(this.dataNascimento);
+		funcionario.setDataAdmissao(this.dataAdmissao);
+		funcionario.setLogradouro(this.logradouro);
+		funcionario.setNumero(this.numero);
+		funcionario.setBairro(this.bairro);
+		funcionario.setCidade(this.cidade);
+		funcionario.setComplemento(this.complemento);
+		funcionario.setUf(this.uf);
+		funcionario.setCep(this.cep);
+		funcionario.setUsuario(this.usuario);
+		funcionario.setSenha(this.senha);
+		funcionario.setSetor(this.setor);
+		funcionario.setAtivo(this.ativo);
+	}
+
+	@Override
+	public void validarCampos() throws BusinessException {
 
 	}
 
-	public void salvar() {
+	@Override
+	public void salvar(final Funcionario funcionario) throws BusinessException {
 
-		try {
-
-			if (this.funcionario.getId() == null) {
-				this.funcionario.setAtivo(true);
-			}
-
-			this.funcionarioService.criar(this.funcionario);
-		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
-		}
+		this.funcionarioService.criar(funcionario);
 
 		this.doRedirect("/listagem/consultaFuncionario.xhtml");
+
 	}
 
+	@Override
 	public void editar() {
 
-		this.doRedirect("/funcionarios/funcionario.xhtml?id=" + this.funcionario.getId());
+		try {
+			this.doRedirect("/funcionarios/funcionario.xhtml?id=" + this.getItemSelecionado().getId());
+		} catch (final Exception e) {
+			this.exibirMensagemErro(e);
+		}
 	}
 
-	public void remover() {
+	@Override
+	public void excluir(final Funcionario funcionario) throws BusinessException {
 
 		try {
-
-			this.funcionarioService.deletar(this.funcionario);
+			this.funcionarioService.deletar(funcionario);
 		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+			this.exibirMensagemErro(e);
 		}
 	}
 
-	public void doRedirect(final String redirectPage) throws FacesException {
+	@Override
+	public Class<Funcionario> getObjectClass() {
 
-		final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+		return Funcionario.class;
+	}
+
+	public Collection<Funcionario> getFuncionarios() {
 
 		try {
-			externalContext.redirect(externalContext.getRequestContextPath().concat(redirectPage));
-		} catch (final IOException e) {
-			throw new FacesException(e);
+			return this.funcionarioService.buscarTodos();
+		} catch (final Exception e) {
+			this.exibirMensagemErro(e);
+			return null;
 		}
 	}
-
-	public String getParam(final String param) {
-
-		final FacesContext context = FacesContext.getCurrentInstance();
-		final Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
-		final String projectId = paramMap.get(param);
-		return projectId;
-	}
-
-	// ------------------------------------------------
-
-	public Funcionario getFuncionario() {
-
-		return this.funcionario;
-	}
-
-	public void setFuncionario(final Funcionario funcionario) {
-
-		this.funcionario = funcionario;
-	}
-
-	// ----------------------------------------------- get e set (carrega a lista para o redirecionamento da View).
-
-	public List<Funcionario> getFuncionarios() throws BusinessException {
-
-		this.funcionarios = (List<Funcionario>) this.funcionarioService.buscarTodos();
-		return this.funcionarios;
-	}
-
-	public void setFuncionarios(final List<Funcionario> funcionarios) {
-
-		this.funcionarios = funcionarios;
-	}
-
-	// ------------------------------------------------
 
 	public String getNome() {
 
@@ -179,54 +218,34 @@ public class FuncionarioMB {
 		this.nome = nome;
 	}
 
-	public String getUsuario() {
-
-		return this.usuario;
-	}
-
-	public void setUsuario(final String usuario) {
-
-		this.usuario = usuario;
-	}
-
-	public String getSenha() {
-
-		return this.senha;
-	}
-
-	public void setSenha(final String senha) {
-
-		this.senha = senha;
-	}
-
-	public int getRg() {
+	public String getRg() {
 
 		return this.rg;
 	}
 
-	public void setRg(final int rg) {
+	public void setRg(final String rg) {
 
 		this.rg = rg;
 	}
 
-	public int getCpf() {
+	public String getCpf() {
 
 		return this.cpf;
 	}
 
-	public void setCpf(final int cpf) {
+	public void setCpf(final String cpf) {
 
 		this.cpf = cpf;
 	}
 
-	public String getFone() {
+	public String getTelefone() {
 
-		return this.fone;
+		return this.telefone;
 	}
 
-	public void setFone(final String fone) {
+	public void setTelefone(final String telefone) {
 
-		this.fone = fone;
+		this.telefone = telefone;
 	}
 
 	public String getEmail() {
@@ -239,14 +258,14 @@ public class FuncionarioMB {
 		this.email = email;
 	}
 
-	public Date getDtNascimento() {
+	public Date getDataNascimento() {
 
-		return this.dtNascimento;
+		return this.dataNascimento;
 	}
 
-	public void setDtNascimento(final Date dtNascimento) {
+	public void setDataNascimento(final Date dataNascimento) {
 
-		this.dtNascimento = dtNascimento;
+		this.dataNascimento = dataNascimento;
 	}
 
 	public Date getDataAdmissao() {
@@ -269,12 +288,12 @@ public class FuncionarioMB {
 		this.logradouro = logradouro;
 	}
 
-	public int getNumero() {
+	public String getNumero() {
 
 		return this.numero;
 	}
 
-	public void setNumero(final int numero) {
+	public void setNumero(final String numero) {
 
 		this.numero = numero;
 	}
@@ -329,14 +348,34 @@ public class FuncionarioMB {
 		this.cep = cep;
 	}
 
-	public Setor getIdSetor() {
+	public String getUsuario() {
 
-		return this.idSetor;
+		return this.usuario;
 	}
 
-	public void setIdSetor(final Setor idSetor) {
+	public void setUsuario(final String usuario) {
 
-		this.idSetor = idSetor;
+		this.usuario = usuario;
+	}
+
+	public String getSenha() {
+
+		return this.senha;
+	}
+
+	public void setSenha(final String senha) {
+
+		this.senha = senha;
+	}
+
+	public Setor getSetor() {
+
+		return this.setor;
+	}
+
+	public void setSetor(final Setor setor) {
+
+		this.setor = setor;
 	}
 
 	public boolean isAtivo() {
@@ -349,14 +388,14 @@ public class FuncionarioMB {
 		this.ativo = ativo;
 	}
 
-	public FuncionarioService getFuncionarioService() {
+	public Collection<Setor> getSetores() {
 
-		return this.funcionarioService;
+		return this.setores;
 	}
 
-	public void setFuncionarioService(final FuncionarioService funcionarioService) {
+	public void setSetores(final Collection<Setor> setores) {
 
-		this.funcionarioService = funcionarioService;
+		this.setores = setores;
 	}
 
 }

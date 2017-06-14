@@ -38,20 +38,20 @@ public class Funcionario implements Serializable {
 	private String senha;
 
 	@Column(name = "RG")
-	private int rg;
+	private String rg;
 
 	@Column(name = "CPF")
-	private int cpf;
+	private String cpf;
 
-	@Column(name = "FONE")
-	private String fone;
+	@Column(name = "TELEFONE")
+	private String telefone;
 
 	@Column(name = "EMAIL")
 	private String email;
 
-	@Column(name = "DT_NASCIMENTO")
+	@Column(name = "DATA_NASCIMENTO")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dtNascimento;
+	private Date dataNascimento;
 
 	@Column(name = "DATA_ADMISSAO")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -61,7 +61,7 @@ public class Funcionario implements Serializable {
 	private String logradouro;
 
 	@Column(name = "NUMERO")
-	private int numero;
+	private String numero;
 
 	@Column(name = "BAIRRO")
 	private String bairro;
@@ -78,7 +78,7 @@ public class Funcionario implements Serializable {
 	@Column(name = "CEP")
 	private String cep;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_SETOR")
 	private Setor setor;
 
@@ -126,9 +126,9 @@ public class Funcionario implements Serializable {
 				+ ", senha=" + this.senha
 				+ ", rg=" + this.rg
 				+ ", cpf=" + this.cpf
-				+ ", fone=" + this.fone
+				+ ", telefone=" + this.telefone
 				+ ", email=" + this.email
-				+ ", dtNascimento=" + this.dtNascimento
+				+ ", dataNascimento=" + this.dataNascimento
 				+ ", dataAdmissao=" + this.dataAdmissao
 				+ ", logradouro=" + this.logradouro
 				+ ", numero=" + this.numero
@@ -182,34 +182,34 @@ public class Funcionario implements Serializable {
 		this.senha = senha;
 	}
 
-	public int getRg() {
+	public String getRg() {
 
 		return this.rg;
 	}
 
-	public void setRg(final int rg) {
+	public void setRg(final String rg) {
 
 		this.rg = rg;
 	}
 
-	public int getCpf() {
+	public String getCpf() {
 
 		return this.cpf;
 	}
 
-	public void setCpf(final int cpf) {
+	public void setCpf(final String cpf) {
 
 		this.cpf = cpf;
 	}
 
-	public String getFone() {
+	public String getTelefone() {
 
-		return this.fone;
+		return this.telefone;
 	}
 
-	public void setFone(final String fone) {
+	public void setTelefone(final String telefone) {
 
-		this.fone = fone;
+		this.telefone = telefone;
 	}
 
 	public String getEmail() {
@@ -222,14 +222,14 @@ public class Funcionario implements Serializable {
 		this.email = email;
 	}
 
-	public Date getDtNascimento() {
+	public Date getDataNascimento() {
 
-		return this.dtNascimento;
+		return this.dataNascimento;
 	}
 
-	public void setDtNascimento(final Date dtNascimento) {
+	public void setDataNascimento(final Date dataNascimento) {
 
-		this.dtNascimento = dtNascimento;
+		this.dataNascimento = dataNascimento;
 	}
 
 	public Date getDataAdmissao() {
@@ -252,12 +252,12 @@ public class Funcionario implements Serializable {
 		this.logradouro = logradouro;
 	}
 
-	public int getNumero() {
+	public String getNumero() {
 
 		return this.numero;
 	}
 
-	public void setNumero(final int numero) {
+	public void setNumero(final String numero) {
 
 		this.numero = numero;
 	}

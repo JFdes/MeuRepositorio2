@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +17,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "SETOR")
@@ -52,6 +50,14 @@ public class Setor implements Serializable {
 	@Column(name = "ATIVO")
 	private boolean ativo; // VERIFICAR
 
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "RL_SETOR_CATEGORIA_PROBLEMA", joinColumns = {
+			@JoinColumn(name = "SETOR_ID", nullable = false, updatable = false)
+	}, inverseJoinColumns = {
+			@JoinColumn(name = "CATEGORIA_PROBLEMA_ID", nullable = false, updatable = false)
+	})
+	private Collection<CategoriaProblema> categorias;
+
 	@Override
 	public int hashCode() {
 
@@ -84,18 +90,6 @@ public class Setor implements Serializable {
 		return true;
 	}
 
-	@Transient
-	private final String imagemStatus = "../resources/images/off.png"; // Variável para exibição da imagem do Status considerado
-																		// "false".
-
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "RL_SETOR_CATEGORIA_PROBLEMA", joinColumns = {
-			@JoinColumn(name = "SETOR_ID", nullable = false, updatable = false)
-	}, inverseJoinColumns = {
-			@JoinColumn(name = "CATEGORIA_PROBLEMA_ID", nullable = false, updatable = false)
-	})
-	private Collection<CategoriaProblema> categoriasProblema;
-
 	@Override
 	public String toString() {
 
@@ -106,8 +100,7 @@ public class Setor implements Serializable {
 				+ ", usuarioAtualizador=" + this.usuarioAtualizador
 				+ ", dataAtualizacao=" + this.dataAtualizacao
 				+ ", ativo=" + this.ativo
-				+ ", imagemStatus=" + this.imagemStatus
-				+ ", categoriasProblema=" + this.categoriasProblema
+				+ ", categorias=" + this.categorias
 				+ "]";
 	}
 
@@ -181,18 +174,13 @@ public class Setor implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public Collection<CategoriaProblema> getCategoriasProblema() {
+	public Collection<CategoriaProblema> getCategorias() {
 
-		return this.categoriasProblema;
+		return this.categorias;
 	}
 
-	public void setCategoriasProblema(final Collection<CategoriaProblema> categoriasProblema) {
+	public void setCategorias(final Collection<CategoriaProblema> categorias) {
 
-		this.categoriasProblema = categoriasProblema;
-	}
-
-	public String getImagemStatus() {
-
-		return this.imagemStatus;
+		this.categorias = categorias;
 	}
 }

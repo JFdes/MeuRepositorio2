@@ -13,33 +13,30 @@
 
 	<div style="padding-top: 20px" class="panel-body col-xs-12">
 		<h:form id="alunoForm">
-		<h1><img src="../resources/images/cadastrar.png" />#{cicloMB.ciclo.id == null ? 'Ciclo': 'Editando o Ciclo: '.concat(cicloMB.ciclo.descricao)}</h1>
+		<h1><img src="../resources/images/cadastrar.png" />Cadastro/Edição de Ciclos</h1>
 			<hr></hr>
 		
 			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" showIcon="true" />
 			
 			<p:spacer height="20px"></p:spacer>
 			
-			
-			
 			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
 				<p:outputLabel for="descricao" value="Descricao:" />
-				<p:inputText id="descricao" value="#{cicloMB.ciclo.descricao}" class="form-control" style="width: 500px" required="true"/>
-			</h:panelGrid>	
+				<p:inputText id="descricao" value="#{cicloMB.descricao}" class="form-control" style="width: 500px" required="true"/>
+			</h:panelGrid>
 			
-					
+			<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+				<p:outputLabel for="dataInicio" value="Data de Início do Ciclo:" />
+				<p:calendar id="dataInicio" value="#{cicloMB.dataInicio}" pattern="dd-MM-yyyy" mask="true" />
+			</h:panelGrid>
 			
-			<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<h:panelGroup />
-				
-				<h:panelGroup>
-					<b:commandButton value="Salvar" class="btn btn-primary" actionListener="#{cicloMB.salvar()}"></b:commandButton>
-					<a href="/myapp/ciclos/ciclo.xhtml" class="btn btn-warn" >
-						
-					</a>
-					
-							
-				</h:panelGroup>
+			<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+				<p:outputLabel for="dataFim" value="Data de Fim do Ciclo:" />
+				<p:calendar id="dataFim" value="#{cicloMB.dataFim}" pattern="dd-MM-yyyy" mask="true" />
+			</h:panelGrid>
+			
+			<h:panelGrid columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+					<b:commandButton value="Salvar" class="btn btn-primary" action="#{cicloMB.salvar}"></b:commandButton>
 			</h:panelGrid>
 				
 		</h:form>

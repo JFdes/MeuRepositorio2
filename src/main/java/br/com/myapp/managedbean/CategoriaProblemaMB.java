@@ -1,53 +1,33 @@
 package br.com.myapp.managedbean;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.Calendar;
+import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
+import br.com.myapp.exception.CampoInvalidoException;
 import br.com.myapp.model.CategoriaProblema;
 import br.com.myapp.service.CategoriaProblemaService;
 
 @ManagedBean
 @ViewScoped
-public class CategoriaProblemaMB {
+public class CategoriaProblemaMB extends AbstractManagedBean<CategoriaProblema> {
 
-	// ---------------------------------------------------- Atributos da classe.
-	private CategoriaProblema categoriaProblema = new CategoriaProblema();
-
-	private List<CategoriaProblema> categoriaProblemas = new ArrayList<CategoriaProblema>();
-
-	private String nomeCategoria;
-
-	private String usuarioCriador;
-
-	private String usuarioAtualizador;
-
-	private Date dataCriacao;
-
-	private Date dataAtualizacao;
+	private String nome;
 
 	private boolean ativo;
-
-	// -----------------------------------------------------
 
 	@EJB
 	private CategoriaProblemaService categoriaProblemaService;
 
 	@PostConstruct
+	@Override
 	public void init() {
 
 		final String id = this.getParam("id");
@@ -55,153 +35,106 @@ public class CategoriaProblemaMB {
 		if (StringUtils.isNotBlank(id)) {
 
 			try {
-				this.categoriaProblema = this.categoriaProblemaService.buscar(Long.valueOf(id));
+				final CategoriaProblema categoriaProblema = this.categoriaProblemaService.buscar(Long.valueOf(id));
+				this.setObjeto(categoriaProblema);
 			} catch (final BusinessException e) {
-				e.printStackTrace();
+				this.exibirMensagemErro(e);
 			}
+		}
+
+		super.init();
+	}
+
+	@Override
+	public void limpar() {
+
+		this.nome = StringUtils.EMPTY;
+		this.ativo = Boolean.TRUE;
+	}
+
+	@Override
+	public void popularInterface() throws BusinessException {
+
+	}
+
+	@Override
+	public void popularCampos(final CategoriaProblema categoriaProblema) throws BusinessException {
+
+		this.nome = categoriaProblema.getNome();
+		this.ativo = categoriaProblema.isAtivo();
+	}
+
+	@Override
+	public void popularObjeto(final CategoriaProblema categoriaProblema) {
+
+		categoriaProblema.setNome(this.nome);
+		categoriaProblema.setAtivo(this.ativo);
+
+		if (categoriaProblema.getId() == null) {
+			categoriaProblema.setUsuarioCriador("ADMIN");
+			categoriaProblema.setDataCriacao(Calendar.getInstance().getTime());
+		} else {
+			categoriaProblema.setUsuarioAtualizador("ADMIN");
+			categoriaProblema.setDataAtualizacao(Calendar.getInstance().getTime());
 		}
 	}
 
-	// ----------------------------------------------------- Método salvar.
-	public void salvar() {
+	@Override
+	public void validarCampos() throws BusinessException {
 
-		try {
-
-			final Date data = new Date();
-
-			if (this.categoriaProblema.getId() == null) {
-				this.categoriaProblema.setDataCriacao(data);
-				this.categoriaProblema.setAtivo(true);
-			} else {
-				this.categoriaProblema.setDataAtualizacao(data);
-			}
-
-			this.categoriaProblemaService.criar(this.categoriaProblema);
-		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+		if (StringUtils.isBlank(this.nome)) {
+			throw new CampoInvalidoException("nome");
 		}
-
-		this.doRedirect("/listagem/consultaCategoriaProblema.xhtml"); // Redireciona para a wiew de listagem.
 	}
 
-	// ----------------------------------------------------- Método editar (redireciona para a wiew de cadastro)
+	@Override
+	public void salvar(final CategoriaProblema categoriaProblema) throws BusinessException {
+
+		this.categoriaProblemaService.criar(categoriaProblema);
+
+		this.doRedirect("/listagem/consultaCategoriaProblema.xhtml");
+	}
+
+	@Override
 	public void editar() {
 
-		this.doRedirect("/problemas/categoriaProblema.xhtml?id=" + this.categoriaProblema.getId());
+		try {
+			this.doRedirect("/problemas/categoriaProblema.xhtml?id=" + this.getItemSelecionado().getId());
+		} catch (final Exception e) {
+			this.exibirMensagemErro(e);
+		}
 	}
 
-	// ----------------------------------------------------- Método remover.
+	@Override
+	public void excluir(final CategoriaProblema categoriaProblema) throws BusinessException {
 
-	public void remover() {
+		this.categoriaProblemaService.deletar(categoriaProblema);
+	}
+
+	public Collection<CategoriaProblema> getCategorias() {
 
 		try {
-
-			this.categoriaProblemaService.deletar(this.categoriaProblema);
+			return this.categoriaProblemaService.buscarTodos();
 		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+			this.exibirMensagemErro(e);
+			return null;
 		}
 	}
 
-	// -----------------------------------------------------
+	@Override
+	public Class<CategoriaProblema> getObjectClass() {
 
-	public void doRedirect(final String redirectPage) throws FacesException {
-
-		final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-
-		try {
-			externalContext.redirect(externalContext.getRequestContextPath().concat(redirectPage));
-		} catch (final IOException e) {
-			throw new FacesException(e);
-		}
+		return CategoriaProblema.class;
 	}
 
-	// -----------------------------------------------------
+	public String getNome() {
 
-	public String getParam(final String param) {
-
-		final FacesContext context = FacesContext.getCurrentInstance();
-		final Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
-		final String projectId = paramMap.get(param);
-		return projectId;
+		return this.nome;
 	}
 
-	// -----------------------------------------------
+	public void setNome(final String nome) {
 
-	// -----------------------------------------------
-
-	public CategoriaProblema getCategoriaProblema() {
-
-		return this.categoriaProblema;
-	}
-
-	public void setCategoriaProblema(final CategoriaProblema categoriaProblema) {
-
-		this.categoriaProblema = categoriaProblema;
-	}
-
-	// ----------------------------------------------- (get e set da lista) carrega a lista para o redirecionamento da View.
-
-	public List<CategoriaProblema> getCategoriaProblemas() throws BusinessException {
-
-		this.categoriaProblemas = (List<CategoriaProblema>) this.categoriaProblemaService.buscarTodos();
-		return this.categoriaProblemas;
-	}
-
-	public void setCategoriaProblemas(final List<CategoriaProblema> categoriaProblemas) {
-
-		this.categoriaProblemas = categoriaProblemas;
-	}
-
-	// -----------------------------------------------------
-
-	public String getNomeCategoria() {
-
-		return this.nomeCategoria;
-	}
-
-	public void setNomeCategoria(final String nomeCategoria) {
-
-		this.nomeCategoria = nomeCategoria;
-	}
-
-	public String getUsuarioCriador() {
-
-		return this.usuarioCriador;
-	}
-
-	public void setUsuarioCriador(final String usuarioCriador) {
-
-		this.usuarioCriador = usuarioCriador;
-	}
-
-	public String getUsuarioAtualizador() {
-
-		return this.usuarioAtualizador;
-	}
-
-	public void setUsuarioAtualizador(final String usuarioAtualizador) {
-
-		this.usuarioAtualizador = usuarioAtualizador;
-	}
-
-	public Date getDataCriacao() {
-
-		return this.dataCriacao;
-	}
-
-	public void setDataCriacao(final Date dataCriacao) {
-
-		this.dataCriacao = dataCriacao;
-	}
-
-	public Date getDataAtualizacao() {
-
-		return this.dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(final Date dataAtualizacao) {
-
-		this.dataAtualizacao = dataAtualizacao;
+		this.nome = nome;
 	}
 
 	public boolean isAtivo() {
@@ -212,16 +145,6 @@ public class CategoriaProblemaMB {
 	public void setAtivo(final boolean ativo) {
 
 		this.ativo = ativo;
-	}
-
-	public CategoriaProblemaService getCategoriaProblemaService() {
-
-		return this.categoriaProblemaService;
-	}
-
-	public void setCategoriaProblemaService(final CategoriaProblemaService categoriaProblemaService) {
-
-		this.categoriaProblemaService = categoriaProblemaService;
 	}
 
 }

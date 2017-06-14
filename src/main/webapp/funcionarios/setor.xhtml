@@ -9,52 +9,45 @@
 
 <ui:composition template="/template.xhtml">
 
-<ui:define name="content">
+	<ui:define name="content">
 
-	<div style="padding-top: 20px" class="panel-body col-xs-12">
-		<h:form id="alunoForm">
-		<h1><img src="../resources/images/cadastrar.png" />#{setorMB.setor.id == null ? 'Cadastro de Setor': 'Editando Setor: '.concat(setorMB.setor.nome)}</h1>
-			<hr></hr>
-		
-			<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" showIcon="true" />
-			
-			<p:spacer height="20px"></p:spacer>
-			
-			
-			
-			<h:panelGrid columns="4" columnClasses="column-padding, column-left" width="80%" styleClass="marginBottomForm">
-				<p:outputLabel for="nome" value="Nome:" />
-				<p:inputText id="nome" value="#{setorMB.setor.nome}" class="form-control" style="width: 500px" required="true"/>
-				
-				<p:outputLabel for="ativo" value="Status:" />
-				<p:selectOneRadio required="true" id="ativo" value="#{setorMB.setor.ativo}" class="form-control" style="width: 190px">
+		<div style="padding-top: 20px" class="panel-body col-xs-12">
+			<h:form id="alunoForm">
+				<h1>
+					<img src="../resources/images/cadastrar.png" />Cadastro de Setor
+				</h1>
+				<hr></hr>
+
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" showIcon="true" />
+
+				<p:spacer height="20px"></p:spacer>
+
+				<h:panelGrid columns="4" columnClasses="column-padding, column-left" width="80%" styleClass="marginBottomForm">
+					<p:outputLabel for="nome" value="Nome:" />
+					<p:inputText id="nome" value="#{setorMB.nome}" class="form-control" style="width: 500px" />
+
+					<p:outputLabel for="ativo" value="Status:" />
+					<p:selectOneRadio id="ativo" value="#{setorMB.ativo}" style="width: 190px">
 						<f:selectItem itemLabel="Ativado" itemValue="true" />
-						<f:selectItem itemLabel="Desativado" itemValue="false" />	
-				</p:selectOneRadio>
+						<f:selectItem itemLabel="Desativado" itemValue="false" />
+					</p:selectOneRadio>
+				</h:panelGrid>
 				
-			</h:panelGrid>
-			
-				
-			
-			
-				
-				<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-				<h:panelGroup />
-				
-				<h:panelGroup>
-					<b:commandButton value="Salvar" class="btn btn-primary" actionListener="#{setorMB.salvar()}"></b:commandButton>
-					<a href="/myapp/funcionarios/setor.xhtml" class="btn btn-warn" >
-						
-					</a>
-					
-							
-				</h:panelGroup>
-			</h:panelGrid>
-				
-		</h:form>
-	</div>
-	
-</ui:define>
+				<p:panel header="Selecione as categorias dos problemas atendidos por este setor" style="width: 80%;" >
+
+					<p:pickList id="pickList" value="#{setorMB.categorias}" converter="categoriaProblemaPickListConverter"
+						var="categoria" itemLabel="#{categoria.nome}" itemValue="#{categoria}" />
+
+				</p:panel>
+
+				<h:panelGrid columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+					<b:commandButton value="Salvar" class="btn btn-primary" action="#{setorMB.salvar}"></b:commandButton>
+				</h:panelGrid>
+
+			</h:form>
+		</div>
+
+	</ui:define>
 
 </ui:composition>
 

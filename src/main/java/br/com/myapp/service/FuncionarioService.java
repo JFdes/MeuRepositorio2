@@ -20,4 +20,6 @@ public interface FuncionarioService {
 
 	public Funcionario buscar(final Long id) throws BusinessException;
 
+	public Funcionario buscar(final String usuario, final String senha) throws BusinessException;
+
 }

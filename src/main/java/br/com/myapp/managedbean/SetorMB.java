@@ -1,55 +1,42 @@
 package br.com.myapp.managedbean;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.FacesException;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.primefaces.model.DualListModel;
 
 import br.com.myapp.exception.BusinessException;
+import br.com.myapp.model.CategoriaProblema;
 import br.com.myapp.model.Setor;
+import br.com.myapp.service.CategoriaProblemaService;
 import br.com.myapp.service.SetorService;
 
 @ManagedBean
 @ViewScoped
-public class SetorMB {
-
-	// -------------------------------------------------
-
-	private Setor setor = new Setor();
-
-	private List<Setor> setores = new ArrayList<Setor>();
-
-	// -------------------------------------------------
+public class SetorMB extends AbstractManagedBean<Setor> {
 
 	private String nome;
 
-	private Date dataCriacao;
-
-	private Date dataAtualizacao;
-
-	private String usuarioCriador;
-
-	private String usuarioAtualizador;
-
 	private boolean ativo;
 
-	// ---------------------------------------------------
+	private DualListModel<CategoriaProblema> categorias;
+
 	@EJB
 	private SetorService setorService;
 
+	@EJB
+	private CategoriaProblemaService categoriaProblemaService;
+
 	@PostConstruct
+	@Override
 	public void init() {
 
 		final String id = this.getParam("id");
@@ -57,87 +44,108 @@ public class SetorMB {
 		if (StringUtils.isNotBlank(id)) {
 
 			try {
-				this.setor = this.setorService.buscar(Long.valueOf(id));
+				final Setor setor = this.setorService.buscar(Long.valueOf(id));
+				this.setObjeto(setor);
 			} catch (final BusinessException e) {
-				e.printStackTrace();
+				this.exibirMensagemErro(e);
 			}
+		}
+
+		super.init();
+	}
+
+	@Override
+	public void limpar() {
+
+		this.nome = StringUtils.EMPTY;
+		this.ativo = Boolean.TRUE;
+		this.categorias = new DualListModel<CategoriaProblema>();
+	}
+
+	@Override
+	public void popularInterface() throws BusinessException {
+
+		final Collection<CategoriaProblema> categorias = this.categoriaProblemaService.buscarTodos();
+
+		if (CollectionUtils.isNotEmpty(categorias)) {
+
+			this.categorias.setSource((List<CategoriaProblema>) categorias);
 		}
 	}
 
-	// -----------------------------------------------------
+	@Override
+	public void popularCampos(final Setor setor) throws BusinessException {
 
-	public void salvar() {
+		this.nome = setor.getNome();
+		this.ativo = setor.isAtivo();
 
-		try {
-			final Date data = new Date();
+		this.categorias.getSource().removeAll(setor.getCategorias());
+		this.categorias.setTarget((List<CategoriaProblema>) setor.getCategorias());
+	}
 
-			if (this.setor.getId() == null) {
-				this.setor.setDataCriacao(data);
-				this.setor.setAtivo(true);
-			} else {
-				this.setor.setDataAtualizacao(data);
-			}
+	@Override
+	public void popularObjeto(final Setor setor) {
 
-			this.setorService.criar(this.setor);
-		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+		setor.setNome(this.nome);
+		setor.setAtivo(this.ativo);
+		setor.setCategorias(this.categorias.getTarget());
+
+		if (setor.getId() == null) {
+			setor.setUsuarioCriador(this.getUsuarioLogado());
+			setor.setDataCriacao(Calendar.getInstance().getTime());
+		} else {
+			setor.setUsuarioAtualizador(this.getUsuarioLogado());
+			setor.setDataAtualizacao(Calendar.getInstance().getTime());
 		}
+	}
+
+	@Override
+	public void validarCampos() throws BusinessException {
+
+	}
+
+	@Override
+	public void salvar(final Setor setor) throws BusinessException {
+
+		this.setorService.criar(setor);
 
 		this.doRedirect("/listagem/consultaSetor.xhtml");
 	}
 
-	// -------------------------------------------------
-
+	@Override
 	public void editar() {
 
-		this.doRedirect("/funcionarios/setor.xhtml?id=" + this.setor.getId());
+		try {
+			this.doRedirect("/funcionarios/setor.xhtml?id=" + this.getItemSelecionado().getId());
+		} catch (final Exception e) {
+			this.exibirMensagemErro(e);
+		}
 	}
 
-	// -------------------------------------------------
-
-	public void remover() {
+	@Override
+	public void excluir(final Setor setor) throws BusinessException {
 
 		try {
-
-			this.setorService.deletar(this.setor);
+			this.setorService.deletar(setor);
 		} catch (final BusinessException e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso!", "erro"));
+			this.exibirMensagemErro(e);
 		}
 	}
 
-	// -------------------------------------------------
+	@Override
+	public Class<Setor> getObjectClass() {
 
-	public void doRedirect(final String redirectPage) throws FacesException {
+		return Setor.class;
+	}
 
-		final ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+	public Collection<Setor> getSetores() {
 
 		try {
-			externalContext.redirect(externalContext.getRequestContextPath().concat(redirectPage));
-		} catch (final IOException e) {
-			throw new FacesException(e);
+			return this.setorService.buscarTodos();
+		} catch (final Exception e) {
+			this.exibirMensagemErro(e);
+			return null;
 		}
-	}
-
-	// -------------------------------------------------
-
-	public String getParam(final String param) {
-
-		final FacesContext context = FacesContext.getCurrentInstance();
-		final Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
-		final String projectId = paramMap.get(param);
-		return projectId;
-	}
-
-	// -------------------------------------------------
-
-	public Setor getSetor() {
-
-		return this.setor;
-	}
-
-	public void setSetor(final Setor setor) {
-
-		this.setor = setor;
 	}
 
 	public String getNome() {
@@ -150,46 +158,6 @@ public class SetorMB {
 		this.nome = nome;
 	}
 
-	public Date getDataCriacao() {
-
-		return this.dataCriacao;
-	}
-
-	public void setDataCriacao(final Date dataCriacao) {
-
-		this.dataCriacao = dataCriacao;
-	}
-
-	public Date getDataAtualizacao() {
-
-		return this.dataAtualizacao;
-	}
-
-	public void setDataAtualizacao(final Date dataAtualizacao) {
-
-		this.dataAtualizacao = dataAtualizacao;
-	}
-
-	public String getUsuarioCriador() {
-
-		return this.usuarioCriador;
-	}
-
-	public void setUsuarioCriador(final String usuarioCriador) {
-
-		this.usuarioCriador = usuarioCriador;
-	}
-
-	public String getUsuarioAtualizador() {
-
-		return this.usuarioAtualizador;
-	}
-
-	public void setUsuarioAtualizador(final String usuarioAtualizador) {
-
-		this.usuarioAtualizador = usuarioAtualizador;
-	}
-
 	public boolean isAtivo() {
 
 		return this.ativo;
@@ -200,31 +168,14 @@ public class SetorMB {
 		this.ativo = ativo;
 	}
 
-	// -------------------------------------------------
+	public DualListModel<CategoriaProblema> getCategorias() {
 
-	public SetorService getSetorService() {
-
-		return this.setorService;
+		return this.categorias;
 	}
 
-	public void setSetorService(final SetorService setorService) {
+	public void setCategorias(final DualListModel<CategoriaProblema> categorias) {
 
-		this.setorService = setorService;
+		this.categorias = categorias;
 	}
-
-	// ----------------------------------------------- carrega a lista para o redirecionamento da View.
-
-	public List<Setor> getSetores() throws BusinessException {
-
-		this.setores = (List<Setor>) this.setorService.buscarTodos();
-		return this.setores;
-	}
-
-	public void setSetores(final List<Setor> setores) {
-
-		this.setores = setores;
-	}
-
-	// --------------------------------------------------
 
 }

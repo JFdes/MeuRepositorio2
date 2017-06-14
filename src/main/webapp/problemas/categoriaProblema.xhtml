@@ -11,64 +11,41 @@
 
 	<ui:define name="content">
 
-		<div style="padding-top: 20px" class="panel-body col-xs-12">
-			<h:form id="alunoForm">
-				<h1>
-					<img src="../resources/images/cadastrar.png" />#{categoriaProblemaMB.categoriaProblema.id
-					== null ? 'Cadastro Categoria de Problemas': 'Editando Categoria de Problema:
-					'.concat(categoriaProblemaMB.categoriaProblema.nomeCategoria)}
-				</h1>
-				<hr></hr>
+		<h:form id="alunoForm">
+			<h1>
+				<img src="../resources/images/cadastrar.png" />Cadastro de Cliente
+			</h1>
+			
+			<h:panelGrid width="80%">
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" showIcon="true" />
 
-				<p:messages id="messages" showDetail="true" autoUpdate="true"
-					closable="true" globalOnly="true" showIcon="true" />
+				<p:panel header="Dados Cadastrais" toggleable="true">
 
-				<p:spacer height="20px"></p:spacer>
+					<p:spacer height="20px"/>
+					
+					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+						<p:outputLabel for="nome" value="Nome: " />
+						<p:inputText id="nome" value="#{categoriaProblemaMB.nome}" class="form-control" style="width: 200px" />
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+						<p:outputLabel for="ativo" value="Status:" />
+						<p:selectOneRadio id="ativo" value="#{categoriaProblemaMB.ativo}" style="width: 190px">
+							<f:selectItem itemLabel="Ativado" itemValue="true" />
+							<f:selectItem itemLabel="Desativado" itemValue="false" />	
+						</p:selectOneRadio>
+					</h:panelGrid>
+					
+				</p:panel>
+			</h:panelGrid>
 
+			<p:spacer height="20px"/>
 
-				
-				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
-					width="100%" styleClass="marginBottomForm">
-					<p:outputLabel for="categoria" value="Categoria:" />
-					<p:inputText id="categoria"
-						value="#{categoriaProblemaMB.categoriaProblema.nomeCategoria}"
-						class="form-control" style="width: 500px" required="true" />
-				</h:panelGrid>
-				
-				
+			<h:panelGrid columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+					<b:commandButton value="Salvar" class="btn btn-primary" action="#{categoriaProblemaMB.salvar}"></b:commandButton>
+			</h:panelGrid>
 
-				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
-					width="100%" styleClass="marginBottomForm">
-					<p:outputLabel for="ativo" value="Status:" />
-					<p:selectOneRadio required="true" id="ativo"
-						value="#{categoriaProblemaMB.categoriaProblema.ativo}"
-						class="form-control" style="width: 250px">
-						<f:selectItem itemLabel="Ativado" itemValue="true" />
-						<f:selectItem itemLabel="Desativado" itemValue="false" />
-					</p:selectOneRadio>
-				</h:panelGrid>
-
-
-				<h:panelGrid columns="2" columnClasses="column-padding, column-left"
-					width="100%" styleClass="marginBottomForm">
-					<h:panelGroup />
-
-					<h:panelGroup>
-						<b:commandButton value="Salvar" class="btn btn-primary"
-							actionListener="#{categoriaProblemaMB.salvar()}"></b:commandButton>
-						<a href="/myapp/problemas/categoriaProblema.xhtml"
-							class="btn btn-warn"> </a>
-
-
-					</h:panelGroup>
-				</h:panelGrid>
-				
-				
-				
-				
-
-			</h:form>
-		</div>
+		</h:form>
 
 	</ui:define>
 
