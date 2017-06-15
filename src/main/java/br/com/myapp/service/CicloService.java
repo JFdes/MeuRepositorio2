@@ -20,4 +20,6 @@ public interface CicloService {
 
 	public Ciclo buscar(final Long id) throws BusinessException;
 
+	public Ciclo buscarCicloAtual() throws BusinessException;
+
 }

@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.primefaces.context.RequestContext;
 
 import br.com.myapp.exception.BusinessException;
 import br.com.myapp.model.Funcionario;
@@ -22,6 +23,8 @@ public abstract class AbstractManagedBean<T> { // <T> -> Generics
 	private static final String MENSAGEM_SUCESSO = "Operação realizada com sucesso!";
 
 	private static final String MENSAGEM_ERRO = "Ops!!! Ocorreu um erro ao realizar a operação : %s";
+
+	private static final String JAVA_SCRIPT_SHOW_MODAL = "PF(%s).show();";
 
 	private T objeto;
 
@@ -197,6 +200,13 @@ public abstract class AbstractManagedBean<T> { // <T> -> Generics
 		} catch (final IOException e) {
 			throw new FacesException(e);
 		}
+	}
+
+	public void exibirModal(final String idModal) {
+
+		RequestContext.getCurrentInstance().execute(String.format(
+				AbstractManagedBean.JAVA_SCRIPT_SHOW_MODAL, StringUtils.defaultIfBlank(idModal,
+						StringUtils.EMPTY)));
 	}
 
 	public T getObjeto() {

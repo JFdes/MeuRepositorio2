@@ -72,4 +72,10 @@ public class CicloServiceImpl implements CicloService {
 		return this.dao.buscarById(id);
 	}
 
+	@Override
+	public Ciclo buscarCicloAtual() throws BusinessException {
+
+		return this.dao.buscarCicloAtual();
+	}
+
 }

@@ -20,7 +20,7 @@
 				<h:column>
 					<f:facet name="header">STATUS</f:facet>
 					<h:commandLink action="#{problemaMB.editar()}">
-						<img src="#{item.imagemQuadroStatus}" />
+						<img src="#{item.imagemStatus}" />
 						<f:setPropertyActionListener value="#{item}"
 							target="#{problemaMB.problema}" />
 					</h:commandLink>
@@ -31,15 +31,7 @@
 						#{item.nomeFantasia}		
 				</h:column>
 				
-				<h:column>
-					<f:facet name="header">RETORNO SETOR</f:facet>
-					<h:commandLink action="#{problemaMB.editar()}">
-						<img src="#{item.imagemQuadroRetorno}" />
-						<f:setPropertyActionListener value="#{item}"
-							target="#{problemaMB.problema}" />
-					</h:commandLink>
-				</h:column>
-							
+										
 
 			</h:dataTable>
 		</h:form> </div>

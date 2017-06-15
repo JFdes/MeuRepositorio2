@@ -48,6 +48,14 @@
 		#modalForm .ui-selectoneradio label {
 			margin-left: 4px;
 		}
+		
+		.no-border-only tr, .no-border-only td {
+			border: none !important;
+		}
+		
+		.leftAligned {
+			text-align: left;
+		}
 	</style>
 	<script>
 		PrimeFaces.locales['pt'] = {
@@ -90,32 +98,150 @@
 		<div class="text-center">
 			<div class="main-content text-left">
 				<div style="padding-top: 20px" class="panel-body col-xs-12">
-					<h:form id="alunoForm">
-						<h1>
-							<img src="resources/images/cadastrar.png" />Login
-						</h1>
-						<hr></hr>
-
-						<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" showIcon="true" />
-
-						<p:spacer height="20px"></p:spacer>
-
-						<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-							<p:outputLabel for="usuario" value="Usuario:" />
-							<p:inputText id="usuario" value="#{loginMB.usuario}" class="form-control" style="width: 500px" />
-						</h:panelGrid>
-
-						<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
-							<p:outputLabel for="senha" value="Senha:" />
-							<p:inputText id="senha" value="#{loginMB.senha}" class="form-control" style="width: 500px" />
+					<h:form id="quadroForm">
+					
+						<h:panelGrid width="80%">
+							<h1><img src="resources/images/cadastrar.png" />Quadro Sinalizador</h1>
+							
+							<p:panelGrid styleClass="no-border-only" >
+								<p:row>
+									<p:column>
+										<h:panelGrid>
+											<p:outputLabel value="Ciclo: " />
+										</h:panelGrid>
+									</p:column>
+									<p:column>
+										<h:outputText value="#{atendimentoMB.ciclo.dataInicio}">
+										   <f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="PT_BR" />
+										</h:outputText>
+										
+										<h:outputText value=" à " />
+										
+										<h:outputText value="#{atendimentoMB.ciclo.dataFim}">
+										   <f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="PT_BR" />
+										</h:outputText>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Usuário: " />
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{atendimentoMB.funcionarioLogado.nome}" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:outputLabel value="Setor: " />
+									</p:column>
+									<p:column>
+										<p:outputLabel value="#{atendimentoMB.funcionarioLogado.setor.nome}" />
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+							<p:separator />
 						</h:panelGrid>
 						
 						
-						<p:spacer height="20px"/>
-			
-						<h:panelGrid columnClasses="column-padding, column-left" styleClass="marginBottomForm">
-								<b:commandButton value="Login" class="btn btn-primary" action="#{loginMB.login}"></b:commandButton>
-						</h:panelGrid>
+						<p:panel style="width: 85%">
+							<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" showIcon="true" />
+
+							<p:spacer height="20px"/>
+							
+							<p:dataTable id="dtQuadroSinalizador" value="#{atendimentoMB.clientes}" var="item" paginator="true" rows="10"
+								currentPageReportTemplate="Exibindo {startRecord}-{endRecord} de {totalRecords}"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+								rendered="#{!empty atendimentoMB.clientes}" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+								
+								<p:column headerText="Id" sortBy="#{item.id}" style="width: 10%; text-align: center">
+									<p:outputLabel value="#{item.id}" />
+								</p:column>
+								
+								<p:column headerText="Nome Fantasia" sortBy="#{item.nomeFantasia}">
+									<p:outputLabel value="#{item.nomeFantasia}" />
+								</p:column>	
+								
+								<p:column headerText="Status" sortBy="#{item.id}" style="text-align: center">
+									<p:outputLabel value="#{item.id}" />
+								</p:column>
+								
+								<p:column headerText="Problemas Abertos/Pendentes" sortBy="#{item.id}" style="text-align: center">
+									<p:commandButton id="buttonProblemas" title="Visualizar os problemas deste cliente" action="#{atendimentoMB.realizarAtendimento}"  ajax="true" icon="ui-icon-info"/>
+								</p:column>
+								
+								<p:column headerText="Realizar Atandimento" sortBy="#{item.id}" style="text-align: center">
+									<p:commandButton id="buttonNovo" title="Realizar atandimento para este cliente"
+									onclick="PF('dialogRealizarAtendimento').show()"
+									update=":quadroForm:pnlRealizarAtendimento" action="#{atendimentoMB.realizarAtendimento}" ajax="true" icon="ui-icon-plus">
+										<f:setPropertyActionListener value="#{item}" target="#{atendimentoMB.cliente}" />
+									</p:commandButton>
+								</p:column>					
+							</p:dataTable>	
+							
+						</p:panel>
+						
+						<p:dialog id="dialogRealizarAtendimento" widgetVar="dialogRealizarAtendimento" modal="true" header="Modal de Atendimento ao Cliente" resizable="false" closable="false" closeOnEscape="false">
+						
+							<p:panel id="pnlRealizarAtendimento">
+								<p:panelGrid>
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Cliente:" />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="#{atendimentoMB.cliente.nomeFantasia}" />
+										</p:column>
+									</p:row>
+									
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Ciclo:" />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="#{atendimentoMB.ciclo.descricao} - " />
+											<h:outputText value="#{atendimentoMB.ciclo.dataInicio}">
+											   <f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="PT_BR" />
+											</h:outputText>
+											
+											<h:outputText value=" à " />
+											
+											<h:outputText value="#{atendimentoMB.ciclo.dataFim}">
+											   <f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="PT_BR" />
+											</h:outputText>
+										</p:column>
+									</p:row>
+									
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Título do Problema:" />
+										</p:column>
+										<p:column>
+											<p:inputText value="#{atendimentoMB.tituloProblema}" />
+										</p:column>
+									</p:row>
+									
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Descrição do Problema:" />
+										</p:column>
+										<p:column>
+											<p:inputTextarea value="#{atendimentoMB.descricaoProblema}" />
+										</p:column>
+									</p:row>
+									
+									<p:row>
+										<p:column colspan="2" >
+											<p:panel header="Selecione as categorias do problema">
+												<p:pickList id="pickList" value="#{atendimentoMB.categorias}" converter="categoriaProblemaPickListConverter"
+												var="categoria" itemLabel="#{categoria.nome}" itemValue="#{categoria}" />
+											</p:panel>
+										</p:column>
+									</p:row>
+								</p:panelGrid>
+								<p:commandButton id="salvarAtendimento" title="Salvar" action="#{atendimentoMB.salvar}" onclick="PF('dialogRealizarAtendimento').hide()" ajax="true" icon="ui-icon-disk"/>
+								<p:commandButton id="cancelarAtendimento" title="Cancelar" onclick="PF('dialogRealizarAtendimento').hide()"  ajax="true" icon="ui-icon-closethick"/>
+							</p:panel>
+						</p:dialog>
 						
 					</h:form>
 				</div>

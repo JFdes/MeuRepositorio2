@@ -79,6 +79,7 @@ public class ProblemaServiceImpl implements ProblemaService {
 
 				for (final Problema problema : problemas) {
 
+					problema.setId(null);
 					problema.setCliente(cliente);
 
 					this.dao.criar(problema);

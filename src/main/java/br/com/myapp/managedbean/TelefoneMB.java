@@ -2,8 +2,6 @@ package br.com.myapp.managedbean;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +18,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import br.com.myapp.exception.BusinessException;
 import br.com.myapp.model.Cliente;
-import br.com.myapp.model.Sexo;
 import br.com.myapp.model.Telefone;
 import br.com.myapp.service.TelefoneService;
 
@@ -103,11 +100,7 @@ public class TelefoneMB {
 		return projectId;
 	}
 
-	public Collection<Sexo> getSexos() {
-
-		return Arrays.asList(Sexo.values());
-	}
-
+	
 	public Telefone getTelefone() {
 
 		return this.telefone;
