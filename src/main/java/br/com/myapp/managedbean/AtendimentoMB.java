@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.persistence.Transient;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -188,21 +189,38 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 		return Arrays.asList(StatusProblema.values());
 	}
 
+	//----------------------------------------
+	
+	
+	@Transient
+	private String imagemQuadroStatus=""; 
+
+	
+	//-----------------------------------------
+	
+	
 	public String getStatusCliente(final Cliente cliente) {
 
 		try {
 			final Collection<Atendimento> atendimentos = this.atendimentoService.buscarByClienteCiclo(cliente, this.ciclo);
 
 			if (CollectionUtils.isEmpty(atendimentos)) {
+				this.imagemQuadroStatus="../resources/images/branco.png";
+				cliente.setImagemQuadroStatus(imagemQuadroStatus);
+				
 				return "Atendimento não realizado neste ciclo";
 			} else {
 
 				final Collection<Problema> problemasAbertos = this.problemaService.buscarProblemasAbertosByCliente(cliente);
 
 				if (CollectionUtils.isEmpty(problemasAbertos)) {
+					this.imagemQuadroStatus="../resources/images/verde.png";
+					cliente.setImagemQuadroStatus(imagemQuadroStatus);
 					return "OK";
 				} else {
-					return "NOK";
+					this.imagemQuadroStatus="../resources/images/vermelho.png";
+					cliente.setImagemQuadroStatus(imagemQuadroStatus);
+					return "PROBLEMA NÃO RESOLVIDO";
 				}
 			}
 		} catch (final BusinessException e) {
@@ -211,6 +229,39 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 		}
 
 	}
+	
+	//-----------------------------------------
+	public String getStatusClienteSinalizador(final Cliente cliente) {
+
+		try {
+			final Collection<Atendimento> atendimentos = this.atendimentoService.buscarByClienteCiclo(cliente, this.ciclo);
+
+			if (CollectionUtils.isEmpty(atendimentos)) {
+				this.imagemQuadroStatus="branco";
+				cliente.setImagemQuadroStatus(imagemQuadroStatus);
+				return imagemQuadroStatus;
+			} else {
+
+				final Collection<Problema> problemasAbertos = this.problemaService.buscarProblemasAbertosByCliente(cliente);
+
+				if (CollectionUtils.isEmpty(problemasAbertos)) {
+					this.imagemQuadroStatus="verde";
+					cliente.setImagemQuadroStatus(imagemQuadroStatus);
+					return imagemQuadroStatus;
+				} else {
+					this.imagemQuadroStatus="vermelho";
+					cliente.setImagemQuadroStatus(imagemQuadroStatus);
+					return imagemQuadroStatus;
+				}
+			}
+		} catch (final BusinessException e) {
+			this.exibirMensagemErro("Falha ao recuperar status!");
+			return StringUtils.EMPTY;
+		}
+
+	}
+	
+	//-------------------------------------
 
 	public String getTituloProblema() {
 

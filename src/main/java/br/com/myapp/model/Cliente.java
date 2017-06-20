@@ -416,6 +416,8 @@ public class Cliente implements Serializable {
 		this.problemas = problemas;
 	}
 	
+	//------------------------------------
+	
 	@Transient
 	private String imagemStatus="../resources/images/off.png"; //Variável para exibição da imagem do Status considerado "false".
 	
@@ -429,5 +431,20 @@ public class Cliente implements Serializable {
 	public void setImagemStatus(String imagemStatus) {
 		this.imagemStatus = imagemStatus;
 	}
+	
+	//----------------------------------
+	
+	@Transient
+	private String imagemQuadroStatus; 
+	
+	public String getQuadroImagemStatus(String imagemQuadroStatus) {
+		this.imagemQuadroStatus=imagemQuadroStatus;
+		return imagemQuadroStatus;
+	}
+
+	public void setImagemQuadroStatus(String imagemQuadroStatus) {
+		this.imagemQuadroStatus = imagemQuadroStatus;
+	}
+	
 
 }
