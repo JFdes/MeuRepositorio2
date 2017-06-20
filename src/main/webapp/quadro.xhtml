@@ -161,11 +161,7 @@
 									<p:outputLabel value="#{item.nomeFantasia}" />
 								</p:column>	
 								
-								<p:column headerText="Sinalizador" sortBy="#{item.imagemQuadroStatus}" style="width: 30%; text-align: center" >
-									<p:graphicImage value="../resources/images/#{item.getQuadroImagemStatus(item)}.png"/>
-									<p:outputLabel value="#{atendimentoMB.getStatusClienteSinalizador(item)}" />
-								</p:column>
-								
+														
 								<p:column headerText="Status" sortBy="#{item.id}" style="text-align: center">
 									<p:outputLabel value="#{atendimentoMB.getStatusCliente(item)}" />
 								</p:column>

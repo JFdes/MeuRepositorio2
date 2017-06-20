@@ -237,7 +237,7 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 			final Collection<Atendimento> atendimentos = this.atendimentoService.buscarByClienteCiclo(cliente, this.ciclo);
 
 			if (CollectionUtils.isEmpty(atendimentos)) {
-				this.imagemQuadroStatus="branco";
+				this.imagemQuadroStatus="../resources/images/branco.png";
 				cliente.setImagemQuadroStatus(imagemQuadroStatus);
 				return imagemQuadroStatus;
 			} else {
@@ -245,11 +245,11 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 				final Collection<Problema> problemasAbertos = this.problemaService.buscarProblemasAbertosByCliente(cliente);
 
 				if (CollectionUtils.isEmpty(problemasAbertos)) {
-					this.imagemQuadroStatus="verde";
+					this.imagemQuadroStatus="../resources/images/verde.png";
 					cliente.setImagemQuadroStatus(imagemQuadroStatus);
 					return imagemQuadroStatus;
 				} else {
-					this.imagemQuadroStatus="vermelho";
+					this.imagemQuadroStatus="../resources/images/vermelho.png";
 					cliente.setImagemQuadroStatus(imagemQuadroStatus);
 					return imagemQuadroStatus;
 				}
