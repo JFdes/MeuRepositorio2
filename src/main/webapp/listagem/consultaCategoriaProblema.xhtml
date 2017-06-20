@@ -22,6 +22,13 @@
 				</h:column>
 				
 				<h:column>
+						<f:facet name="header">ATIVO</f:facet>
+						<h:commandLink action="#{categoriaProblemaMB.editar()}"><img src="#{item.imagemStatus}" />
+						<f:setPropertyActionListener value="#{item}" target="#{categoriaProblemaMB.categoriaProblema}"/>
+						</h:commandLink>
+				</h:column>
+				
+				<h:column>
 					<f:facet name="header">CATEGORIA</f:facet>
 						#{item.nome}		
 				</h:column>				

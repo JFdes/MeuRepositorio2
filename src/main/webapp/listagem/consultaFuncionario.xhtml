@@ -22,6 +22,13 @@
 				</h:column>
 				
 				<h:column>
+						<f:facet name="header">ATIVO</f:facet>
+						<h:commandLink action="#{funcionarioMB.editar()}"><img src="#{item.imagemStatus}" />
+						<f:setPropertyActionListener value="#{item}" target="#{funcionarioMB.funcionario}"/>
+						</h:commandLink>
+				</h:column>
+				
+				<h:column>
 					<f:facet name="header">FUNCIONÁRIO</f:facet>
 						#{item.nome}		
 				</h:column>
