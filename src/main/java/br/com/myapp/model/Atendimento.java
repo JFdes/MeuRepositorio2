@@ -1,6 +1,7 @@
 package br.com.myapp.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,18 @@ public class Atendimento implements Serializable {
 	@SequenceGenerator(name = "sq_atendimento", sequenceName = "sq_atendimento", allocationSize = 1)
 	@Column(name = "ROW_ID")
 	private Long id;
+
+	@Column(name = "ID_CLIENTE")
+	private Long cliente;
+
+	@Column(name = "ID_CICLO")
+	private Long ciclo;
+
+	@Column(name = "ID_FUNCIONARIO")
+	private Long funcionario;
+
+	@Column(name = "DATA_ATENDIMENTO")
+	private Date dataAtendimento;
 
 	@Override
 	public int hashCode() {
@@ -68,5 +81,45 @@ public class Atendimento implements Serializable {
 	public void setId(final Long id) {
 
 		this.id = id;
+	}
+
+	public Long getCliente() {
+
+		return this.cliente;
+	}
+
+	public void setCliente(final Long cliente) {
+
+		this.cliente = cliente;
+	}
+
+	public Long getCiclo() {
+
+		return this.ciclo;
+	}
+
+	public void setCiclo(final Long ciclo) {
+
+		this.ciclo = ciclo;
+	}
+
+	public Long getFuncionario() {
+
+		return this.funcionario;
+	}
+
+	public void setFuncionario(final Long funcionario) {
+
+		this.funcionario = funcionario;
+	}
+
+	public Date getDataAtendimento() {
+
+		return this.dataAtendimento;
+	}
+
+	public void setDataAtendimento(final Date dataAtendimento) {
+
+		this.dataAtendimento = dataAtendimento;
 	}
 }

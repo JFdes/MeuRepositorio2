@@ -67,4 +67,24 @@ public class ProblemaDAOImpl extends AbstractGenericDAO<Problema, Long> implemen
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Problema> buscarProblemasAbertosByCliente(final Cliente cliente) throws DAOException {
+
+		try {
+
+			final StringBuilder jpql = new StringBuilder();
+			jpql.append(" select p from Problema p ");
+			jpql.append(" where p.cliente = :cliente ");
+			jpql.append(" and p.status <> 'RESOLVIDO' ");
+
+			final Query query = this.em.createQuery(jpql.toString(), this.getEntityClass());
+			query.setParameter("cliente", cliente);
+
+			return query.getResultList() != null ? query.getResultList() : null;
+		} catch (final Exception e) {
+			throw new DAOException(e);
+		}
+	}
+
 }

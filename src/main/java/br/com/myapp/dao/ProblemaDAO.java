@@ -14,4 +14,6 @@ public interface ProblemaDAO extends GenericDAO<Problema, Long> {
 	public Collection<Problema> buscarByCliente(Cliente cliente) throws DAOException;
 
 	public void deletarByCliente(Cliente cliente) throws DAOException;
+
+	public Collection<Problema> buscarProblemasAbertosByCliente(final Cliente cliente) throws DAOException;
 }

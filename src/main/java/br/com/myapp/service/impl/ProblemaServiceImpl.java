@@ -90,4 +90,10 @@ public class ProblemaServiceImpl implements ProblemaService {
 		}
 	}
 
+	@Override
+	public Collection<Problema> buscarProblemasAbertosByCliente(final Cliente cliente) throws BusinessException {
+
+		return this.dao.buscarProblemasAbertosByCliente(cliente);
+	}
+
 }

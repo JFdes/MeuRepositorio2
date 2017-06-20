@@ -162,11 +162,15 @@
 								</p:column>	
 								
 								<p:column headerText="Status" sortBy="#{item.id}" style="text-align: center">
-									<p:outputLabel value="#{item.id}" />
+									<p:outputLabel value="#{atendimentoMB.getStatusCliente(item)}" />
 								</p:column>
 								
 								<p:column headerText="Problemas Abertos/Pendentes" sortBy="#{item.id}" style="text-align: center">
-									<p:commandButton id="buttonProblemas" title="Visualizar os problemas deste cliente" action="#{atendimentoMB.realizarAtendimento}"  ajax="true" icon="ui-icon-info"/>
+									<p:commandButton id="buttonVisualizarProblemas" title="Visualizar os problemas deste cliente"
+									onclick="PF('dialogVisualizarProblemas').show()"
+									update=":quadroForm:pnlVisualizarProblemas" action="#{atendimentoMB.visualizarProblemas}" ajax="true" icon="ui-icon-info">
+										<f:setPropertyActionListener value="#{item}" target="#{atendimentoMB.cliente}" />
+									</p:commandButton>
 								</p:column>
 								
 								<p:column headerText="Realizar Atandimento" sortBy="#{item.id}" style="text-align: center">
@@ -180,7 +184,7 @@
 							
 						</p:panel>
 						
-						<p:dialog id="dialogRealizarAtendimento" widgetVar="dialogRealizarAtendimento" modal="true" header="Modal de Atendimento ao Cliente" resizable="false" closable="false" closeOnEscape="false">
+						<p:dialog id="dialogRealizarAtendimento" widgetVar="dialogRealizarAtendimento" modal="true" header="Modal de Atendimento ao Cliente" resizable="false" closable="false" closeOnEscape="false" height="600" width="600" >
 						
 							<p:panel id="pnlRealizarAtendimento">
 								<p:panelGrid>
@@ -238,8 +242,52 @@
 										</p:column>
 									</p:row>
 								</p:panelGrid>
-								<p:commandButton id="salvarAtendimento" title="Salvar" action="#{atendimentoMB.salvar}" onclick="PF('dialogRealizarAtendimento').hide()" ajax="true" icon="ui-icon-disk"/>
+								
+								<p:spacer height="20"/>
+								
+								<p:commandButton id="salvarAtendimento" title="Salvar" action="#{atendimentoMB.salvar}" onclick="PF('dialogRealizarAtendimento').hide()" update="@form" ajax="true" icon="ui-icon-disk"/>
 								<p:commandButton id="cancelarAtendimento" title="Cancelar" onclick="PF('dialogRealizarAtendimento').hide()"  ajax="true" icon="ui-icon-closethick"/>
+							</p:panel>
+						</p:dialog>
+						
+						<p:dialog id="dialogVisualizarProblemas" widgetVar="dialogVisualizarProblemas" modal="true" header="Modal de Atendimento ao Cliente" resizable="false" closable="false" closeOnEscape="false" height="600" width="600" >
+						
+							<p:panel id="pnlVisualizarProblemas">
+								<p:panelGrid>
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Cliente:" />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="#{atendimentoMB.cliente.nomeFantasia}" />
+										</p:column>
+									</p:row>
+								</p:panelGrid>
+								
+								<p:dataTable id="dtProblemasAbertos" value="#{atendimentoMB.problemas}" var="item" paginator="true" rows="10"
+									currentPageReportTemplate="Exibindo {startRecord}-{endRecord} de {totalRecords}"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+									rendered="#{!empty atendimentoMB.clientes}" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+									
+									<p:column headerText="Id" sortBy="#{item.id}" style="width: 10%; text-align: center">
+										<p:outputLabel value="#{item.id}" />
+									</p:column>
+									
+									<p:column headerText="Título" sortBy="#{item.titulo}">
+										<p:outputLabel value="#{item.titulo}" />
+									</p:column>	
+									
+									<p:column headerText="Status" style="text-align: center">
+										<p:selectOneMenu id="statusProblema" value="#{item.status}">
+											<f:selectItems value="#{atendimentoMB.listaStatusProblema}" var="status" itemLabel="#{status}" itemValue="#{status}" />
+										</p:selectOneMenu>
+									</p:column>
+								</p:dataTable>
+								
+								<p:spacer height="20"/>
+								
+								<p:commandButton id="atualizarProblemas" title="Salvar" action="#{atendimentoMB.atualizarProblemas}" update="@form" onclick="PF('dialogVisualizarProblemas').hide()" ajax="true" icon="ui-icon-disk"/>
+								<p:commandButton id="fecharModalProblemas" title="Cancelar" onclick="PF('dialogVisualizarProblemas').hide()"  ajax="true" icon="ui-icon-closethick"/>
 							</p:panel>
 						</p:dialog>
 						

@@ -87,8 +87,6 @@
 	<body>
 		<p:menubar id="menuBarHeader">
 		
-		<p:menuitem value="Usuário" url="/usuarios/usuario.xhtml" icon="ui-icon-person" />
-		
 		<p:submenu label="Ciclo" icon="ui-icon-refresh">	
 			<p:menuitem value="Criar Ciclo" url="/ciclos/ciclo.xhtml" icon="ui-icon-refresh" />
 		</p:submenu>
@@ -98,6 +96,9 @@
 			<p:menuitem value="Cadastrar Cliente" url="/clientes/cliente.xhtml" icon="ui-icon-person" />
 		</p:submenu>
 		
+		<p:submenu label="Problema" icon="ui-icon-wrench">	
+			<p:menuitem value="Cadastrar Categoria" url="/problemas/categoriaProblema.xhtml" icon="ui-icon-wrench" />
+		</p:submenu>
 		
 		
 		<p:submenu label="Funcionário" icon="ui-icon-lightbulb">	
@@ -105,10 +106,7 @@
 			<p:menuitem value="Cadastrar Funcionário" url="/funcionarios/funcionario.xhtml" icon="ui-icon-lightbulb" />
 		</p:submenu>
 		
-		<p:submenu label="Problema" icon="ui-icon-wrench">	
-			<p:menuitem value="Cadastrar Categoria" url="/problemas/categoriaProblema.xhtml" icon="ui-icon-wrench" />
-		</p:submenu>
-					
+						
 		<p:submenu label="Listar" icon="ui-icon-script">
 			<p:menuitem value="Categoria Cliente" url="/listagem/consultaCategoriaCliente.xhtml" icon="ui-icon-tag" />
 			<p:menuitem value="Cliente" url="/listagem/consultaCliente.xhtml" icon="ui-icon-person" />
@@ -117,6 +115,9 @@
 			<p:menuitem value="Funcionário" url="/listagem/consultaFuncionario.xhtml" icon="ui-icon-lightbulb" />
 			<p:menuitem value="Ciclo" url="/listagem/consultaCiclo.xhtml" icon="ui-icon-refresh" />
 		</p:submenu>
+		
+		<p:menuitem value="Quadro Sinalizador" url="/quadro.xhtml" icon="ui-icon-gear" />
+		
 		</p:menubar>
 
 		<div class="text-center">

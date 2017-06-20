@@ -23,4 +23,6 @@ public interface ProblemaService {
 
 	public Collection<Problema> buscarByCliente(final Cliente cliente) throws BusinessException;
 
+	public Collection<Problema> buscarProblemasAbertosByCliente(final Cliente cliente) throws BusinessException;
+
 }

@@ -1,6 +1,7 @@
 package br.com.myapp.managedbean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -19,10 +20,13 @@ import br.com.myapp.model.CategoriaProblema;
 import br.com.myapp.model.Ciclo;
 import br.com.myapp.model.Cliente;
 import br.com.myapp.model.Problema;
+import br.com.myapp.model.StatusProblema;
+import br.com.myapp.service.AtendimentoService;
 import br.com.myapp.service.CategoriaProblemaService;
 import br.com.myapp.service.CicloService;
 import br.com.myapp.service.ClienteService;
 import br.com.myapp.service.ProblemaService;
+import br.com.myapp.util.DateUtil;
 
 @ViewScoped
 @ManagedBean
@@ -52,6 +56,9 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 	@EJB
 	private ProblemaService problemaService;
 
+	@EJB
+	private AtendimentoService atendimentoService;
+
 	@PostConstruct
 	@Override
 	public void init() {
@@ -66,6 +73,7 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 		this.descricaoProblema = StringUtils.EMPTY;
 		this.cliente = null;
 		this.ciclo = null;
+		this.problemas = new ArrayList<>();
 		this.categorias = new DualListModel<>();
 	}
 
@@ -83,6 +91,10 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 	@Override
 	public void popularObjeto(final Atendimento atendimento) {
 
+		atendimento.setCliente(this.cliente.getId());
+		atendimento.setCiclo(this.ciclo.getId());
+		atendimento.setFuncionario(this.getFuncionarioLogado() != null ? this.getFuncionarioLogado().getId() : null);
+		atendimento.setDataAtendimento(DateUtil.getCurrent());
 	}
 
 	@Override
@@ -98,6 +110,7 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 		problema.setDescricao(this.descricaoProblema);
 		problema.setCiclo(this.ciclo);
 		problema.setCategorias(this.categorias.getTarget());
+		problema.setStatus(StatusProblema.ABERTO);
 
 		Collection<Problema> problemas = this.problemaService.buscarByCliente(this.cliente);
 
@@ -109,7 +122,7 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 
 		this.problemaService.criar(problemas, this.cliente);
 		this.clienteService.atualizar(this.cliente);
-
+		this.atendimentoService.criar(atendimento);
 	}
 
 	@Override
@@ -149,6 +162,54 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 		} catch (final BusinessException e) {
 			this.exibirMensagemAviso("Falha ao iniciar o atendimento!");
 		}
+	}
+
+	public void visualizarProblemas() {
+
+		try {
+
+			this.problemas = this.problemaService.buscarByCliente(this.cliente);
+		} catch (final BusinessException e) {
+			this.exibirMensagemAviso("Falha ao iniciar modal de problemas!");
+		}
+	}
+
+	public void atualizarProblemas() {
+
+		try {
+			this.problemaService.criar(this.problemas, this.cliente);
+		} catch (final BusinessException e) {
+			this.exibirMensagemErro("Erro ao tentar atualizar os problemas do cliente.");
+		}
+	}
+
+	public Collection<StatusProblema> getListaStatusProblema() {
+
+		return Arrays.asList(StatusProblema.values());
+	}
+
+	public String getStatusCliente(final Cliente cliente) {
+
+		try {
+			final Collection<Atendimento> atendimentos = this.atendimentoService.buscarByClienteCiclo(cliente, this.ciclo);
+
+			if (CollectionUtils.isEmpty(atendimentos)) {
+				return "Atendimento não realizado neste ciclo";
+			} else {
+
+				final Collection<Problema> problemasAbertos = this.problemaService.buscarProblemasAbertosByCliente(cliente);
+
+				if (CollectionUtils.isEmpty(problemasAbertos)) {
+					return "OK";
+				} else {
+					return "NOK";
+				}
+			}
+		} catch (final BusinessException e) {
+			this.exibirMensagemErro("Falha ao recuperar status!");
+			return StringUtils.EMPTY;
+		}
+
 	}
 
 	public String getTituloProblema() {
