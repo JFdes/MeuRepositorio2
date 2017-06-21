@@ -205,21 +205,15 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 			final Collection<Atendimento> atendimentos = this.atendimentoService.buscarByClienteCiclo(cliente, this.ciclo);
 
 			if (CollectionUtils.isEmpty(atendimentos)) {
-				this.imagemQuadroStatus="../resources/images/branco.png";
-				cliente.setImagemQuadroStatus(imagemQuadroStatus);
-				
+								
 				return "Atendimento não realizado neste ciclo";
 			} else {
 
 				final Collection<Problema> problemasAbertos = this.problemaService.buscarProblemasAbertosByCliente(cliente);
 
 				if (CollectionUtils.isEmpty(problemasAbertos)) {
-					this.imagemQuadroStatus="../resources/images/verde.png";
-					cliente.setImagemQuadroStatus(imagemQuadroStatus);
 					return "OK";
 				} else {
-					this.imagemQuadroStatus="../resources/images/vermelho.png";
-					cliente.setImagemQuadroStatus(imagemQuadroStatus);
 					return "PROBLEMA NÃO RESOLVIDO";
 				}
 			}
