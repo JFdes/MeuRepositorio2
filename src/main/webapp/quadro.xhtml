@@ -174,8 +174,8 @@
 									</p:commandButton>
 								</p:column>
 								
-								<p:column headerText="Realizar Atandimento" sortBy="#{item.id}" style="text-align: center">
-									<p:commandButton id="buttonNovo" title="Realizar atandimento para este cliente"
+								<p:column headerText="Realizar Atendimento" sortBy="#{item.id}" style="text-align: center">
+									<p:commandButton id="buttonNovo" title="Realizar atendimento para este cliente"
 									onclick="PF('dialogRealizarAtendimento').show()"
 									update=":quadroForm:pnlRealizarAtendimento" action="#{atendimentoMB.realizarAtendimento}" ajax="true" icon="ui-icon-plus">
 										<f:setPropertyActionListener value="#{item}" target="#{atendimentoMB.cliente}" />

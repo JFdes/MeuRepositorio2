@@ -239,6 +239,7 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 				final Collection<Problema> problemasAbertos = this.problemaService.buscarProblemasAbertosByCliente(cliente);
 
 				if (CollectionUtils.isEmpty(problemasAbertos)) {
+					
 					this.imagemQuadroStatus="../resources/images/verde.png";
 					cliente.setImagemQuadroStatus(imagemQuadroStatus);
 					return imagemQuadroStatus;
@@ -254,6 +255,8 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 		}
 
 	}
+	
+	
 	
 	//-------------------------------------
 

@@ -23,33 +23,20 @@
 
 					<p:spacer height="20px"/>
 					
-					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
-						<p:outputLabel for="proprietario" value="Nome do Proprietário:" />
-						<p:inputText id="proprietario" value="#{clienteMB.nomeProprietario}" class="form-control" style="width: 500px"  />
-					</h:panelGrid>
 					
-					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
-						<p:outputLabel for="dataNascimento" value="Data de Nascimento:" />
-						<p:calendar id="dataNascimento" value="#{clienteMB.dataNascimento}" pattern="dd-MM-yyyy" mask="true" />
-					</h:panelGrid>
-					
-					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
-						<p:outputLabel for="nomeCategoria" value="Categoria: " />
-						<p:selectOneMenu id="nomeCategoria" value="#{clienteMB.categoria}">
-							<f:selectItem itemLabel="Selecione" itemValue="" />
-							<f:selectItems value="#{clienteMB.categorias}" var="item" itemLabel="#{item.categoria}" itemValue="#{item}" />
-						</p:selectOneMenu>
-					</h:panelGrid>
-
-					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
-						<p:outputLabel for="cnpj" value="CNPJ:"/>
-						<p:inputText id="cnpj" value="#{clienteMB.cnpj}" class="form-control" style="width: 160px" />
-					</h:panelGrid>
 					
 					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
 						<p:outputLabel for="nomeFantasia" value="Nome Fantasia:" />
 						<p:inputText id="nomeFantasia" value="#{clienteMB.nomeFantasia}" class="form-control" style="width: 500px"/>
 					</h:panelGrid>
+					
+					
+					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+						<p:outputLabel for="cnpj" value="CNPJ:"/>
+						<p:inputText id="cnpj" value="#{clienteMB.cnpj}" class="form-control" style="width: 160px" />
+					</h:panelGrid>
+					
+					
 					
 					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
 						<p:outputLabel for="razaoSocial" value="Razão Social:" />
@@ -65,6 +52,23 @@
 						<p:outputLabel for="regimeTributario" value="Regime Tributário: " />
 						<p:inputText id="regimeTributario" value="#{clienteMB.regimeTributario}" class="form-control" style="width: 175px" />
 					</h:panelGrid>
+					
+					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+						<p:outputLabel for="nomeCategoria" value="Categoria: " />
+						<p:selectOneMenu id="nomeCategoria" value="#{clienteMB.categoria}">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItems value="#{clienteMB.categorias}" var="item" itemLabel="#{item.categoria}" itemValue="#{item}" />
+						</p:selectOneMenu>
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2" columnClasses="column-padding, column-left" width="100%" styleClass="marginBottomForm">
+						<p:outputLabel for="ativo" value="Status:" />
+						<p:selectOneRadio id="ativo" value="#{clienteMB.status}" style="width: 250px">
+						<f:selectItem itemLabel="Ativado" itemValue="true" />
+						<f:selectItem itemLabel="Desativado" itemValue="false" />	
+						</p:selectOneRadio>
+					</h:panelGrid>
+				
 				</p:panel>
 				
 				<p:spacer height="20px"/>
@@ -121,6 +125,16 @@
 				<p:panel header="Dados para Contato" toggleable="true">
 					
 					<p:spacer height="20px"/>
+					
+					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+						<p:outputLabel for="proprietario" value="Nome do Proprietário:" />
+						<p:inputText id="proprietario" value="#{clienteMB.nomeProprietario}" class="form-control" style="width: 500px"  />
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
+						<p:outputLabel for="dataNascimento" value="Data de Nascimento:" />
+						<p:calendar id="dataNascimento" value="#{clienteMB.dataNascimento}" pattern="dd-MM-yyyy" mask="true" />
+					</h:panelGrid>
 	
 					<h:panelGrid columns="5" columnClasses="column-padding, column-left" styleClass="marginBottomForm">
 						<p:outputLabel value="DDD Comercial: " />
