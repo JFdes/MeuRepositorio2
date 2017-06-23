@@ -319,5 +319,11 @@ public class AtendimentoMB extends AbstractManagedBean<Atendimento> {
 
 		this.categorias = categorias;
 	}
+	
+	//------------------------------
+	
+	public void verQuadro(){
+		this.doRedirect("/listagem/sinalizador.xhtml");
+	}
 
 }

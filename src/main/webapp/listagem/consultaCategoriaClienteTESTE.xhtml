@@ -7,6 +7,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:b="http://bootsfaces.net/ui">
+	
+
 
 <h:head>
 
@@ -101,27 +103,10 @@
 					<h:form id="quadroForm">
 					
 						<h:panelGrid width="80%">
-							<h1><img src="resources/images/cadastrar.png" />Quadro Sinalizador</h1>
+							<h1><img src="resources/images/cadastrar.png" />Categoria de Clientes</h1>
 							
 							<p:panelGrid styleClass="no-border-only" >
-								<p:row>
-									<p:column>
-										<h:panelGrid>
-											<p:outputLabel value="Ciclo: " />
-										</h:panelGrid>
-									</p:column>
-									<p:column>
-										<h:outputText value="#{atendimentoMB.ciclo.dataInicio}">
-										   <f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="PT_BR" />
-										</h:outputText>
-										
-										<h:outputText value=" à " />
-										
-										<h:outputText value="#{atendimentoMB.ciclo.dataFim}">
-										   <f:convertDateTime type="date" pattern="dd/MM/yyyy" locale="PT_BR" />
-										</h:outputText>
-									</p:column>
-								</p:row>
+								
 								
 							</p:panelGrid>
 							<p:separator />
@@ -293,4 +278,5 @@
 
 	</body>
 </h:body>
+
 </html>
